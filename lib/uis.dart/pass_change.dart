@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:login_flow/signin.dart';
+
+import 'signin.dart';
 
 class Pass_change extends StatefulWidget {
   const Pass_change({Key? key}) : super(key: key);

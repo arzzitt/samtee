@@ -4,8 +4,9 @@ import 'package:country_pickers/country_pickers.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:login_flow/signin.dart';
-import 'package:login_flow/signup_page.dart';
+import 'package:login_flow/uis.dart/signup_page.dart';
+
+import 'signin.dart';
 
 class Signup extends StatelessWidget {
   const Signup({Key? key}) : super(key: key);

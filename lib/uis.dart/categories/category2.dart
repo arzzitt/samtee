@@ -5,7 +5,8 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:line_icons/line_icon.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:login_flow/signup.dart';
+
+import '../signup.dart';
 
 class Category2 extends StatefulWidget {
   const Category2({Key? key}) : super(key: key);

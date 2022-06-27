@@ -1,7 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:login_flow/succes_screen.dart';
+
+import 'package:login_flow/uis.dart/signin.dart';
+
+import '../apis/Access.dart';
+import 'succes_screen.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GetMaterialApp(
+        debugShowCheckedModeBanner: false, home: signup_page());
+  }
+}
 
 class signup_page extends StatefulWidget {
   const signup_page({Key? key}) : super(key: key);
@@ -12,6 +29,15 @@ class signup_page extends StatefulWidget {
 
 class _signup_pageState extends State<signup_page> {
   bool valuefirst = false;
+
+  GlobalKey<FormState> globalKey = GlobalKey<FormState>();
+  bool isapicallprocess = false;
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
+  TextEditingController username = TextEditingController();
+  TextEditingController firstname = TextEditingController();
+  TextEditingController lastname = TextEditingController();
+  bool _obsecure = true;
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +69,9 @@ class _signup_pageState extends State<signup_page> {
           Padding(
             padding: const EdgeInsets.only(left: 30, right: 30, top: 10),
             child: TextField(
+              controller: firstname,
               decoration: InputDecoration(
-                  hintText: 'Full name',
+                  hintText: 'first name',
                   filled: true,
                   fillColor: Colors.grey.shade200,
                   border: OutlineInputBorder(
@@ -55,8 +82,9 @@ class _signup_pageState extends State<signup_page> {
           Padding(
             padding: const EdgeInsets.only(left: 30, right: 30, top: 10),
             child: TextField(
+              controller: lastname,
               decoration: InputDecoration(
-                  hintText: 'Phone number',
+                  hintText: 'last name',
                   filled: true,
                   fillColor: Colors.grey.shade200,
                   border: OutlineInputBorder(
@@ -67,6 +95,20 @@ class _signup_pageState extends State<signup_page> {
           Padding(
             padding: const EdgeInsets.only(left: 30, right: 30, top: 10),
             child: TextField(
+              controller: username,
+              decoration: InputDecoration(
+                  hintText: 'username',
+                  filled: true,
+                  fillColor: Colors.grey.shade200,
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(28),
+                      borderSide: BorderSide.none)),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 30, right: 30, top: 10),
+            child: TextField(
+              controller: email,
               decoration: InputDecoration(
                   hintText: 'Email',
                   filled: true,
@@ -79,22 +121,21 @@ class _signup_pageState extends State<signup_page> {
           Padding(
             padding: const EdgeInsets.only(left: 30, right: 30, top: 10),
             child: TextField(
+              controller: password,
+              obscureText: _obsecure,
               decoration: InputDecoration(
                   hintText: 'Password',
                   filled: true,
                   fillColor: Colors.grey.shade200,
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(28),
-                      borderSide: BorderSide.none)),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 30, right: 30, top: 10),
-            child: TextField(
-              decoration: InputDecoration(
-                  hintText: 'Confirm password',
-                  filled: true,
-                  fillColor: Colors.grey.shade200,
+                  suffixIcon: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _obsecure = !_obsecure;
+                      });
+                    },
+                    child: new Icon(
+                        _obsecure ? Icons.visibility : Icons.visibility_off),
+                  ),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(28),
                       borderSide: BorderSide.none)),
@@ -118,7 +159,39 @@ class _signup_pageState extends State<signup_page> {
           ),
           TextButton(
               onPressed: () {
-                Get.to(success_acc_created());
+                if (email.text.isNotEmpty && password.text.isNotEmpty) {
+                  access()
+                      .signup(firstname.text, lastname.text, email.text,
+                          password.text, username.text)
+                      .then(
+                    (value) async {
+                      if (value["success"]) {
+                        Fluttertoast.showToast(
+                            msg: "${"Logged in successfully"}",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.green.shade400,
+                            textColor: Colors.white,
+                            fontSize: 16.0);
+                        setState(() {});
+                        print("logged in successfully");
+                      } else {
+                        Fluttertoast.showToast(
+                            msg: "${"Incorrect Email Or Password"}",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.red.shade400,
+                            textColor: Colors.white,
+                            fontSize: 16.0);
+                        setState(() {});
+                      }
+                    },
+                  );
+                }
+
+                //  Get.to(Signin());
               },
               style: ButtonStyle(
                   padding: MaterialStateProperty.all(

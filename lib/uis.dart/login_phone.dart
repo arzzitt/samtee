@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:login_flow/otp.dart';
+
+import 'otp.dart';
 
 class login_phone extends StatelessWidget {
   const login_phone({Key? key}) : super(key: key);

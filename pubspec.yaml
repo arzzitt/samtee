@@ -45,6 +45,8 @@ dependencies:
   modal_bottom_sheet: ^2.0.1
   get: ^4.6.5
   flutter_rating_bar: ^4.0.1
+  dio: ^4.0.6
+  fluttertoast: ^8.0.9
 
 dev_dependencies:
   flutter_test:

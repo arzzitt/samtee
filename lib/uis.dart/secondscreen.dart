@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:login_flow/login_phone.dart';
-import 'package:login_flow/signin.dart';
-import 'package:login_flow/signup.dart';
-import 'package:login_flow/thirdscreen.dart';
+
+import 'login_phone.dart';
+import 'signin.dart';
+import 'signup.dart';
 
 class secondscreen extends StatefulWidget {
   const secondscreen({Key? key}) : super(key: key);

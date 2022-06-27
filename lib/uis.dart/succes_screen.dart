@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:login_flow/signin.dart';
 
 class success_acc_created extends StatelessWidget {
   const success_acc_created({Key? key}) : super(key: key);
@@ -37,7 +36,7 @@ class success_acc_created extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                Get.to(Signin());
+                // Get.to(Signin());
               },
               child: Text(
                 'Take me to sign in',

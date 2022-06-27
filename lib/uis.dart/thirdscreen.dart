@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:login_flow/signup_page.dart';
+
+import 'signup_page.dart';
 
 class thirdscreen extends StatefulWidget {
   const thirdscreen({Key? key}) : super(key: key);

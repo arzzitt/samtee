@@ -5,14 +5,13 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:line_icons/line_icon.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:login_flow/uis.dart/cart.dart';
-import 'package:login_flow/categories/category2.dart';
-import 'package:login_flow/navigation_drawer.dart';
-import 'package:login_flow/product_description.dart';
-import 'package:login_flow/profile.dart';
-import 'package:login_flow/secondscreen.dart';
-import 'package:login_flow/signin.dart';
-import 'package:login_flow/signup.dart';
-import 'package:login_flow/signup_page.dart';
+
+import 'categories/category2.dart';
+import 'navigation_drawer.dart';
+import 'product_description.dart';
+import 'profile.dart';
+import 'secondscreen.dart';
+import 'signup_page.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);

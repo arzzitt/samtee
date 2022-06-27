@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:login_flow/uis.dart/home.dart';
 import 'package:login_flow/uis.dart/onboarding_1.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:login_flow/secondscreen.dart';
 
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);

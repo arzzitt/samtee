@@ -2,10 +2,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
-import 'package:login_flow/address_page.dart';
-import 'package:login_flow/uis.dart/home.dart';
 
-import 'package:login_flow/secondscreen.dart';
+import 'package:login_flow/uis.dart/home.dart';
 
 /// An indicator showing the currently selected page of a PageController
 class DotsIndicator extends AnimatedWidget {

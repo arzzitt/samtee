@@ -4,7 +4,8 @@ import 'package:country_pickers/country_pickers.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:login_flow/pass_change.dart';
+
+import 'pass_change.dart';
 
 class forgot_password extends StatefulWidget {
   const forgot_password({Key? key}) : super(key: key);

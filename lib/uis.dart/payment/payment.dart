@@ -3,8 +3,7 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:line_icons/line_icon.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:login_flow/myactivity/myactivity.dart';
-import 'package:login_flow/payment/payment_success.dart';
+
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 enum cards { visa, razor_pay, upi }

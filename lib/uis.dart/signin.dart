@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:login_flow/Forgot_password.dart';
+
 import 'package:login_flow/uis.dart/home.dart';
-import 'package:login_flow/signup.dart';
+
+import 'Forgot_password.dart';
+import 'signup.dart';
 
 class Signin extends StatefulWidget {
   const Signin({Key? key}) : super(key: key);

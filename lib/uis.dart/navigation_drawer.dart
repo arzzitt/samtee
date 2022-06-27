@@ -1,12 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:login_flow/address/add_address.dart';
-import 'package:login_flow/address/edit_address.dart';
-import 'package:login_flow/categories/category1.dart';
-import 'package:login_flow/categories/category2.dart';
-import 'package:login_flow/payment/payment.dart';
-import 'package:login_flow/product_description.dart';
-import 'package:login_flow/profile.dart';
 
 class navigationDrawer extends StatefulWidget {
   @override
