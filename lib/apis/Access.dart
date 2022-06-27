@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'NetworkHelper.dart';
 
 class access {
-  static String base_url = 'https://santee.phaico.com/wp-json/wc/v3/';
+  static String base_url = 'https://santee.phaico.com/';
 
   // Future<dynamic> login(String email, password,) async {
   //   NetworkHelper helper = NetworkHelper(
@@ -19,7 +19,7 @@ class access {
 
   Future<dynamic> signup(
       String firstname, lastname, email, password, username) async {
-    NetworkHelper helper = NetworkHelper(base_url + "customers");
+    NetworkHelper helper = NetworkHelper(base_url + "wp-json/wc/v3/customers");
     var data =
         await helper.signup(firstname, lastname, email, password, username);
     return data;
