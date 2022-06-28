@@ -8,18 +8,6 @@ import 'package:login_flow/uis.dart/signin.dart';
 import '../apis/Access.dart';
 import 'succes_screen.dart';
 
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GetMaterialApp(
-        debugShowCheckedModeBanner: false, home: signup_page());
-  }
-}
-
 class signup_page extends StatefulWidget {
   const signup_page({Key? key}) : super(key: key);
 
@@ -38,24 +26,27 @@ class _signup_pageState extends State<signup_page> {
   TextEditingController firstname = TextEditingController();
   TextEditingController lastname = TextEditingController();
   bool _obsecure = true;
+  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
             icon: Icon(
               Icons.arrow_back_ios,
-              color: Colors.black,
+              color: HexColor('#B67A4F'),
             ),
             onPressed: () {
               Get.back();
             }),
         title: Text(
           'Sign up',
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          style: TextStyle(
+              color: HexColor('#B67A4F'), fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
         elevation: 2,
@@ -73,6 +64,7 @@ class _signup_pageState extends State<signup_page> {
                 controller: firstname,
                 decoration: InputDecoration(
                     hintText: 'first name',
+                    hintStyle: TextStyle(fontFamily: 'Nunito'),
                     filled: true,
                     fillColor: Colors.grey.shade200,
                     border: OutlineInputBorder(
@@ -87,6 +79,7 @@ class _signup_pageState extends State<signup_page> {
                 decoration: InputDecoration(
                     hintText: 'last name',
                     filled: true,
+                    hintStyle: TextStyle(fontFamily: 'Nunito'),
                     fillColor: Colors.grey.shade200,
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(28),
@@ -99,6 +92,7 @@ class _signup_pageState extends State<signup_page> {
                 controller: username,
                 decoration: InputDecoration(
                     hintText: 'username',
+                    hintStyle: TextStyle(fontFamily: 'Nunito'),
                     filled: true,
                     fillColor: Colors.grey.shade200,
                     border: OutlineInputBorder(
@@ -112,6 +106,7 @@ class _signup_pageState extends State<signup_page> {
                 controller: email,
                 decoration: InputDecoration(
                     hintText: 'Email',
+                    hintStyle: TextStyle(fontFamily: 'Nunito'),
                     filled: true,
                     fillColor: Colors.grey.shade200,
                     border: OutlineInputBorder(
@@ -126,6 +121,7 @@ class _signup_pageState extends State<signup_page> {
                 obscureText: _obsecure,
                 decoration: InputDecoration(
                     hintText: 'Password',
+                    hintStyle: TextStyle(fontFamily: 'Nunito'),
                     filled: true,
                     fillColor: Colors.grey.shade200,
                     suffixIcon: GestureDetector(
@@ -155,18 +151,24 @@ class _signup_pageState extends State<signup_page> {
                   },
                 ),
                 Text(
-                    'By creating an account you agree to \nour terms of service and privacy policy'),
+                    'By creating an account you agree to \nour terms of service and privacy policy',
+                    style: TextStyle(
+                        fontFamily: 'Nunito', color: HexColor('#B67A4F'))),
               ],
             ),
             TextButton(
-                onPressed: () {
+                onPressed: () async {
+                  setState(() {
+                    loading = true;
+                  });
+
                   if (email.text.isNotEmpty && password.text.isNotEmpty) {
                     access()
                         .signup(firstname.text, lastname.text, email.text,
                             password.text, username.text)
                         .then(
                       (value) async {
-                        if (value["success"]==false) {
+                        if (value["success"] == false) {
                           Fluttertoast.showToast(
                               msg: "${"Incorrect Email Or Password"}",
                               toastLength: Toast.LENGTH_SHORT,
@@ -176,8 +178,9 @@ class _signup_pageState extends State<signup_page> {
                               textColor: Colors.white,
                               fontSize: 16.0);
 
-                          setState(() {});
-
+                          setState(() {
+                            loading = false;
+                          });
                         } else {
                           Fluttertoast.showToast(
                               msg: "${"Logged in successfully"}",
@@ -189,33 +192,56 @@ class _signup_pageState extends State<signup_page> {
                               fontSize: 16.0);
                           print("logged in successfully");
 
-                          setState(() {});
+                          setState(() {
+                            loading = false;
+                            Get.to(Signin());
+                          });
                         }
                       },
                     );
                   }
-
-                  //  Get.to(Signin());
                 },
                 style: ButtonStyle(
                     padding: MaterialStateProperty.all(
                         EdgeInsets.symmetric(horizontal: 70)),
                     backgroundColor:
-                        MaterialStateProperty.all(HexColor('#00c0e5')),
+                        MaterialStateProperty.all(HexColor('#B67A4F')),
                     shape: MaterialStateProperty.all(RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(28)))),
-                child: Text(
-                  'Sign up',
-                  style:
-                      TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                )),
+                child: loading
+                    ? Container(
+                        height: MediaQuery.of(context).size.height * 0.02,
+                        width: MediaQuery.of(context).size.height * 0.02,
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                        ),
+                      )
+                    : Text(
+                        'Sign up',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Nunito'),
+                      )),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   'Already have a account ?',
+                  style: TextStyle(
+                      color: HexColor('#B67A4F'),
+                      fontWeight: FontWeight.w700,
+                      fontFamily: 'Nunito'),
                 ),
-                TextButton(onPressed: () {}, child: Text('Sign in'))
+                TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      'Sign in',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          color: HexColor('#B67A4F'),
+                          fontFamily: 'Nunito'),
+                    ))
               ],
             )
           ],

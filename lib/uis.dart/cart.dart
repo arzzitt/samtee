@@ -57,14 +57,17 @@ class _CartState extends State<Cart> {
                             'Total Amount :',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Colors.black,
+                                color: HexColor('#B67A4F'),
+                                fontFamily: 'Nunito',
                                 fontSize: 20),
                           ),
                         ),
                         Text(
                           '\$23',
                           style: TextStyle(
-                              color: Colors.red.shade700, fontSize: 18),
+                              color: Colors.red.shade700,
+                              fontSize: 18,
+                              fontFamily: 'Nunito'),
                         )
                       ],
                     ),
@@ -78,13 +81,15 @@ class _CartState extends State<Cart> {
                       child: Text(
                         'Checkout',
                         style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Nunito'),
                       ),
                       style: ButtonStyle(
                           padding: MaterialStateProperty.all(EdgeInsets.only(
                               top: 10, bottom: 10, left: 90, right: 90)),
                           backgroundColor:
-                              MaterialStateProperty.all(HexColor('#00c0e5')),
+                              MaterialStateProperty.all(HexColor('#B67A4F')),
                           shape:
                               MaterialStateProperty.all<RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
@@ -100,15 +105,17 @@ class _CartState extends State<Cart> {
               leading: IconButton(
                   icon: Icon(
                     Icons.arrow_back_ios,
-                    color: Colors.black,
+                    color: HexColor('#B67A4F'),
                   ),
                   onPressed: () {
                     Get.back();
                   }),
               title: Text(
                 'Shopping Cart',
-                style:
-                    TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    color: HexColor('#B67A4F'),
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Nunito'),
               ),
               centerTitle: true,
               elevation: 1,
@@ -122,7 +129,7 @@ class _CartState extends State<Cart> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CircleAvatar(
-                      backgroundColor: HexColor('#00c0e5'),
+                      backgroundColor: HexColor('#B67A4F'),
                       radius: 20,
                       child: LineIcon(
                         LineIcons.shoppingCart,
@@ -134,9 +141,10 @@ class _CartState extends State<Cart> {
                     ),
                     Text('In your Cart',
                         style: TextStyle(
-                            color: Colors.black,
+                            color: HexColor('#B67A4F'),
                             fontWeight: FontWeight.bold,
-                            fontSize: 20)),
+                            fontSize: 20,
+                            fontFamily: 'Nunito')),
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.3,
                     ),
@@ -145,7 +153,8 @@ class _CartState extends State<Cart> {
                       style: TextStyle(
                           color: Colors.red.shade700,
                           fontWeight: FontWeight.bold,
-                          fontSize: 20),
+                          fontSize: 20,
+                          fontFamily: 'Nunito'),
                     )
                   ],
                 ),
@@ -173,9 +182,10 @@ class _CartState extends State<Cart> {
                                     Text(
                                       '${name[index]}',
                                       style: TextStyle(
-                                          color: Colors.black,
+                                          color: HexColor('#B67A4F'),
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 18),
+                                          fontSize: 18,
+                                          fontFamily: 'Nunito'),
                                     ),
                                     SizedBox(
                                       height: 5,
@@ -185,7 +195,8 @@ class _CartState extends State<Cart> {
                                       style: TextStyle(
                                           color: Colors.red.shade700,
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 18),
+                                          fontSize: 18,
+                                          fontFamily: 'Nunito'),
                                     ),
                                     SizedBox(
                                       height: 5,
@@ -195,7 +206,9 @@ class _CartState extends State<Cart> {
                                         Text(
                                           'Size ${color[index]} ${size[index]}',
                                           style: TextStyle(
-                                              fontWeight: FontWeight.bold),
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: 'Nunito',
+                                              color: HexColor('#B67A4F')),
                                         ),
                                         SizedBox(
                                           width: MediaQuery.of(context)
@@ -203,58 +216,76 @@ class _CartState extends State<Cart> {
                                                   .width *
                                               0.2,
                                         ),
-                                        SizedBox(
-                                          height: 20,
-                                          width: 20,
-                                          child: TextButton(
-                                              style: ButtonStyle(
-                                                  padding:
-                                                      MaterialStateProperty.all(
-                                                          EdgeInsets.only(
-                                                              right: 1)),
-                                                  backgroundColor:
-                                                      MaterialStateProperty.all(
-                                                          Colors
-                                                              .grey.shade300)),
-                                              onPressed: () {
-                                                _incrementCount();
-                                              },
-                                              child: LineIcon(
-                                                LineIcons.plus,
-                                                color: Colors.black
-                                                    .withOpacity(0.5),
-                                                size: 20,
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            SizedBox(
+                                              height: 20,
+                                              width: 20,
+                                              child: TextButton(
+                                                  style: ButtonStyle(
+                                                      padding:
+                                                          MaterialStateProperty
+                                                              .all(EdgeInsets
+                                                                  .only(
+                                                                      right:
+                                                                          1)),
+                                                      backgroundColor:
+                                                          MaterialStateProperty
+                                                              .all(HexColor(
+                                                                      '#B67A4F')
+                                                                  .withOpacity(
+                                                                      0.2))),
+                                                  onPressed: () {
+                                                    _incrementCount();
+                                                  },
+                                                  child: LineIcon(
+                                                    LineIcons.plus,
+                                                    color: HexColor('#B67A4F'),
+                                                    size: 20,
+                                                  )),
+                                            ),
+                                            SizedBox(
+                                              height: 20,
+                                              width: 20,
+                                              child: Center(
+                                                  child: Text(
+                                                '$_counter',
+                                                style: TextStyle(
+                                                    color: HexColor('#B67A4F')),
                                               )),
-                                        ),
-                                        SizedBox(
-                                          height: 20,
-                                          width: 20,
-                                          child:
-                                              Center(child: Text('$_counter')),
-                                        ),
-                                        SizedBox(
-                                          height: 20,
-                                          width: 20,
-                                          child: TextButton(
-                                              style: ButtonStyle(
-                                                  padding:
-                                                      MaterialStateProperty.all(
-                                                          EdgeInsets.only(
-                                                              right: 1)),
-                                                  backgroundColor:
-                                                      MaterialStateProperty.all(
-                                                          Colors
-                                                              .grey.shade300)),
-                                              onPressed: () {
-                                                _decrementCount();
-                                              },
-                                              child: LineIcon(
-                                                LineIcons.minus,
-                                                color: Colors.black
-                                                    .withOpacity(0.5),
-                                                size: 20,
-                                              )),
-                                        ),
+                                            ),
+                                            SizedBox(
+                                              height: 20,
+                                              width: 20,
+                                              child: TextButton(
+                                                  style: ButtonStyle(
+                                                      padding:
+                                                          MaterialStateProperty
+                                                              .all(EdgeInsets
+                                                                  .only(
+                                                                      right:
+                                                                          1)),
+                                                      backgroundColor:
+                                                          MaterialStateProperty
+                                                              .all(HexColor(
+                                                                      '#B67A4F')
+                                                                  .withOpacity(
+                                                                      0.2))),
+                                                  onPressed: () {
+                                                    _decrementCount();
+                                                  },
+                                                  child: LineIcon(
+                                                    LineIcons.minus,
+                                                    color: HexColor('#B67A4F'),
+                                                    size: 20,
+                                                  )),
+                                            ),
+                                          ],
+                                        )
                                       ],
                                     ),
                                   ],

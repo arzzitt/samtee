@@ -27,7 +27,10 @@ class Signup extends StatelessWidget {
             }),
         title: Text(
           'Sign up',
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Nunito'),
         ),
         centerTitle: true,
         elevation: 2,
@@ -36,12 +39,18 @@ class Signup extends StatelessWidget {
         Text(
           'Sign up with',
           style: TextStyle(
-              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 23),
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: 23,
+              fontFamily: 'Nunito'),
         ),
         Text(
           'email or phone number',
           style: TextStyle(
-              color: Colors.grey, fontSize: 20, fontWeight: FontWeight.w800),
+              color: Colors.grey,
+              fontSize: 20,
+              fontWeight: FontWeight.w800,
+              fontFamily: 'Nunito'),
         ),
         SizedBox(
           height: 30,
@@ -61,6 +70,7 @@ class Signup extends StatelessWidget {
                   color: Colors.black,
                 ),
                 hintText: 'jhonson@gmail.com',
+                hintStyle: TextStyle(fontFamily: 'Nunito'),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(28),
                     borderSide: BorderSide.none),

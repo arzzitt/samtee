@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import 'package:login_flow/uis.dart/home.dart';
+import 'package:login_flow/uis.dart/signup_page.dart';
 
 import 'Forgot_password.dart';
 import 'signup.dart';
@@ -26,12 +27,15 @@ class _SigninState extends State<Signin> {
         leading: IconButton(
             icon: Icon(
               Icons.arrow_back_ios,
-              color: Colors.black,
+              color: HexColor('#B67A4F'),
             ),
             onPressed: () {}),
         title: Text(
           'Sign in',
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          style: TextStyle(
+              color: HexColor('#B67A4F'),
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Nunito'),
         ),
         centerTitle: true,
         elevation: 2,
@@ -45,13 +49,15 @@ class _SigninState extends State<Signin> {
               Text(
                 'Welcome back!',
                 style: TextStyle(
-                    color: HexColor('#00c0e5'),
+                    color: HexColor('#B67A4F'),
                     fontWeight: FontWeight.bold,
-                    fontSize: 23),
+                    fontSize: 23,
+                    fontFamily: 'Nunito'),
               ),
               Text(
                 'Sign in to continue',
-                style: TextStyle(color: Colors.black, fontSize: 20),
+                style: TextStyle(
+                    color: Colors.black, fontSize: 20, fontFamily: 'Nunito'),
               ),
               SizedBox(
                 height: 30,
@@ -66,9 +72,10 @@ class _SigninState extends State<Signin> {
                   decoration: InputDecoration(
                     icon: Icon(
                       Icons.email,
-                      color: HexColor('#00c0e5'),
+                      color: HexColor('#B67A4F'),
                     ),
                     hintText: 'jhonson@gmail.com',
+                    hintStyle: TextStyle(fontFamily: 'Nunito'),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(28),
                         borderSide: BorderSide.none),
@@ -88,9 +95,10 @@ class _SigninState extends State<Signin> {
                   decoration: InputDecoration(
                       icon: Icon(
                         Icons.lock,
-                        color: HexColor('#00c0e5'),
+                        color: HexColor('#B67A4F'),
                       ),
                       hintText: '+91 xxxxxx3675',
+                      hintStyle: TextStyle(fontFamily: 'Nunito'),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(18),
                           borderSide: BorderSide.none)),
@@ -103,13 +111,13 @@ class _SigninState extends State<Signin> {
                   },
                   child: Text(
                     'Sign in',
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: Colors.white, fontFamily: 'Nunito'),
                   ),
                   style: ButtonStyle(
                       padding: MaterialStateProperty.all(EdgeInsets.only(
                           top: 10, bottom: 10, left: 90, right: 90)),
                       backgroundColor:
-                          MaterialStateProperty.all(HexColor('#00c0e5')),
+                          MaterialStateProperty.all(HexColor('#B67A4F')),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(18.0),
@@ -128,7 +136,11 @@ class _SigninState extends State<Signin> {
                       });
                     },
                   ),
-                  Text('Remember me'),
+                  Text(
+                    'Remember me',
+                    style: TextStyle(
+                        fontFamily: 'Nunito', fontWeight: FontWeight.bold),
+                  ),
                   SizedBox(
                     width: 70,
                   ),
@@ -137,7 +149,10 @@ class _SigninState extends State<Signin> {
                         Get.to(forgot_password());
                       },
                       child: Text('Forgot password ?',
-                          style: TextStyle(color: HexColor('#00c0e5'))))
+                          style: TextStyle(
+                              color: HexColor('#B67A4F'),
+                              fontFamily: 'Nunito',
+                              fontWeight: FontWeight.bold)))
                 ],
               ),
               SizedBox(
@@ -151,11 +166,11 @@ class _SigninState extends State<Signin> {
                   ),
                   TextButton(
                       onPressed: () {
-                        Get.to(Signup());
+                        Get.to(signup_page());
                       },
                       child: Text(
                         'Sign up',
-                        style: TextStyle(color: HexColor('#00c0e5')),
+                        style: TextStyle(color: HexColor('#B67A4F')),
                       ))
                 ],
               )

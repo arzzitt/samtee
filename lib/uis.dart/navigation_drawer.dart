@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class navigationDrawer extends StatefulWidget {
   @override
@@ -50,7 +51,11 @@ class _navigationDrawerState extends State<navigationDrawer> {
                           padding: const EdgeInsets.only(left: 15),
                           child: Text(
                             'Name',
-                            style: TextStyle(color: Colors.white, fontSize: 20),
+                            style: TextStyle(
+                                color: HexColor('#B67A4F'),
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Nunito'),
                           ),
                         )
                       ],
@@ -64,9 +69,10 @@ class _navigationDrawerState extends State<navigationDrawer> {
                         Text(
                           'Mens',
                           style: TextStyle(
-                              color: Colors.black,
+                              color: HexColor('#B67A4F'),
                               fontSize: 20,
-                              fontWeight: FontWeight.w500),
+                              fontWeight: FontWeight.w900,
+                              fontFamily: 'Nunito'),
                         ),
                         SizedBox(
                           height: 160,
@@ -80,12 +86,16 @@ class _navigationDrawerState extends State<navigationDrawer> {
                                   children: [
                                     Row(
                                       children: [
-                                        Icon(Icons.arrow_right),
+                                        Icon(
+                                          Icons.arrow_right,
+                                          color: HexColor('#B67A4F'),
+                                        ),
                                         Text(
                                           '${items[index]}',
                                           style: TextStyle(
                                               fontSize: 18,
-                                              color: Colors.grey.shade600),
+                                              fontFamily: 'Nunito',
+                                              color: HexColor('#B67A4F')),
                                         ),
                                       ],
                                     ),
@@ -99,9 +109,10 @@ class _navigationDrawerState extends State<navigationDrawer> {
                         Text(
                           'Womens',
                           style: TextStyle(
-                              color: Colors.black,
+                              color: HexColor('#B67A4F'),
                               fontSize: 20,
-                              fontWeight: FontWeight.w500),
+                              fontWeight: FontWeight.w900,
+                              fontFamily: 'Nunito'),
                         ),
                         SizedBox(
                           height: 160,
@@ -115,12 +126,16 @@ class _navigationDrawerState extends State<navigationDrawer> {
                                   children: [
                                     Row(
                                       children: [
-                                        Icon(Icons.arrow_right),
+                                        Icon(
+                                          Icons.arrow_right,
+                                          color: HexColor('#B67A4F'),
+                                        ),
                                         Text(
                                           '${items[index]}',
                                           style: TextStyle(
                                               fontSize: 18,
-                                              color: Colors.grey.shade600),
+                                              color: HexColor('#B67A4F'),
+                                              fontFamily: 'Nunito'),
                                         ),
                                       ],
                                     ),
@@ -134,9 +149,10 @@ class _navigationDrawerState extends State<navigationDrawer> {
                         Text(
                           'Kids',
                           style: TextStyle(
-                              color: Colors.black,
+                              color: HexColor('#B67A4F'),
                               fontSize: 20,
-                              fontWeight: FontWeight.w500),
+                              fontWeight: FontWeight.w900,
+                              fontFamily: 'Nunito'),
                         ),
                         SizedBox(
                           height: 160,
@@ -150,12 +166,16 @@ class _navigationDrawerState extends State<navigationDrawer> {
                                   children: [
                                     Row(
                                       children: [
-                                        Icon(Icons.arrow_right),
+                                        Icon(
+                                          Icons.arrow_right,
+                                          color: HexColor('#B67A4F'),
+                                        ),
                                         Text(
                                           '${items[index]}',
                                           style: TextStyle(
                                               fontSize: 18,
-                                              color: Colors.grey.shade600),
+                                              color: HexColor('#B67A4F'),
+                                              fontFamily: 'Nunito'),
                                         ),
                                       ],
                                     ),

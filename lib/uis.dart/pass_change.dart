@@ -23,14 +23,17 @@ class _Pass_changeState extends State<Pass_change> {
         leading: IconButton(
             icon: Icon(
               Icons.arrow_back_ios,
-              color: Colors.black,
+              color: HexColor('#B67A4F'),
             ),
             onPressed: () {
               Get.back();
             }),
         title: Text(
           'Change Password',
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          style: TextStyle(
+              color: HexColor('#B67A4F'),
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Nunito'),
         ),
         centerTitle: true,
         elevation: 2,
@@ -48,6 +51,7 @@ class _Pass_changeState extends State<Pass_change> {
               obscureText: _isObscure,
               decoration: InputDecoration(
                 hintText: 'Old password',
+                hintStyle: TextStyle(fontFamily: 'Nunito'),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(28),
                     borderSide: BorderSide.none),
@@ -80,6 +84,7 @@ class _Pass_changeState extends State<Pass_change> {
               obscureText: _isObscure,
               decoration: InputDecoration(
                 hintText: 'New password',
+                hintStyle: TextStyle(fontFamily: 'Nunito'),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(28),
                     borderSide: BorderSide.none),
@@ -112,6 +117,7 @@ class _Pass_changeState extends State<Pass_change> {
               obscureText: _isObscure,
               decoration: InputDecoration(
                 hintText: 'Confirm password',
+                hintStyle: TextStyle(fontFamily: 'Nunito'),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(28),
                     borderSide: BorderSide.none),
@@ -138,12 +144,12 @@ class _Pass_changeState extends State<Pass_change> {
           },
           child: Text(
             'Save now',
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(color: Colors.white, fontFamily: 'Nunito'),
           ),
           style: ButtonStyle(
               padding: MaterialStateProperty.all(
                   EdgeInsets.only(top: 10, bottom: 10, left: 90, right: 90)),
-              backgroundColor: MaterialStateProperty.all(HexColor('#00c0e5')),
+              backgroundColor: MaterialStateProperty.all(HexColor('#B67A4F')),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(18.0),

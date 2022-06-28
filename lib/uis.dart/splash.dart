@@ -18,7 +18,7 @@ class _SplashState extends State<Splash> {
       child: Container(
           child: new EasySplashScreen(
         logo: Image.asset('lib/images/logo.png'),
-        backgroundColor: HexColor('#00c0e5'),
+        backgroundColor: HexColor('#B67A4F'),
         showLoader: false,
         navigator: boarding1(),
         durationInSeconds: 5,

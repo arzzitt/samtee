@@ -29,7 +29,7 @@ class _ProfileState extends State<Profile> {
         leading: IconButton(
             icon: Icon(
               Icons.arrow_back_ios,
-              color: Colors.black,
+              color: HexColor('#B67A4F'),
             ),
             onPressed: () {
               Get.back();
@@ -37,7 +37,7 @@ class _ProfileState extends State<Profile> {
         title: Text(
           'Profile',
           style: TextStyle(
-              color: Colors.black,
+              color: HexColor('#B67A4F'),
               fontWeight: FontWeight.bold,
               fontFamily: 'Nunito'),
         ),
@@ -61,7 +61,7 @@ class _ProfileState extends State<Profile> {
               Center(
                 child: Text('Alexa Smith',
                     style: TextStyle(
-                        color: Colors.black,
+                        color: HexColor('#B67A4F'),
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
                         fontFamily: 'Nunito')),
@@ -77,12 +77,15 @@ class _ProfileState extends State<Profile> {
                     color: Colors.white,
                     size: 15,
                   ),
-                  backgroundColor: Colors.green,
+                  backgroundColor: HexColor('#B67A4F'),
                 ),
                 SizedBox(
                   width: 5,
                 ),
-                Text('Verified')
+                Text(
+                  'Verified',
+                  style: TextStyle(color: HexColor('#B67A4F')),
+                )
               ]),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.03,
@@ -155,7 +158,7 @@ class _ProfileState extends State<Profile> {
                   },
                   child: Text('My Address',
                       style: TextStyle(
-                          color: Colors.black.withOpacity(0.5),
+                          color: HexColor('#B67A4F').withOpacity(0.8),
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                           fontFamily: 'Nunito'))),
@@ -164,7 +167,7 @@ class _ProfileState extends State<Profile> {
               ),
               Text('Recent Transaction',
                   style: TextStyle(
-                      color: Colors.black.withOpacity(0.5),
+                      color: HexColor('#B67A4F').withOpacity(0.8),
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
                       fontFamily: 'Nunito')),
@@ -201,7 +204,7 @@ class _ProfileState extends State<Profile> {
                                         Text(
                                           '${transaction_name[index]}',
                                           style: TextStyle(
-                                              color: Colors.black,
+                                              color: HexColor('#B67A4F'),
                                               fontWeight: FontWeight.bold,
                                               fontSize: 15),
                                         ),
@@ -211,7 +214,8 @@ class _ProfileState extends State<Profile> {
                                         Text(
                                           'ID:${id[index]}',
                                           style: TextStyle(
-                                              color: Colors.grey.shade500,
+                                              color: HexColor('#B67A4F')
+                                                  .withOpacity(0.5),
                                               fontWeight: FontWeight.w700,
                                               fontSize: 15),
                                         )

@@ -33,7 +33,7 @@ class _Category2State extends State<Category2> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      backgroundColor: HexColor('#01c0e4'),
+      backgroundColor: HexColor('#B67A4F'),
       body: Column(
         children: [
           Padding(
@@ -118,7 +118,7 @@ class _Category2State extends State<Category2> {
                     Text(
                       'Sale Discount',
                       style: TextStyle(
-                          color: Colors.black,
+                          color: HexColor('#B67A4F'),
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
                           fontFamily: 'Nunito'),
@@ -133,7 +133,7 @@ class _Category2State extends State<Category2> {
                             Text(
                               'See all',
                               style: TextStyle(
-                                  color: Colors.grey.shade500,
+                                  color: HexColor('#B67A4F').withOpacity(0.4),
                                   fontWeight: FontWeight.bold,
                                   fontSize: 18,
                                   fontFamily: 'Nunito'),
@@ -171,7 +171,10 @@ class _Category2State extends State<Category2> {
                                   ),
                                   Text(
                                     'American Heels',
-                                    style: TextStyle(fontFamily: 'Nunito'),
+                                    style: TextStyle(
+                                        fontFamily: 'Nunito',
+                                        color: HexColor('#B67A4F'),
+                                        fontWeight: FontWeight.w800),
                                   ),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
@@ -218,7 +221,7 @@ class _Category2State extends State<Category2> {
                     Text(
                       'Popular Sales',
                       style: TextStyle(
-                          color: Colors.black,
+                          color: HexColor('#B67A4F'),
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
                           fontFamily: 'Nunito'),
@@ -233,7 +236,7 @@ class _Category2State extends State<Category2> {
                             Text(
                               'See all',
                               style: TextStyle(
-                                  color: Colors.grey.shade500,
+                                  color: HexColor('#B67A4F').withOpacity(0.4),
                                   fontWeight: FontWeight.bold,
                                   fontSize: 18,
                                   fontFamily: 'Nunito'),
@@ -265,7 +268,7 @@ class _Category2State extends State<Category2> {
                       children: [
                         Text('Vinita backpack',
                             style: TextStyle(
-                                color: Colors.black,
+                                color: HexColor('#B67A4F'),
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18,
                                 fontFamily: 'Nunito')),

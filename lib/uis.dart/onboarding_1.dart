@@ -99,7 +99,7 @@ class boarding1State extends State<boarding1> {
           height: 300,
           width: 400,
           decoration: BoxDecoration(
-              color: HexColor('#00c0e5'),
+              color: HexColor('#B67A4F'),
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(28), topRight: Radius.circular(28))),
           child: Column(
@@ -110,14 +110,16 @@ class boarding1State extends State<boarding1> {
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
-                    fontSize: 30),
+                    fontSize: 30,
+                    fontFamily: 'Nunito'),
               ),
               Text(
                 'Lorem ipsum giving refrence origin \n as well as a random',
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w400,
-                    fontSize: 15),
+                    fontSize: 15,
+                    fontFamily: 'Nunito'),
               ),
             ],
           ),
@@ -128,12 +130,16 @@ class boarding1State extends State<boarding1> {
       children: [
         SizedBox(
           height: 500,
+          child: Image(
+            image: AssetImage('lib/images/tick.png'),
+            fit: BoxFit.fill,
+          ),
         ),
         Container(
           height: 300,
           width: 400,
           decoration: BoxDecoration(
-              color: HexColor('#00c0e5'),
+              color: HexColor('#B67A4F'),
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(28), topRight: Radius.circular(28))),
           child: Column(
@@ -144,14 +150,16 @@ class boarding1State extends State<boarding1> {
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
-                    fontSize: 30),
+                    fontSize: 30,
+                    fontFamily: 'Nunito'),
               ),
               Text(
                 'Lorem ipsum giving refrence origin \n as well as a random',
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w400,
-                    fontSize: 15),
+                    fontSize: 15,
+                    fontFamily: 'Nunito'),
               ),
             ],
           ),
@@ -162,12 +170,16 @@ class boarding1State extends State<boarding1> {
       children: [
         SizedBox(
           height: 500,
+          child: Image(
+            image: AssetImage('lib/images/tick.png'),
+            fit: BoxFit.fill,
+          ),
         ),
         Container(
           height: 300,
           width: 400,
           decoration: BoxDecoration(
-              color: HexColor('#00c0e5'),
+              color: HexColor('#B67A4F'),
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(28), topRight: Radius.circular(28))),
           child: Column(
@@ -178,14 +190,16 @@ class boarding1State extends State<boarding1> {
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
-                    fontSize: 30),
+                    fontSize: 30,
+                    fontFamily: 'Nunito'),
               ),
               Text(
                 'Lorem ipsum giving refrence origin \n as well as a random',
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w400,
-                    fontSize: 15),
+                    fontSize: 15,
+                    fontFamily: 'Nunito'),
               ),
               TextButton(
                   style: ButtonStyle(
@@ -201,8 +215,9 @@ class boarding1State extends State<boarding1> {
                   child: Text(
                     'Get started',
                     style: TextStyle(
-                        color: HexColor('#00c0e5'),
-                        fontWeight: FontWeight.w700),
+                        color: HexColor('#B67A4F'),
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'Nunito'),
                   )),
             ],
           ),

@@ -28,12 +28,15 @@ class _forgot_passwordState extends State<forgot_password> {
         leading: IconButton(
             icon: Icon(
               Icons.arrow_back_ios,
-              color: Colors.black,
+              color: HexColor('#B67A4F'),
             ),
             onPressed: () {}),
         title: Text(
           'Forgot Password',
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          style: TextStyle(
+              color: HexColor('#B67A4F'),
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Nunito'),
         ),
         centerTitle: true,
         elevation: 2,
@@ -42,17 +45,26 @@ class _forgot_passwordState extends State<forgot_password> {
         Text(
           'We will send an mail to',
           style: TextStyle(
-              color: Colors.black, fontSize: 18, fontWeight: FontWeight.w400),
+              color: HexColor('#B67A4F'),
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+              fontFamily: 'Nunito'),
         ),
         Text(
           'the registered email address',
           style: TextStyle(
-              color: Colors.black, fontSize: 18, fontWeight: FontWeight.w400),
+              color: HexColor('#B67A4F'),
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+              fontFamily: 'Nunito'),
         ),
         Text(
           'to regain your password',
           style: TextStyle(
-              color: Colors.black, fontSize: 18, fontWeight: FontWeight.w400),
+              color: HexColor('#B67A4F'),
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+              fontFamily: 'Nunito'),
         ),
         SizedBox(
           height: 30,
@@ -69,6 +81,9 @@ class _forgot_passwordState extends State<forgot_password> {
               controller: _email,
               decoration: InputDecoration(
                 hintText: 'email address',
+                hintStyle: TextStyle(
+                  color: HexColor('#B67A4F'),
+                ),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(28),
                     borderSide: BorderSide.none),
@@ -80,7 +95,14 @@ class _forgot_passwordState extends State<forgot_password> {
             visible: send,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [Text('email sent to : '), Text(_email.text)],
+              children: [
+                Text(
+                  'email sent to : ',
+                  style: TextStyle(
+                      color: HexColor('#B67A4F'), fontFamily: 'Nunito'),
+                ),
+                Text(_email.text)
+              ],
             )),
         TextButton(
           onPressed: () async {
@@ -104,7 +126,7 @@ class _forgot_passwordState extends State<forgot_password> {
                             Container(
                               height: 50,
                               decoration: BoxDecoration(
-                                  color: HexColor('#00c0e5'),
+                                  color: HexColor('#B67A4F'),
                                   borderRadius: BorderRadius.only(
                                       topLeft: Radius.circular(22),
                                       topRight: Radius.circular(22))),
@@ -114,7 +136,8 @@ class _forgot_passwordState extends State<forgot_password> {
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 18),
+                                      fontSize: 18,
+                                      fontFamily: 'Nunito'),
                                 ),
                               ),
                             ),
@@ -128,7 +151,9 @@ class _forgot_passwordState extends State<forgot_password> {
                                     Text(
                                       'An email has been sent to \n   follow instructions to \n    reset your password',
                                       style: TextStyle(
-                                          color: Colors.black, fontSize: 15),
+                                          color: Colors.black,
+                                          fontSize: 15,
+                                          fontFamily: 'Nunito'),
                                     ),
                                     TextButton(
                                         onPressed: () {
@@ -140,7 +165,7 @@ class _forgot_passwordState extends State<forgot_password> {
                                                     left: 50, right: 50)),
                                             backgroundColor:
                                                 MaterialStateProperty.all(
-                                                    HexColor('#00c0e5')),
+                                                    HexColor('#B67A4F')),
                                             shape: MaterialStateProperty.all(
                                                 RoundedRectangleBorder(
                                                     borderRadius:
@@ -150,7 +175,8 @@ class _forgot_passwordState extends State<forgot_password> {
                                           'OK',
                                           style: TextStyle(
                                               color: Colors.white,
-                                              fontWeight: FontWeight.w700),
+                                              fontWeight: FontWeight.w700,
+                                              fontFamily: 'Nunito'),
                                         ))
                                   ]),
                             )
@@ -163,12 +189,12 @@ class _forgot_passwordState extends State<forgot_password> {
           },
           child: Text(
             'Send',
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(color: Colors.white, fontFamily: 'Nunito'),
           ),
           style: ButtonStyle(
               padding: MaterialStateProperty.all(
                   EdgeInsets.only(top: 10, bottom: 10, left: 90, right: 90)),
-              backgroundColor: MaterialStateProperty.all(HexColor('#00c0e5')),
+              backgroundColor: MaterialStateProperty.all(HexColor('#B67A4F')),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(18.0),

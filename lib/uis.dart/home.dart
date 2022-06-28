@@ -46,6 +46,7 @@ class _HomeState extends State<Home> {
         child: Scaffold(
       drawer: navigationDrawer(),
       appBar: AppBar(
+        backgroundColor: HexColor('#B67A4F'),
         elevation: 0,
         actions: [
           GestureDetector(
@@ -139,7 +140,7 @@ class _HomeState extends State<Home> {
               Text(
                 'What are you looking for today ?',
                 style: TextStyle(
-                    color: Colors.black,
+                    color: HexColor('#B67A4F'),
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
                     fontFamily: 'Nunito'),
@@ -169,7 +170,8 @@ class _HomeState extends State<Home> {
                           Text(
                             'Accessories',
                             style: TextStyle(
-                                color: Colors.black, fontFamily: 'Nunito'),
+                                color: HexColor('#B67A4F'),
+                                fontFamily: 'Nunito'),
                           )
                         ],
                       )),
@@ -192,7 +194,8 @@ class _HomeState extends State<Home> {
                           Text(
                             'Beauty',
                             style: TextStyle(
-                                color: Colors.black, fontFamily: 'Nunito'),
+                                color: HexColor('#B67A4F'),
+                                fontFamily: 'Nunito'),
                           )
                         ],
                       )),
@@ -214,7 +217,8 @@ class _HomeState extends State<Home> {
                           Text(
                             'Bag',
                             style: TextStyle(
-                                color: Colors.black, fontFamily: 'Nunito'),
+                                color: HexColor('#B67A4F'),
+                                fontFamily: 'Nunito'),
                           )
                         ],
                       )),
@@ -236,7 +240,8 @@ class _HomeState extends State<Home> {
                           Text(
                             'Bag',
                             style: TextStyle(
-                                color: Colors.black, fontFamily: 'Nunito'),
+                                color: HexColor('#B67A4F'),
+                                fontFamily: 'Nunito'),
                           )
                         ],
                       )),
@@ -247,7 +252,7 @@ class _HomeState extends State<Home> {
                   Text(
                     'Sale Discount',
                     style: TextStyle(
-                        color: Colors.black,
+                        color: HexColor('#B67A4F'),
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
                         fontFamily: 'Nunito'),
@@ -262,14 +267,14 @@ class _HomeState extends State<Home> {
                           Text(
                             'See all',
                             style: TextStyle(
-                                color: Colors.grey.shade500,
+                                color: HexColor('#B67A4F').withOpacity(0.4),
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18,
                                 fontFamily: 'Nunito'),
                           ),
                           Icon(
                             Icons.add,
-                            color: Colors.grey.shade500,
+                            color: HexColor('#B67A4F').withOpacity(0.4),
                             size: 18,
                           )
                         ],
@@ -337,7 +342,9 @@ class _HomeState extends State<Home> {
                                       ]),
                                   Text(
                                     "${product_name[index]}",
-                                    style: TextStyle(fontFamily: 'Nunito'),
+                                    style: TextStyle(
+                                        fontFamily: 'Nunito',
+                                        color: HexColor('#B67A4F')),
                                   ),
                                   SizedBox(
                                     height: 20,
@@ -345,7 +352,10 @@ class _HomeState extends State<Home> {
                                       onPressed: () {
                                         Get.to(secondscreen());
                                       },
-                                      child: Text('View price'),
+                                      child: Text(
+                                        'View price',
+                                        style: TextStyle(),
+                                      ),
                                       style: ButtonStyle(
                                           padding: MaterialStateProperty.all(
                                               EdgeInsets.all(0))),
@@ -396,7 +406,7 @@ class _HomeState extends State<Home> {
                   Text(
                     'Popular Items',
                     style: TextStyle(
-                        color: Colors.black,
+                        color: HexColor('#B67A4F'),
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
                         fontFamily: 'Nunito'),
@@ -411,14 +421,14 @@ class _HomeState extends State<Home> {
                           Text(
                             'See all',
                             style: TextStyle(
-                                color: Colors.grey.shade500,
+                                color: HexColor('#B67A4F').withOpacity(0.4),
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18,
                                 fontFamily: 'Nunito'),
                           ),
                           Icon(
                             Icons.add,
-                            color: Colors.grey.shade500,
+                            color: HexColor('#B67A4F').withOpacity(0.4),
                             size: 18,
                           )
                         ],
@@ -486,7 +496,9 @@ class _HomeState extends State<Home> {
                                       ]),
                                   Text(
                                     "${product_name[index]}",
-                                    style: TextStyle(fontFamily: 'Nunito'),
+                                    style: TextStyle(
+                                        fontFamily: 'Nunito',
+                                        color: HexColor('#B67A4F')),
                                   ),
                                   SizedBox(
                                     height: 20,
@@ -545,7 +557,7 @@ class _HomeState extends State<Home> {
                   Text(
                     'Latest Sales',
                     style: TextStyle(
-                        color: Colors.black,
+                        color: HexColor('#B67A4F'),
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
                         fontFamily: 'Nunito'),
@@ -560,14 +572,14 @@ class _HomeState extends State<Home> {
                           Text(
                             'See all',
                             style: TextStyle(
-                                color: Colors.grey.shade500,
+                                color: HexColor('#B67A4F').withOpacity(0.4),
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18,
                                 fontFamily: 'Nunito'),
                           ),
                           Icon(
                             Icons.add,
-                            color: Colors.grey.shade500,
+                            color: HexColor('#B67A4F').withOpacity(0.4),
                             size: 18,
                           )
                         ],
@@ -600,7 +612,9 @@ class _HomeState extends State<Home> {
                                 ),
                                 Text(
                                   "${product_name[index]}",
-                                  style: TextStyle(fontFamily: 'Nunito'),
+                                  style: TextStyle(
+                                      fontFamily: 'Nunito',
+                                      color: HexColor('#B67A4F')),
                                 ),
                                 SizedBox(
                                   height: 5,
@@ -622,7 +636,7 @@ class _HomeState extends State<Home> {
                                 ),
                                 TextButton(
                                   onPressed: () {
-                                    Get.to(signup_page());
+                                    Get.to(secondscreen());
                                   },
                                   child: Text(
                                     'Add to cart',
@@ -639,7 +653,7 @@ class _HomeState extends State<Home> {
                                               right: 50)),
                                       backgroundColor:
                                           MaterialStateProperty.all(
-                                              HexColor('#00c0e5')),
+                                              HexColor('#B67A4F')),
                                       shape: MaterialStateProperty.all<
                                               RoundedRectangleBorder>(
                                           RoundedRectangleBorder(

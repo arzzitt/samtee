@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:login_flow/uis.dart/signup_page.dart';
 
 import 'login_phone.dart';
 import 'signin.dart';
@@ -28,7 +29,7 @@ class _secondscreenState extends State<secondscreen> {
           height: 300,
           width: 400,
           decoration: BoxDecoration(
-              color: HexColor('#00c0e5'),
+              color: HexColor('#B67A4F'),
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(28), topRight: Radius.circular(28))),
           child: Column(
@@ -42,7 +43,8 @@ class _secondscreenState extends State<secondscreen> {
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
-                    fontSize: 30),
+                    fontSize: 30,
+                    fontFamily: 'Nunito'),
               ),
               SizedBox(
                 height: 25,
@@ -62,7 +64,9 @@ class _secondscreenState extends State<secondscreen> {
                   child: Text(
                     'Continue with Email',
                     style: TextStyle(
-                        color: Colors.blue, fontWeight: FontWeight.w700),
+                        color: HexColor('#B67A4F'),
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'Nunito'),
                   )),
               SizedBox(
                 height: 15,
@@ -82,15 +86,17 @@ class _secondscreenState extends State<secondscreen> {
                   child: Text(
                     'Continue with Phone number',
                     style: TextStyle(
-                        color: Colors.blue, fontWeight: FontWeight.w700),
+                        color: HexColor('#B67A4F'),
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'Nunito'),
                   )),
               TextButton(
                   onPressed: () {
-                    Get.to(Signup());
+                    Get.to(signup_page());
                   },
                   child: Text(
                     'Don\'t have an account ? Register',
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: Colors.white, fontFamily: 'Nunito'),
                   ))
             ],
           ),
