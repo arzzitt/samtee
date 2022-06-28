@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:login_flow/uis.dart/splash.dart';
 
-void main() => runApp(MyApp());
+// void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+// class MyApp extends StatelessWidget {
+//   const MyApp({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Splash(),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return GetMaterialApp(
+//       debugShowCheckedModeBanner: false,
+//       home: Splash(),
+//     );
+//   }
+// }

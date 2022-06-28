@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:line_icons/line_icon.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:login_flow/apis/Access.dart';
+
 import 'package:login_flow/uis.dart/cart.dart';
 
+import '../models/categories_model.dart';
+import '../storage.dart';
 import 'categories/category2.dart';
 import 'navigation_drawer.dart';
 import 'product_description.dart';
 import 'profile.dart';
 import 'secondscreen.dart';
-import 'signup_page.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -39,6 +41,25 @@ class _HomeState extends State<Home> {
   ];
   List<int> orig_price = [125, 100, 125];
   List<int> curr_price = [64, 55, 64];
+
+  List categoryItems = [];
+  // CategoriesResponse? categRes;
+  List<CategoriesResponse> categRes = [];
+
+  @override
+  void initState() {
+    super.initState();
+    access().categories().then((value) async {
+      setState(() {
+        // print(value);
+        categoryItems = value;
+        //categRes = (value as List).map((e) => CategoriesResponse.fromJson(e),).toList();
+        //categRes = CategoriesResponse.fromJson(value);
+        print("category response: $categoryItems");
+        print(categoryItems.length);
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -148,104 +169,46 @@ class _HomeState extends State<Home> {
               SizedBox(
                 height: 5,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  TextButton(
-                      onPressed: () {},
-                      child: Column(
-                        children: [
-                          CircleAvatar(
-                            radius: 25,
-                            backgroundColor: Colors.blue.withOpacity(0.2),
-                            child: Icon(
-                              Icons.local_mall,
-                              color: Colors.blue,
-                              size: 30,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            'Accessories',
-                            style: TextStyle(
-                                color: HexColor('#B67A4F'),
-                                fontFamily: 'Nunito'),
-                          )
-                        ],
-                      )),
-                  TextButton(
-                      onPressed: () {},
-                      child: Column(
-                        children: [
-                          CircleAvatar(
-                            radius: 25,
-                            backgroundColor: Colors.red.withOpacity(0.2),
-                            child: Icon(
-                              Icons.cut,
-                              color: Colors.red,
-                              size: 30,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            'Beauty',
-                            style: TextStyle(
-                                color: HexColor('#B67A4F'),
-                                fontFamily: 'Nunito'),
-                          )
-                        ],
-                      )),
-                  TextButton(
-                      onPressed: () {},
-                      child: Column(
-                        children: [
-                          CircleAvatar(
-                              radius: 25,
-                              backgroundColor: Colors.purple.withOpacity(0.2),
-                              child: LineIcon(
-                                LineIcons.ring,
-                                color: Colors.purple,
-                                size: 30,
-                              )),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            'Bag',
-                            style: TextStyle(
-                                color: HexColor('#B67A4F'),
-                                fontFamily: 'Nunito'),
-                          )
-                        ],
-                      )),
-                  TextButton(
-                      onPressed: () {},
-                      child: Column(
-                        children: [
-                          CircleAvatar(
-                              radius: 25,
-                              backgroundColor: Colors.purple.withOpacity(0.2),
-                              child: LineIcon(
-                                LineIcons.ring,
-                                color: Colors.purple,
-                                size: 30,
-                              )),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            'Bag',
-                            style: TextStyle(
-                                color: HexColor('#B67A4F'),
-                                fontFamily: 'Nunito'),
-                          )
-                        ],
-                      )),
-                ],
+              SizedBox(
+                height: 120,
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    physics: ScrollPhysics(),
+                    padding: const EdgeInsets.all(8),
+                    itemCount: categoryItems.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return TextButton(
+                          onPressed: () {
+                            print(categoryItems[index]["id"]);
+                            int homeCategId = categoryItems[index]["id"];
+                            Storage.set_categoryIdHome(homeCategId.toString());
+                            print(
+                                "stored categ id: ${Storage.get_categoryIdHome().toString()}");
+                          },
+                          child: Column(
+                            children: [
+                              CircleAvatar(
+                                radius: 25,
+                                backgroundColor: Colors.blue.withOpacity(0.2),
+                                child: Icon(
+                                  Icons.local_mall,
+                                  color: Colors.blue,
+                                  size: 30,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                categoryItems[index]["name"],
+                                style: TextStyle(
+                                    color: HexColor('#B67A4F'),
+                                    fontFamily: 'Nunito'),
+                              )
+                            ],
+                          ));
+                    }),
               ),
               Row(
                 children: [

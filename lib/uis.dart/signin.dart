@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import 'package:login_flow/uis.dart/home.dart';
 import 'package:login_flow/uis.dart/signup_page.dart';
 
+import '../apis/Access.dart';
+import '../models/login_model.dart';
+import '../storage.dart';
 import 'Forgot_password.dart';
-import 'signup.dart';
 
 class Signin extends StatefulWidget {
   const Signin({Key? key}) : super(key: key);
@@ -17,6 +20,18 @@ class Signin extends StatefulWidget {
 
 class _SigninState extends State<Signin> {
   bool valuefirst = false;
+  TextEditingController userNameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  SharedPreferencesInit() async {
+    await Storage.init();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    SharedPreferencesInit();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,13 +83,14 @@ class _SigninState extends State<Signin> {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(28),
                     color: Colors.grey.shade200),
-                child: TextField(
+                child: TextFormField(
+                  controller: userNameController,
                   decoration: InputDecoration(
                     icon: Icon(
                       Icons.email,
                       color: HexColor('#B67A4F'),
                     ),
-                    hintText: 'jhonson@gmail.com',
+                    hintText: 'jhonson52',
                     hintStyle: TextStyle(fontFamily: 'Nunito'),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(28),
@@ -91,13 +107,15 @@ class _SigninState extends State<Signin> {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(28),
                     color: Colors.grey.shade200),
-                child: TextField(
+                child: TextFormField(
+                  obscureText: true,
+                  controller: passwordController,
                   decoration: InputDecoration(
                       icon: Icon(
                         Icons.lock,
                         color: HexColor('#B67A4F'),
                       ),
-                      hintText: '+91 xxxxxx3675',
+                      hintText: '********',
                       hintStyle: TextStyle(fontFamily: 'Nunito'),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(18),
@@ -106,8 +124,57 @@ class _SigninState extends State<Signin> {
               ),
               Center(
                 child: TextButton(
-                  onPressed: () {
-                    Get.to(Home());
+                  onPressed: () async {
+                    if (userNameController.text.isNotEmpty &&
+                        passwordController.text.isNotEmpty) {
+                      access()
+                          .login(
+                              userNameController.text, passwordController.text)
+                          .then((value) async {
+                        if (value["success"]) {
+                          LoginUsernameResponse loginRes =
+                              await LoginUsernameResponse.fromJson(value);
+                          final token = loginRes.data.token;
+                          Storage.set_token(token);
+                          print("tokenId: ${Storage.get_token()}");
+                          setState(() {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Home()));
+                            // Get.to(Home());
+                          });
+                          Fluttertoast.showToast(
+                              msg: "Login successful",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.green.shade400,
+                              textColor: Colors.white,
+                              fontSize: 16.0);
+                        } else {
+                          print("invalid credentials");
+                          print("failed msg: ${value["message"]}");
+                          Fluttertoast.showToast(
+                              msg: "Invalid credentials",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.red.shade400,
+                              textColor: Colors.white,
+                              fontSize: 16.0);
+                        }
+                      });
+                    } else {
+                      Fluttertoast.showToast(
+                          msg: "${"Fields cannot be empty"}",
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.BOTTOM,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: Colors.grey,
+                          textColor: Colors.white,
+                          fontSize: 16.0);
+                    }
                   },
                   child: Text(
                     'Sign in',

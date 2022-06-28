@@ -6,6 +6,7 @@ import 'NetworkHelper.dart';
 
 class access {
   static String base_url = 'https://santee.phaico.com/';
+  static String base_url1 = 'https://santee.phaico.com/wp-json/wc/v3/';
 
   // Future<dynamic> login(String email, password,) async {
   //   NetworkHelper helper = NetworkHelper(
@@ -22,6 +23,25 @@ class access {
     NetworkHelper helper = NetworkHelper(base_url + "wp-json/wc/v3/customers");
     var data =
         await helper.signup(firstname, lastname, email, password, username);
+    return data;
+  }
+
+  Future<dynamic> addtocart(String id, product_name, price, quantity) async {
+    NetworkHelper helper = NetworkHelper(base_url + "wp-json/wc/v3/customers");
+    var data = await helper.addtocart(id, product_name, price, quantity);
+    return data;
+  }
+
+  Future<dynamic> login(String username, password) async {
+    NetworkHelper helper =
+        NetworkHelper("https://santee.phaico.com/wp-json/jwt-auth/v1/token");
+    var data = await helper.login(username, password);
+    return data;
+  }
+
+  Future<dynamic> categories() async {
+    NetworkHelper helper = NetworkHelper(base_url1 + "products/categories");
+    var data = await helper.categories();
     return data;
   }
 
