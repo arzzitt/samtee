@@ -166,7 +166,7 @@ class NetworkHelper {
 
   List<AllProductRes> allProductres=[];
 
-  Future<List<AllProductRes>> salesDiscount() async {
+  Future<Object> salesDiscount() async {
     dio = Dio(option1);
 
     try {
@@ -176,18 +176,17 @@ class NetworkHelper {
       };
 
       Response? response = await dio?.get(url, queryParameters: queryParams);
+      String page=response!.headers.value("X-WP-TotalPages")??"1";
+      //print("no of pages:${page}");
+
 
       if (response?.statusCode == 200 || response?.statusCode == 201) {
-        for(Map i in response?.data) {
 
-            allProductres.add(AllProductRes.fromJson(i));
-
-        }
 
 
         print(response?.data);
 
-        return allProductres;
+        return response;
       } else {
         return allProductres;
       }

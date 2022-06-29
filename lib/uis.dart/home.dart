@@ -67,8 +67,15 @@ class _HomeState extends State<Home> {
     access().salesDiscount().then((value)async{
       setState(() {
         // print(value);
+       var pages= value.headers.value("X-WP-TotalPages")??"1";
+        for(Map i in value.data) {
 
-        allProductRes = value;
+          allProductRes.add(AllProductRes.fromJson(i));
+
+        }
+       print("no of pages:${pages}");
+
+        //allProductRes = value;
         loading=false;
         //categRes = (value as List).map((e) => CategoriesResponse.fromJson(e),).toList();
         //categRes = CategoriesResponse.fromJson(value);
@@ -350,7 +357,7 @@ class _HomeState extends State<Home> {
                                       Get.to(secondscreen());
                                     },
                                     child: Text(
-                                      'View price',
+                                      allProductRes[index].price.toString(),
                                       style: TextStyle(),
                                     ),
                                     style: ButtonStyle(
