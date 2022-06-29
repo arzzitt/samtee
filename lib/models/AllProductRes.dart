@@ -227,7 +227,7 @@ class AllProductRes {
     _priceHtml = json['price_html'];
     _onSale = json['on_sale'];
     _purchasable = json['purchasable'];
-    _totalSales = json['total_sales'];
+    _totalSales = int.parse(json['total_sales'].toString());
     _virtual = json['virtual'];
     _downloadable = json['downloadable'];
     // if (json['downloads'] != null) {
