@@ -126,7 +126,7 @@ class ProductDescription {
   late final List<Categories> categories;
   late final List<dynamic> tags;
   late final List<Images> images;
-  late final List<dynamic> attributes;
+  late final List<Attributes> attributes;
   late final List<dynamic> defaultAttributes;
   late final List<dynamic> variations;
   late final List<dynamic> groupedProducts;
@@ -138,13 +138,13 @@ class ProductDescription {
   late final bool hasOptions;
   late final _links links;
 
-  ProductDescription.fromJson(Map<String, dynamic> json) {
+  ProductDescription.fromJson(Map<String, dynamic> json){
     id = json['id'];
     name = json['name'];
     slug = json['slug'];
     permalink = json['permalink'];
-    dateCreated = json['date_created'] ?? '';
-    dateCreatedGmt = json['date_created_gmt'] ?? '';
+    dateCreated = json['date_created'];
+    dateCreatedGmt = json['date_created_gmt'];
     dateModified = json['date_modified'];
     dateModifiedGmt = json['date_modified_gmt'];
     type = json['type'];
@@ -163,7 +163,7 @@ class ProductDescription {
     dateOnSaleToGmt = null;
     onSale = json['on_sale'];
     purchasable = json['purchasable'];
-    totalSales = int.parse(json['total_sales'].toString());
+    totalSales = json['total_sales'];
     virtual = json['virtual'];
     downloadable = json['downloadable'];
     downloads = List.castFrom<dynamic, dynamic>(json['downloads']);
@@ -193,21 +193,17 @@ class ProductDescription {
     crossSellIds = List.castFrom<dynamic, dynamic>(json['cross_sell_ids']);
     parentId = json['parent_id'];
     purchaseNote = json['purchase_note'];
-    categories = List.from(json['categories'])
-        .map((e) => Categories.fromJson(e))
-        .toList();
+    categories = List.from(json['categories']).map((e)=>Categories.fromJson(e)).toList();
     tags = List.castFrom<dynamic, dynamic>(json['tags']);
-    images = List.from(json['images']).map((e) => Images.fromJson(e)).toList();
-    attributes = List.castFrom<dynamic, dynamic>(json['attributes']);
-    defaultAttributes =
-        List.castFrom<dynamic, dynamic>(json['default_attributes']);
+    images = List.from(json['images']).map((e)=>Images.fromJson(e)).toList();
+    attributes = List.from(json['attributes']).map((e)=>Attributes.fromJson(e)).toList();
+    defaultAttributes = List.castFrom<dynamic, dynamic>(json['default_attributes']);
     variations = List.castFrom<dynamic, dynamic>(json['variations']);
     groupedProducts = List.castFrom<dynamic, dynamic>(json['grouped_products']);
     menuOrder = json['menu_order'];
     priceHtml = json['price_html'];
     relatedIds = List.castFrom<dynamic, int>(json['related_ids']);
-    metaData =
-        List.from(json['meta_data']).map((e) => MetaData.fromJson(e)).toList();
+    metaData = List.from(json['meta_data']).map((e)=>MetaData.fromJson(e)).toList();
     stockStatus = json['stock_status'];
     hasOptions = json['has_options'];
     links = _links.fromJson(json['_links']);
@@ -269,17 +265,17 @@ class ProductDescription {
     _data['cross_sell_ids'] = crossSellIds;
     _data['parent_id'] = parentId;
     _data['purchase_note'] = purchaseNote;
-    _data['categories'] = categories.map((e) => e.toJson()).toList();
+    _data['categories'] = categories.map((e)=>e.toJson()).toList();
     _data['tags'] = tags;
-    _data['images'] = images.map((e) => e.toJson()).toList();
-    _data['attributes'] = attributes;
+    _data['images'] = images.map((e)=>e.toJson()).toList();
+    _data['attributes'] = attributes.map((e)=>e.toJson()).toList();
     _data['default_attributes'] = defaultAttributes;
     _data['variations'] = variations;
     _data['grouped_products'] = groupedProducts;
     _data['menu_order'] = menuOrder;
     _data['price_html'] = priceHtml;
     _data['related_ids'] = relatedIds;
-    _data['meta_data'] = metaData.map((e) => e.toJson()).toList();
+    _data['meta_data'] = metaData.map((e)=>e.toJson()).toList();
     _data['stock_status'] = stockStatus;
     _data['has_options'] = hasOptions;
     _data['_links'] = links.toJson();
@@ -297,7 +293,7 @@ class Dimensions {
   late final String width;
   late final String height;
 
-  Dimensions.fromJson(Map<String, dynamic> json) {
+  Dimensions.fromJson(Map<String, dynamic> json){
     length = json['length'];
     width = json['width'];
     height = json['height'];
@@ -322,7 +318,7 @@ class Categories {
   late final String name;
   late final String slug;
 
-  Categories.fromJson(Map<String, dynamic> json) {
+  Categories.fromJson(Map<String, dynamic> json){
     id = json['id'];
     name = json['name'];
     slug = json['slug'];
@@ -357,7 +353,7 @@ class Images {
   late final String name;
   late final String alt;
 
-  Images.fromJson(Map<String, dynamic> json) {
+  Images.fromJson(Map<String, dynamic> json){
     id = json['id'];
     dateCreated = json['date_created'];
     dateCreatedGmt = json['date_created_gmt'];
@@ -382,6 +378,43 @@ class Images {
   }
 }
 
+class Attributes {
+  Attributes({
+    required this.id,
+    required this.name,
+    required this.position,
+    required this.visible,
+    required this.variation,
+    required this.options,
+  });
+  late final int id;
+  late final String name;
+  late final int position;
+  late final bool visible;
+  late final bool variation;
+  late final List<String> options;
+
+  Attributes.fromJson(Map<String, dynamic> json){
+    id = json['id'];
+    name = json['name'];
+    position = json['position'];
+    visible = json['visible'];
+    variation = json['variation'];
+    options = List.castFrom<dynamic, String>(json['options']);
+  }
+
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['id'] = id;
+    _data['name'] = name;
+    _data['position'] = position;
+    _data['visible'] = visible;
+    _data['variation'] = variation;
+    _data['options'] = options;
+    return _data;
+  }
+}
+
 class MetaData {
   MetaData({
     required this.id,
@@ -392,7 +425,7 @@ class MetaData {
   late final String key;
   late final String value;
 
-  MetaData.fromJson(Map<String, dynamic> json) {
+  MetaData.fromJson(Map<String, dynamic> json){
     id = json['id'];
     key = json['key'];
     value = json['value'];
@@ -415,17 +448,15 @@ class _links {
   late final List<Self> self;
   late final List<Collection> collection;
 
-  _links.fromJson(Map<String, dynamic> json) {
-    self = List.from(json['self']).map((e) => Self.fromJson(e)).toList();
-    collection = List.from(json['collection'])
-        .map((e) => Collection.fromJson(e))
-        .toList();
+  _links.fromJson(Map<String, dynamic> json){
+    self = List.from(json['self']).map((e)=>Self.fromJson(e)).toList();
+    collection = List.from(json['collection']).map((e)=>Collection.fromJson(e)).toList();
   }
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
-    _data['self'] = self.map((e) => e.toJson()).toList();
-    _data['collection'] = collection.map((e) => e.toJson()).toList();
+    _data['self'] = self.map((e)=>e.toJson()).toList();
+    _data['collection'] = collection.map((e)=>e.toJson()).toList();
     return _data;
   }
 }
@@ -436,7 +467,7 @@ class Self {
   });
   late final String href;
 
-  Self.fromJson(Map<String, dynamic> json) {
+  Self.fromJson(Map<String, dynamic> json){
     href = json['href'];
   }
 
@@ -453,7 +484,7 @@ class Collection {
   });
   late final String href;
 
-  Collection.fromJson(Map<String, dynamic> json) {
+  Collection.fromJson(Map<String, dynamic> json){
     href = json['href'];
   }
 
