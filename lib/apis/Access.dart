@@ -45,6 +45,12 @@ class access {
     return data;
   }
 
+  Future<dynamic> salesDiscount()async {
+    NetworkHelper helper=NetworkHelper(base_url1+"products");
+    var data = await helper.salesDiscount();
+    return data;
+  }
+
   // Future<dynamic> employeeList(String name) async {
 
   //   NetworkHelper helper = NetworkHelper(base_url + "admin/search/employee",);

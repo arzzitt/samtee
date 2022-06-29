@@ -5,6 +5,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 import 'package:http_parser/http_parser.dart';
+import 'package:login_flow/models/AllProductRes.dart';
+import 'package:login_flow/models/CataegoriesRes.dart';
 
 import '../models/categories_model.dart';
 import '../models/login_model.dart';
@@ -105,7 +107,9 @@ class NetworkHelper {
     }
   }
 
-  Future categories() async {
+  List<CataegoriesRes> cataegoriesres=[];
+
+  Future<List<CataegoriesRes>> categories() async {
     dio = Dio(option1);
     List data = [];
     try {
@@ -117,18 +121,20 @@ class NetworkHelper {
       Response? response = await dio?.get(url, queryParameters: queryParams);
 
       if (response?.statusCode == 200 || response?.statusCode == 201) {
-        List<CategoriesResponse> categRes = [];
-        //print("categRes: $categRes");
+        for(Map i in response?.data){
+          cataegoriesres.add(CataegoriesRes.fromJson(i));
+        }
+
 
         print(response?.data);
 
-        return response?.data;
+        return cataegoriesres;
       } else {
-        return {'success': false, 'message': 'Failed'};
+        return cataegoriesres;
       }
     } on DioError catch (e) {
       print(e.message.toString());
-      return {'success': false, 'message': e.message};
+      return cataegoriesres;
     }
   }
 
@@ -156,5 +162,39 @@ class NetworkHelper {
       print("error: ${e.message.toString()}");
       return {'success': false, 'message': e.message};
     }
+  }
+
+  List<AllProductRes> allProductres=[];
+
+  Future<List<AllProductRes>> salesDiscount() async {
+    dio = Dio(option1);
+
+    try {
+      var queryParams = {
+        "consumer_key": "ck_994a21efc62a2e77a1a8b645e8c5f3b85d7d37e3",
+        "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc"
+      };
+
+      Response? response = await dio?.get(url, queryParameters: queryParams);
+
+      if (response?.statusCode == 200 || response?.statusCode == 201) {
+        for(Map i in response?.data) {
+
+            allProductres.add(AllProductRes.fromJson(i));
+
+        }
+
+
+        print(response?.data);
+
+        return allProductres;
+      } else {
+        return allProductres;
+      }
+    } on DioError catch (e) {
+      print(e.message.toString());
+      return allProductres;
+    }
+
   }
 }
