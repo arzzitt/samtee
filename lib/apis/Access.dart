@@ -56,4 +56,22 @@ class access {
     var data = await helper.product_des();
     return data;
   }
+  Future<dynamic> productCarousel()async {
+    NetworkHelper helper=NetworkHelper(base_url1+"products");
+    var data = await helper.productCarousel();
+    return data;
+  }
+
+  Future<dynamic> categoriesList()async {
+    NetworkHelper helper=NetworkHelper(base_url1+"products/categories");
+    var data = await helper.categoriesList();
+    return data;
+  }
+
+  Future<dynamic> categoriesList1()async {
+    NetworkHelper helper=NetworkHelper(base_url1+"products/categories");
+    var data = await helper.categoriesList1();
+    return data;
+  }
+
 }

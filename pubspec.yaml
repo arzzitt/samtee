@@ -49,6 +49,9 @@ dependencies:
   fluttertoast: ^8.0.9
   http: ^0.13.4
   shared_preferences: ^2.0.15
+  carousel_slider: ^4.1.1
+  getwidget: ^3.0.1
+  flutter_carousel_slider: ^1.0.9
 
 dev_dependencies:
   flutter_test:

@@ -4,6 +4,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
 
 import 'package:login_flow/uis.dart/home.dart';
+import 'package:login_flow/uis.dart/secondscreen.dart';
 
 /// An indicator showing the currently selected page of a PageController
 class DotsIndicator extends AnimatedWidget {
@@ -210,7 +211,7 @@ class boarding1State extends State<boarding1> {
                           borderRadius:
                               BorderRadius.all(Radius.circular(28))))),
                   onPressed: () {
-                    Get.to(Home());
+                    Get.to(secondscreen());
                   },
                   child: Text(
                     'Get started',

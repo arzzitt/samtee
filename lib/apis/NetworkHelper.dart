@@ -8,8 +8,9 @@ import 'package:http_parser/http_parser.dart';
 import 'package:login_flow/models/AllProductRes.dart';
 import 'package:login_flow/models/CataegoriesRes.dart';
 import 'package:login_flow/models/Product_des_model.dart';
+import 'package:login_flow/models/carouselProducts.dart';
 
-import '../models/categories_model.dart';
+import '../models/categoriesList.dart';
 import '../models/login_model.dart';
 import '../storage.dart';
 
@@ -53,6 +54,11 @@ class NetworkHelper {
   //     return {'success': false, 'message': e.message};
   //   }
   // }
+  // BaseOptions option =
+  //     BaseOptions(connectTimeout: 10000, receiveTimeout: 10000, headers: {
+  //   'Content-Type': 'application/json',
+  //   'Authorization': 'Bearer ${Storage.get_token()}',
+  // });
 
   Future signup(String firstname, lastname, email, password, username) async {
     dio = Dio();
@@ -213,5 +219,92 @@ class NetworkHelper {
       print(e.message.toString());
       return allProductres;
     }
+
   }
+
+  List<CarouselProducts> carouselProductsRes=[];
+
+  Future productCarousel() async {
+    dio = Dio(option1);
+    List data = [];
+    try {
+      var queryParams = {
+        "consumer_key": "ck_994a21efc62a2e77a1a8b645e8c5f3b85d7d37e3",
+        "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc",
+        "featured": "true",
+        "status": "publish"
+      };
+
+      Response? response = await dio?.get(url, queryParameters: queryParams);
+
+      if (response?.statusCode == 200 || response?.statusCode == 201) {
+        print(response?.data);
+
+        return response;
+      } else{
+        return {'success': false, 'message': 'Failed'};
+      }
+    } on DioError catch (e) {
+      print("error: ${e.message.toString()}");
+      return {'success': false, 'message': e.message};
+    }
+  }
+
+
+
+  Future categoriesList() async {
+    dio = Dio(option1);
+    List data = [];
+    try {
+      var queryParams = {
+        "consumer_key": "ck_994a21efc62a2e77a1a8b645e8c5f3b85d7d37e3",
+        "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc",
+        "status": "publish"
+      };
+
+      Response? response = await dio?.get(url, queryParameters: queryParams);
+
+      if (response?.statusCode == 200 || response?.statusCode == 201) {
+
+        print(response?.data);
+
+        return response;
+      } else {
+        return {'success': false, 'message': 'Failed'};
+      }
+    } on DioError catch (e) {
+      print("error: ${e.message.toString()}");
+      return {'success': false, 'message': e.message};
+    }
+  }
+
+  Future categoriesList1() async {
+    dio = Dio(option1);
+    List data = [];
+    try {
+      var queryParams = {
+        "consumer_key": "ck_994a21efc62a2e77a1a8b645e8c5f3b85d7d37e3",
+        "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc",
+        "status": "publish",
+        "per_page": Storage.get_categoryTotal()
+      };
+
+      Response? response = await dio?.get(url, queryParameters: queryParams);
+
+      if (response?.statusCode == 200 || response?.statusCode == 201) {
+
+        print(response?.data);
+
+        return response;
+      } else {
+        return {'success': false, 'message': 'Failed'};
+      }
+    } on DioError catch (e) {
+      print("error: ${e.message.toString()}");
+      return {'success': false, 'message': e.message};
+    }
+  }
+
+
+
 }
