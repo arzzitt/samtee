@@ -158,11 +158,10 @@ class _signup_pageState extends State<signup_page> {
             ),
             TextButton(
                 onPressed: () async {
-                  setState(() {
-                    loading = true;
-                  });
-
                   if (email.text.isNotEmpty && password.text.isNotEmpty) {
+                    setState(() {
+                      loading = true;
+                    });
                     access()
                         .signup(firstname.text, lastname.text, email.text,
                             password.text, username.text)
@@ -183,7 +182,7 @@ class _signup_pageState extends State<signup_page> {
                           });
                         } else {
                           Fluttertoast.showToast(
-                              msg: "${"Logged in successfully"}",
+                              msg: "${"Signed up successfully"}",
                               toastLength: Toast.LENGTH_SHORT,
                               gravity: ToastGravity.BOTTOM,
                               timeInSecForIosWeb: 1,
@@ -199,6 +198,15 @@ class _signup_pageState extends State<signup_page> {
                         }
                       },
                     );
+                  } else {
+                    Fluttertoast.showToast(
+                        msg: "${"Field cannot be empty"}",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                        timeInSecForIosWeb: 1,
+                        backgroundColor: Colors.green.shade400,
+                        textColor: Colors.white,
+                        fontSize: 16.0);
                   }
                 },
                 style: ButtonStyle(
