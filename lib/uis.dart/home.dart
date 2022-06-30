@@ -206,21 +206,30 @@ class _HomeState extends State<Home> {
                         child: Column(children: [
                           ClipRRect(
                             borderRadius: BorderRadius.all(Radius.circular(15)),
-                            child: Container(
-                                width: MediaQuery.of(context).size.width,
-                                height: 200,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                                  border: Border.all(),
-                                  color: const Color(0xFF1f4068),
-                                  image: DecorationImage(
-                                    fit: BoxFit.fill,
-                                      image: carProducts.isEmpty?
-                                      AssetImage("lib/images/loading.png"):
-                                      NetworkImage(carProducts[index].images1![0].src.toString(),) as ImageProvider
-                                  )
-                                ),
+                            child: GestureDetector(
+                              onTap:(){
+                    Get.to(PD(
+                    product_id: carProducts[index].id!));
+                    },
 
+
+
+                              child: Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 200,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                                    border: Border.all(),
+                                    color: const Color(0xFF1f4068),
+                                    image: DecorationImage(
+                                      fit: BoxFit.fill,
+                                        image: carProducts.isEmpty?
+                                        AssetImage("lib/images/loading.png"):
+                                        NetworkImage(carProducts[index].images1![0].src.toString(),) as ImageProvider
+                                    )
+                                  ),
+
+                              ),
                             ),
                           )
                         ]
@@ -419,13 +428,16 @@ class _HomeState extends State<Home> {
               categList==null?
                   Center(child: CircularProgressIndicator(),):
               GridView.builder(
+
                 gridDelegate: const
                 SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 6,
-                    mainAxisSpacing: 0),
+                  childAspectRatio: 0.8,
+                    crossAxisCount: 4,
+                    ),
                 shrinkWrap: true,
-                physics: BouncingScrollPhysics(),
+                itemCount:categList.length,
+
+                physics: NeverScrollableScrollPhysics(),
                 itemBuilder: (_, index) => Container(
                   padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
@@ -434,15 +446,19 @@ class _HomeState extends State<Home> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      index <= 8?
+                      index <= categList.length-2?
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
+                        //mainAxisSize: MainAxisSize.min,
                         children: [
                           Container(
-                            width: MediaQuery.of(context).size.width,
-                            height:125,
+                            //color: Colors.black,
+                            width: 40,
+                            height:40,
+
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
+                              shape: BoxShape.circle,
+
                                 color: Color(0xffB67A4F).withOpacity(0.5),
                               // image: DecorationImage(
                               //   image: NetworkImage(categList[index].image.toString())
@@ -450,7 +466,7 @@ class _HomeState extends State<Home> {
                             ),
                           ),
                           SizedBox(height: 10,),
-                          Text(categList[index].name.toString())
+                          Text(categList[index].name.toString(),textAlign: TextAlign.center,style: TextStyle(fontSize: 10),)
                         ],
                       ): GestureDetector(
                         onTap: (){
@@ -459,12 +475,12 @@ class _HomeState extends State<Home> {
                         },
                         child: Container(
                           width: MediaQuery.of(context).size.width,
-                          height:125,
+                          height:25,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: Color(0xffB67A4F).withOpacity(0.5)
                           ),
-                          child: Center(child: Text("view all+",
+                          child: Center(child: Text("View all",
                           style: TextStyle(
                             color: Color(0xffB67A4F)
                           ),),),
@@ -473,7 +489,7 @@ class _HomeState extends State<Home> {
                     ],
                   ),
                 ),
-                itemCount: 10,
+
               ),
 
               // SizedBox(

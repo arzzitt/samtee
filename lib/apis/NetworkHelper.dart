@@ -232,7 +232,8 @@ class NetworkHelper {
         "consumer_key": "ck_994a21efc62a2e77a1a8b645e8c5f3b85d7d37e3",
         "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc",
         "featured": "true",
-        "status": "publish"
+        "status": "publish",
+        "per_page":"61"
       };
 
       Response? response = await dio?.get(url, queryParameters: queryParams);
@@ -259,7 +260,8 @@ class NetworkHelper {
       var queryParams = {
         "consumer_key": "ck_994a21efc62a2e77a1a8b645e8c5f3b85d7d37e3",
         "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc",
-        "status": "publish"
+        "status": "publish",
+        "per_page":30
       };
 
       Response? response = await dio?.get(url, queryParameters: queryParams);
@@ -286,7 +288,7 @@ class NetworkHelper {
         "consumer_key": "ck_994a21efc62a2e77a1a8b645e8c5f3b85d7d37e3",
         "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc",
         "status": "publish",
-        "per_page": Storage.get_categoryTotal()
+        "per_page": "61"
       };
 
       Response? response = await dio?.get(url, queryParameters: queryParams);
