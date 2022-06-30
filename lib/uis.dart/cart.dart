@@ -217,7 +217,7 @@ class _CartState extends State<Cart> {
                                       height: 5,
                                     ),
                                     Text(
-                                      '\$${cartres?[index].items[index].}',
+                                      '\$${cartres?[index].items[index].prices.price}',
                                       style: TextStyle(
                                           color: Colors.red.shade700,
                                           fontWeight: FontWeight.bold,
