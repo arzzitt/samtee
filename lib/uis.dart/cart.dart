@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -48,7 +49,7 @@ class _CartState extends State<Cart> {
   }
 
   bool loading = true;
-  List<CartModel>? cartres;
+  CartModel? cartres;
 
   SharedPreferencesInit() async {
     await Storage.init();
@@ -60,7 +61,7 @@ class _CartState extends State<Cart> {
     SharedPreferencesInit();
     access().getcart().then((value) {
       setState(() {
-        cartres = value;
+        cartres = CartModel.fromJson(value);
         loading = false;
       });
     });
@@ -175,7 +176,7 @@ class _CartState extends State<Cart> {
                       width: MediaQuery.of(context).size.width * 0.3,
                     ),
                     Text(
-                      '${cartres?.length}',
+                      '${cartres?.items.length}',
                       style: TextStyle(
                           color: Colors.red.shade700,
                           fontWeight: FontWeight.bold,
@@ -187,7 +188,7 @@ class _CartState extends State<Cart> {
                 Expanded(
                   child: ListView.builder(
                       padding: const EdgeInsets.all(8),
-                      itemCount: cartres?.length,
+                      itemCount: cartres?.items.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Padding(
                           padding: const EdgeInsets.all(10.0),
@@ -206,7 +207,7 @@ class _CartState extends State<Cart> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      '${cartres?[index].items[index].name}',
+                                      '${cartres?.items[index].name}',
                                       style: TextStyle(
                                           color: HexColor('#B67A4F'),
                                           fontWeight: FontWeight.bold,
@@ -217,7 +218,7 @@ class _CartState extends State<Cart> {
                                       height: 5,
                                     ),
                                     Text(
-                                      '\$${cartres?[index].items[index].prices.price}',
+                                      '\$${cartres?.items[index].prices.price}',
                                       style: TextStyle(
                                           color: Colors.red.shade700,
                                           fontWeight: FontWeight.bold,
@@ -225,8 +226,52 @@ class _CartState extends State<Cart> {
                                           fontFamily: 'Nunito'),
                                     ),
                                     SizedBox(
-                                      height: 5,
-                                    ),
+                                        child: GestureDetector(
+                                            onTap: () {
+                                              access()
+                                                  .removefromcart(
+                                                      cartres!.items[index].key)
+                                                  .then((value) {
+                                                if (value["success"] == false) {
+                                                  Fluttertoast.showToast(
+                                                      msg:
+                                                          "${"Can\'t remove product"}",
+                                                      toastLength:
+                                                          Toast.LENGTH_SHORT,
+                                                      gravity:
+                                                          ToastGravity.BOTTOM,
+                                                      timeInSecForIosWeb: 1,
+                                                      backgroundColor:
+                                                          Colors.red.shade400,
+                                                      textColor: Colors.white,
+                                                      fontSize: 16.0);
+
+                                                  setState(() {
+                                                    loading = false;
+                                                  });
+                                                } else {
+                                                  Fluttertoast.showToast(
+                                                      msg:
+                                                          "${"Product removed"}",
+                                                      toastLength:
+                                                          Toast.LENGTH_SHORT,
+                                                      gravity:
+                                                          ToastGravity.BOTTOM,
+                                                      timeInSecForIosWeb: 1,
+                                                      backgroundColor:
+                                                          Colors.green.shade400,
+                                                      textColor: Colors.white,
+                                                      fontSize: 16.0);
+
+                                                  setState(() {
+                                                    loading = false;
+                                                    Get.to(Cart());
+                                                  });
+                                                }
+                                              });
+                                            },
+                                            child: Icon(Icons.delete,
+                                                color: Colors.red))),
                                     Row(
                                       children: [
                                         // Text(
