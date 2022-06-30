@@ -32,12 +32,12 @@ class CartModel {
   late final List<String> paymentRequirements;
   late final Extensions extensions;
 
-  CartModel.fromJson(Map<String, dynamic> json) {
+  CartModel.fromJson(Map<String, dynamic> json){
     coupons = List.castFrom<dynamic, dynamic>(json['coupons']);
     shippingRates = List.castFrom<dynamic, dynamic>(json['shipping_rates']);
     shippingAddress = ShippingAddress.fromJson(json['shipping_address']);
     billingAddress = BillingAddress.fromJson(json['billing_address']);
-    items = List.from(json['items']).map((e) => Items.fromJson(e)).toList();
+    items = List.from(json['items']).map((e)=>Items.fromJson(e)).toList();
     itemsCount = json['items_count'];
     itemsWeight = json['items_weight'];
     needsPayment = json['needs_payment'];
@@ -46,8 +46,7 @@ class CartModel {
     fees = List.castFrom<dynamic, dynamic>(json['fees']);
     totals = Totals.fromJson(json['totals']);
     errors = List.castFrom<dynamic, dynamic>(json['errors']);
-    paymentRequirements =
-        List.castFrom<dynamic, String>(json['payment_requirements']);
+    paymentRequirements = List.castFrom<dynamic, String>(json['payment_requirements']);
     extensions = Extensions.fromJson(json['extensions']);
   }
 
@@ -57,7 +56,7 @@ class CartModel {
     _data['shipping_rates'] = shippingRates;
     _data['shipping_address'] = shippingAddress.toJson();
     _data['billing_address'] = billingAddress.toJson();
-    _data['items'] = items.map((e) => e.toJson()).toList();
+    _data['items'] = items.map((e)=>e.toJson()).toList();
     _data['items_count'] = itemsCount;
     _data['items_weight'] = itemsWeight;
     _data['needs_payment'] = needsPayment;
@@ -96,7 +95,7 @@ class ShippingAddress {
   late final String country;
   late final String phone;
 
-  ShippingAddress.fromJson(Map<String, dynamic> json) {
+  ShippingAddress.fromJson(Map<String, dynamic> json){
     firstName = json['first_name'];
     lastName = json['last_name'];
     company = json['company'];
@@ -151,7 +150,7 @@ class BillingAddress {
   late final String email;
   late final String phone;
 
-  BillingAddress.fromJson(Map<String, dynamic> json) {
+  BillingAddress.fromJson(Map<String, dynamic> json){
     firstName = json['first_name'];
     lastName = json['last_name'];
     company = json['company'];
@@ -226,7 +225,7 @@ class Items {
   late final String catalogVisibility;
   late final Extensions extensions;
 
-  Items.fromJson(Map<String, dynamic> json) {
+  Items.fromJson(Map<String, dynamic> json){
     key = json['key'];
     id = json['id'];
     quantity = json['quantity'];
@@ -240,7 +239,7 @@ class Items {
     showBackorderBadge = json['show_backorder_badge'];
     soldIndividually = json['sold_individually'];
     permalink = json['permalink'];
-    images = List.from(json['images']).map((e) => Images.fromJson(e)).toList();
+    images = List.from(json['images']).map((e)=>Images.fromJson(e)).toList();
     variation = List.castFrom<dynamic, dynamic>(json['variation']);
     itemData = List.castFrom<dynamic, dynamic>(json['item_data']);
     prices = Prices.fromJson(json['prices']);
@@ -264,7 +263,7 @@ class Items {
     _data['show_backorder_badge'] = showBackorderBadge;
     _data['sold_individually'] = soldIndividually;
     _data['permalink'] = permalink;
-    _data['images'] = images.map((e) => e.toJson()).toList();
+    _data['images'] = images.map((e)=>e.toJson()).toList();
     _data['variation'] = variation;
     _data['item_data'] = itemData;
     _data['prices'] = prices.toJson();
@@ -287,7 +286,7 @@ class QuantityLimits {
   late final int multipleOf;
   late final bool editable;
 
-  QuantityLimits.fromJson(Map<String, dynamic> json) {
+  QuantityLimits.fromJson(Map<String, dynamic> json){
     minimum = json['minimum'];
     maximum = json['maximum'];
     multipleOf = json['multiple_of'];
@@ -322,7 +321,7 @@ class Images {
   late final String name;
   late final String alt;
 
-  Images.fromJson(Map<String, dynamic> json) {
+  Images.fromJson(Map<String, dynamic> json){
     id = json['id'];
     src = json['src'];
     thumbnail = json['thumbnail'];
@@ -373,7 +372,7 @@ class Prices {
   late final String currencySuffix;
   late final RawPrices rawPrices;
 
-  Prices.fromJson(Map<String, dynamic> json) {
+  Prices.fromJson(Map<String, dynamic> json){
     price = json['price'];
     regularPrice = json['regular_price'];
     salePrice = json['sale_price'];
@@ -418,7 +417,7 @@ class RawPrices {
   late final String regularPrice;
   late final String salePrice;
 
-  RawPrices.fromJson(Map<String, dynamic> json) {
+  RawPrices.fromJson(Map<String, dynamic> json){
     precision = json['precision'];
     price = json['price'];
     regularPrice = json['regular_price'];
@@ -461,18 +460,18 @@ class Totals {
   late final String currencyPrefix;
   late final String currencySuffix;
 
-  Totals.fromJson(Map<String, dynamic> json) {
-    lineSubtotal = json['line_subtotal'];
-    lineSubtotalTax = json['line_subtotal_tax'];
-    lineTotal = json['line_total'];
-    lineTotalTax = json['line_total_tax'];
-    currencyCode = json['currency_code'];
-    currencySymbol = json['currency_symbol'];
-    currencyMinorUnit = json['currency_minor_unit'];
-    currencyDecimalSeparator = json['currency_decimal_separator'];
-    currencyThousandSeparator = json['currency_thousand_separator'];
-    currencyPrefix = json['currency_prefix'];
-    currencySuffix = json['currency_suffix'];
+  Totals.fromJson(Map<String, dynamic> json){
+    lineSubtotal = json['line_subtotal']??"";
+    lineSubtotalTax = json['line_subtotal_tax']??"";
+    lineTotal = json['line_total']??"";
+    lineTotalTax = json['line_total_tax']??"";
+    currencyCode = json['currency_code']??"";
+    currencySymbol = json['currency_symbol']??"";
+    currencyMinorUnit = json['currency_minor_unit']??"";
+    currencyDecimalSeparator = json['currency_decimal_separator']??"";
+    currencyThousandSeparator = json['currency_thousand_separator']??"";
+    currencyPrefix = json['currency_prefix']??"";
+    currencySuffix = json['currency_suffix']??"";
   }
 
   Map<String, dynamic> toJson() {

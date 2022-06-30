@@ -147,7 +147,7 @@ class _CartState extends State<Cart> {
               centerTitle: true,
               elevation: 1,
             ),
-            body: Column(
+            body: loading?Center(child: CircularProgressIndicator(),):Column(
               children: [
                 SizedBox(
                   height: 15,

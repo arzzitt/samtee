@@ -33,10 +33,11 @@ class NetworkHelper {
 
   Dio? dio1;
   BaseOptions option2 =
-      BaseOptions(connectTimeout: 10000, receiveTimeout: 10000, headers: {
-    'Content-Type': 'application/json',
+      BaseOptions( headers: {
+    //'Content-Type': 'application/json',
     'Authorization': 'Bearer ${Storage.get_token()}',
-    'Nonce': '${Storage.get_noncetoken()}'
+        'X-Headless-CMS':true,
+     'Nonce': '${Storage.get_noncetoken()}'
   });
 
   // Future login(String email, password) async {
@@ -285,7 +286,7 @@ class NetworkHelper {
   }
 
   Future getcart() async {
-    dio = Dio(option2);
+    dio = Dio(option);
     try {
       Response? response = await dio?.get(url, queryParameters: {
         "consumer_key": "ck_994a21efc62a2e77a1a8b645e8c5f3b85d7d37e3",
@@ -294,6 +295,9 @@ class NetworkHelper {
 
       if (response?.statusCode == 200 || response?.statusCode == 201) {
         print(response?.data);
+        await Storage.init();
+        String? nonce=response!.headers.value("Nonce");
+        Storage.set_noncetoken(nonce??"");
 
         return response!.data;
       } else {

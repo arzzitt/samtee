@@ -113,36 +113,37 @@ class _PDState extends State<PD> {
               access()
                   .addtocart(productDescription!.id, _counter)
                   .then((value) async {
-                // if (value["success"] == false) {
-                //   Fluttertoast.showToast(
-                //       msg: "${"Can\'t add product"}",
-                //       toastLength: Toast.LENGTH_SHORT,
-                //       gravity: ToastGravity.BOTTOM,
-                //       timeInSecForIosWeb: 1,
-                //       backgroundColor: Colors.red.shade400,
-                //       textColor: Colors.white,
-                //       fontSize: 16.0);
+                if (value["success"] == false) {
+                  Fluttertoast.showToast(
+                      msg: "${"Can\'t add product"}",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.BOTTOM,
+                      timeInSecForIosWeb: 1,
+                      backgroundColor: Colors.red.shade400,
+                      textColor: Colors.white,
+                      fontSize: 16.0);
 
-                //   setState(() {
-                //     loading = false;
-                //   });
-                // } else {
-                //   Fluttertoast.showToast(
-                //       msg: "${"Product added to cart"}",
-                //       toastLength: Toast.LENGTH_SHORT,
-                //       gravity: ToastGravity.BOTTOM,
-                //       timeInSecForIosWeb: 1,
-                //       backgroundColor: Colors.green.shade400,
-                //       textColor: Colors.white,
-                //       fontSize: 16.0);
+                  setState(() {
+                    loading = false;
+                  });
+                } else {
+                  Fluttertoast.showToast(
+                      msg: "${"Product added to cart"}",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.BOTTOM,
+                      timeInSecForIosWeb: 1,
+                      backgroundColor: Colors.green.shade400,
+                      textColor: Colors.white,
+                      fontSize: 16.0);
 
-                //   setState(() {
-                //     loading = false;
-                //     Get.to(Cart());
-                //   });
-                // }
+                  setState(() {
+                    loading = false;
+                    Get.to(Cart());
+                  });
+                }
+
               });
-              Get.to(Cart());
+
             },
             child: Text(
               'Add to Cart',

@@ -7,7 +7,7 @@ import 'NetworkHelper.dart';
 class access {
   static String base_url = 'https://santee.phaico.com/';
   static String base_url1 = 'https://santee.phaico.com/wp-json/wc/v3/';
-  static String base_url2 = 'https://santee.phaico.com/wp-json/wc/store/v1/';
+  static String base_url2 = 'https://santee.phaico.com/wp-json/wc/store/';
 
   // Future<dynamic> login(String email, password,) async {
   //   NetworkHelper helper = NetworkHelper(
@@ -78,7 +78,7 @@ class access {
 
   Future<dynamic> addtocart(int id, int quantity) async {
     NetworkHelper helper =
-        NetworkHelper(base_url2 + "cart/add-item?id=$id&quantity=${quantity}");
+        NetworkHelper(base_url2 + "cart/add-item");
     var data = await helper.addtocart(id, quantity);
     return data;
   }
