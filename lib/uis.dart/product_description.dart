@@ -11,12 +11,12 @@ import 'package:line_icons/line_icon.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:login_flow/apis/Access.dart';
 import 'package:login_flow/models/Product_des_model.dart';
+import 'package:login_flow/uis.dart/cart.dart';
 
 class PD extends StatefulWidget {
   const PD({Key? key, required this.product_id}) : super(key: key);
 
   final int product_id;
-
 
   @override
   State<PD> createState() => _PDState();
@@ -108,9 +108,11 @@ class _PDState extends State<PD> {
           padding:
               const EdgeInsets.only(top: 2, bottom: 0, left: 40, right: 40),
           child: TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.to(Cart());
+            },
             child: Text(
-              'Shop now',
+              'Add to Cart',
               style: TextStyle(color: Colors.white),
             ),
             style: ButtonStyle(

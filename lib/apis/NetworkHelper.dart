@@ -31,6 +31,14 @@ class NetworkHelper {
     'Authorization': 'Bearer ${Storage.get_token()}',
   });
 
+  Dio? dio1;
+  BaseOptions option2 =
+      BaseOptions(connectTimeout: 10000, receiveTimeout: 10000, headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ${Storage.get_token()}',
+    'Nonce': '${Storage.get_noncetoken()}'
+  });
+
   // Future login(String email, password) async {
   //   dio = Dio(option);
   //   try {
@@ -165,32 +173,6 @@ class NetworkHelper {
     }
   }
 
-  Future addtocart(String id, product_name, price, quantity) async {
-    dio = Dio();
-    try {
-      Response? response = await dio?.post(url, data: {
-        "id": id,
-        "regular_price": product_name,
-        "sale_price": price,
-        "quantity": quantity
-      }, queryParameters: {
-        "consumer_key": "ck_994a21efc62a2e77a1a8b645e8c5f3b85d7d37e3",
-        "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc"
-      });
-
-      if (response?.statusCode == 200 || response?.statusCode == 201) {
-        print(response?.data);
-
-        return response!.data;
-      } else {
-        return {'success': false, 'message': 'Failed'};
-      }
-    } on DioError catch (e) {
-      print("error: ${e.message.toString()}");
-      return {'success': false, 'message': e.message};
-    }
-  }
-
   List<AllProductRes> allProductres = [];
 
   Future<Object> salesDiscount() async {
@@ -200,8 +182,8 @@ class NetworkHelper {
       var queryParams = {
         "consumer_key": "ck_994a21efc62a2e77a1a8b645e8c5f3b85d7d37e3",
         "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc",
-        "status":"publish",
-        "per_page":"60"
+        "status": "publish",
+        "per_page": "60"
       };
 
       Response? response = await dio?.get(url, queryParameters: queryParams);
@@ -219,10 +201,9 @@ class NetworkHelper {
       print(e.message.toString());
       return allProductres;
     }
-
   }
 
-  List<CarouselProducts> carouselProductsRes=[];
+  List<CarouselProducts> carouselProductsRes = [];
 
   Future productCarousel() async {
     dio = Dio(option1);
@@ -233,7 +214,7 @@ class NetworkHelper {
         "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc",
         "featured": "true",
         "status": "publish",
-        "per_page":"61"
+        "per_page": "61"
       };
 
       Response? response = await dio?.get(url, queryParameters: queryParams);
@@ -242,7 +223,7 @@ class NetworkHelper {
         print(response?.data);
 
         return response;
-      } else{
+      } else {
         return {'success': false, 'message': 'Failed'};
       }
     } on DioError catch (e) {
@@ -250,8 +231,6 @@ class NetworkHelper {
       return {'success': false, 'message': e.message};
     }
   }
-
-
 
   Future categoriesList() async {
     dio = Dio(option1);
@@ -261,13 +240,12 @@ class NetworkHelper {
         "consumer_key": "ck_994a21efc62a2e77a1a8b645e8c5f3b85d7d37e3",
         "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc",
         "status": "publish",
-        "per_page":30
+        "per_page": 30
       };
 
       Response? response = await dio?.get(url, queryParameters: queryParams);
 
       if (response?.statusCode == 200 || response?.statusCode == 201) {
-
         print(response?.data);
 
         return response;
@@ -294,7 +272,6 @@ class NetworkHelper {
       Response? response = await dio?.get(url, queryParameters: queryParams);
 
       if (response?.statusCode == 200 || response?.statusCode == 201) {
-
         print(response?.data);
 
         return response;
@@ -307,6 +284,74 @@ class NetworkHelper {
     }
   }
 
+  Future getcart() async {
+    dio = Dio(option2);
+    try {
+      Response? response = await dio?.get(url, queryParameters: {
+        "consumer_key": "ck_994a21efc62a2e77a1a8b645e8c5f3b85d7d37e3",
+        "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc"
+      });
 
+      if (response?.statusCode == 200 || response?.statusCode == 201) {
+        print(response?.data);
 
+        return response!.data;
+      } else {
+        return {'success': false, ' message': 'Failed'};
+      }
+    } on DioError catch (e) {
+      print("error : ${e.message.toString()}");
+
+      return {'success': false, 'message': e.message};
+    }
+  }
+
+  Future addtocart(int id, String product_name, int price, int quantity) async {
+    dio = Dio(option2);
+    try {
+      Response? response = await dio?.post(url, data: {
+        "id": id,
+        "product_name": product_name,
+        "price": price,
+        "quantity": quantity
+      }, queryParameters: {
+        "consumer_key": "ck_994a21efc62a2e77a1a8b645e8c5f3b85d7d37e3",
+        "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc"
+      });
+
+      if (response?.statusCode == 200 || response?.statusCode == 201) {
+        print(response?.data);
+
+        return response!.data;
+      } else {
+        return {'success': false, 'message': 'Failed'};
+      }
+    } on DioError catch (e) {
+      print("error: ${e.message.toString()}");
+      return {'success': false, 'message': e.message};
+    }
+  }
+
+  Future removefromcart(String key) async {
+    dio = Dio(option2);
+    try {
+      Response? response = await dio?.post(url, data: {
+        "key": key
+      }, queryParameters: {
+        "consumer_key": "ck_994a21efc62a2e77a1a8b645e8c5f3b85d7d37e3",
+        "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc"
+      });
+
+      if (response?.statusCode == 200 || response?.statusCode == 201) {
+        print(response?.data);
+
+        return response!.data;
+      } else {
+        return {'success': false, 'message': 'Failed'};
+      }
+    } on DioError catch (e) {
+      print("error: ${e.message.toString()}");
+      return {'success': false, 'message': e.message};
+    }
+  }
 }

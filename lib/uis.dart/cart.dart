@@ -5,10 +5,17 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:line_icons/line_icon.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:login_flow/apis/Access.dart';
+import 'package:login_flow/models/Product_des_model.dart';
+import 'package:login_flow/models/cartmodel.dart';
 import 'package:login_flow/uis.dart/track_order.dart';
 
+import '../storage.dart';
+
 class Cart extends StatefulWidget {
-  const Cart({Key? key}) : super(key: key);
+  Cart({Key? key}) : super(key: key);
+
+  late int product_id;
 
   @override
   State<Cart> createState() => _CartState();
@@ -38,6 +45,25 @@ class _CartState extends State<Cart> {
       final_price += price[i];
     }
     return final_price;
+  }
+
+  bool loading = true;
+  List<CartModel>? cartres;
+
+  SharedPreferencesInit() async {
+    await Storage.init();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    SharedPreferencesInit();
+    access().getcart().then((value) {
+      setState(() {
+        cartres = value;
+        loading = false;
+      });
+    });
   }
 
   @override
@@ -161,7 +187,7 @@ class _CartState extends State<Cart> {
                 Expanded(
                   child: ListView.builder(
                       padding: const EdgeInsets.all(8),
-                      itemCount: name.length,
+                      itemCount: cartres?.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Padding(
                           padding: const EdgeInsets.all(10.0),
@@ -180,7 +206,7 @@ class _CartState extends State<Cart> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      '${name[index]}',
+                                      '${cartres?[index].items[index].name}',
                                       style: TextStyle(
                                           color: HexColor('#B67A4F'),
                                           fontWeight: FontWeight.bold,
@@ -191,7 +217,7 @@ class _CartState extends State<Cart> {
                                       height: 5,
                                     ),
                                     Text(
-                                      '\$${price[index]}',
+                                      '\$${cartres?[index].items[index].}',
                                       style: TextStyle(
                                           color: Colors.red.shade700,
                                           fontWeight: FontWeight.bold,

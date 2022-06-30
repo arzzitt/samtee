@@ -26,12 +26,6 @@ class access {
     return data;
   }
 
-  Future<dynamic> addtocart(String id, product_name, price, quantity) async {
-    NetworkHelper helper = NetworkHelper(base_url + "wp-json/wc/v3/customers");
-    var data = await helper.addtocart(id, product_name, price, quantity);
-    return data;
-  }
-
   Future<dynamic> login(String username, password) async {
     NetworkHelper helper =
         NetworkHelper("https://santee.phaico.com/wp-json/jwt-auth/v1/token");
@@ -56,22 +50,41 @@ class access {
     var data = await helper.product_des();
     return data;
   }
-  Future<dynamic> productCarousel()async {
-    NetworkHelper helper=NetworkHelper(base_url1+"products");
+
+  Future<dynamic> productCarousel() async {
+    NetworkHelper helper = NetworkHelper(base_url1 + "products");
     var data = await helper.productCarousel();
     return data;
   }
 
-  Future<dynamic> categoriesList()async {
-    NetworkHelper helper=NetworkHelper(base_url1+"products/categories");
+  Future<dynamic> categoriesList() async {
+    NetworkHelper helper = NetworkHelper(base_url1 + "products/categories");
     var data = await helper.categoriesList();
     return data;
   }
 
-  Future<dynamic> categoriesList1()async {
-    NetworkHelper helper=NetworkHelper(base_url1+"products/categories");
+  Future<dynamic> categoriesList1() async {
+    NetworkHelper helper = NetworkHelper(base_url1 + "products/categories");
     var data = await helper.categoriesList1();
     return data;
   }
 
+  Future<dynamic> getcart() async {
+    NetworkHelper helper = NetworkHelper(base_url1 + "cart");
+    var data = await helper.getcart();
+    return data;
+  }
+
+  Future<dynamic> addtocart(
+      int id, String product_name, int price, int quantity) async {
+    NetworkHelper helper = NetworkHelper(base_url1 + "cart/add-item");
+    var data = await helper.addtocart(id, product_name, price, quantity);
+    return data;
+  }
+
+  Future<dynamic> removefromcart(String key) async {
+    NetworkHelper helper = NetworkHelper(base_url1 + "cart/remove-item");
+    var data = await helper.removefromcart(key);
+    return data;
+  }
 }
