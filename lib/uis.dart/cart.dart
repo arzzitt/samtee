@@ -175,7 +175,7 @@ class _CartState extends State<Cart> {
                       width: MediaQuery.of(context).size.width * 0.3,
                     ),
                     Text(
-                      '${name.length}',
+                      '${cartres?.length}',
                       style: TextStyle(
                           color: Colors.red.shade700,
                           fontWeight: FontWeight.bold,
@@ -229,13 +229,13 @@ class _CartState extends State<Cart> {
                                     ),
                                     Row(
                                       children: [
-                                        Text(
-                                          'Size ${color[index]} ${size[index]}',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily: 'Nunito',
-                                              color: HexColor('#B67A4F')),
-                                        ),
+                                        // Text(
+                                        //   'Size ${color[index]} ${size[index]}',
+                                        //   style: TextStyle(
+                                        //       fontWeight: FontWeight.bold,
+                                        //       fontFamily: 'Nunito',
+                                        //       color: HexColor('#B67A4F')),
+                                        // ),
                                         SizedBox(
                                           width: MediaQuery.of(context)
                                                   .size

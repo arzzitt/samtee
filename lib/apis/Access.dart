@@ -75,10 +75,10 @@ class access {
     return data;
   }
 
-  Future<dynamic> addtocart(
-      int id, String product_name, int price, int quantity) async {
-    NetworkHelper helper = NetworkHelper(base_url1 + "cart/add-item");
-    var data = await helper.addtocart(id, product_name, price, quantity);
+  Future<dynamic> addtocart(int id, int quantity) async {
+    NetworkHelper helper =
+        NetworkHelper(base_url1 + "cart/add-item?id=$id&quantity=${quantity}");
+    var data = await helper.addtocart(id, quantity);
     return data;
   }
 

@@ -3,6 +3,7 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:get/get.dart';
 
@@ -52,7 +53,7 @@ class _PDState extends State<PD> {
     );
   }
 
-  int _counter = 0;
+  int _counter = 1;
 
   void _incrementCount() {
     setState(() {
@@ -109,6 +110,38 @@ class _PDState extends State<PD> {
               const EdgeInsets.only(top: 2, bottom: 0, left: 40, right: 40),
           child: TextButton(
             onPressed: () {
+              access()
+                  .addtocart(productDescription!.id, _counter)
+                  .then((value) async {
+                // if (value["success"] == false) {
+                //   Fluttertoast.showToast(
+                //       msg: "${"Can\'t add product"}",
+                //       toastLength: Toast.LENGTH_SHORT,
+                //       gravity: ToastGravity.BOTTOM,
+                //       timeInSecForIosWeb: 1,
+                //       backgroundColor: Colors.red.shade400,
+                //       textColor: Colors.white,
+                //       fontSize: 16.0);
+
+                //   setState(() {
+                //     loading = false;
+                //   });
+                // } else {
+                //   Fluttertoast.showToast(
+                //       msg: "${"Product added to cart"}",
+                //       toastLength: Toast.LENGTH_SHORT,
+                //       gravity: ToastGravity.BOTTOM,
+                //       timeInSecForIosWeb: 1,
+                //       backgroundColor: Colors.green.shade400,
+                //       textColor: Colors.white,
+                //       fontSize: 16.0);
+
+                //   setState(() {
+                //     loading = false;
+                //     Get.to(Cart());
+                //   });
+                // }
+              });
               Get.to(Cart());
             },
             child: Text(

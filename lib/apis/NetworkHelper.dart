@@ -306,13 +306,11 @@ class NetworkHelper {
     }
   }
 
-  Future addtocart(int id, String product_name, int price, int quantity) async {
+  Future addtocart(int id, int quantity) async {
     dio = Dio(option2);
     try {
       Response? response = await dio?.post(url, data: {
         "id": id,
-        "product_name": product_name,
-        "price": price,
         "quantity": quantity
       }, queryParameters: {
         "consumer_key": "ck_994a21efc62a2e77a1a8b645e8c5f3b85d7d37e3",
