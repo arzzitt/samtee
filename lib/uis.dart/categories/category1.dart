@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:line_icons/line_icon.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:login_flow/models/Product_des_model.dart';
+
+import '../product_description.dart';
+import '../profile.dart';
+import 'category2.dart';
 
 class Category_1 extends StatefulWidget {
   const Category_1({Key? key}) : super(key: key);
@@ -20,53 +26,45 @@ class _Category_1State extends State<Category_1> {
           child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Row(
-            children: [
-              TextButton(
-                  onPressed: () {},
-                  child: LineIcon(
-                    LineIcons.home,
-                    color: Colors.grey.shade500,
-                    size: 35,
-                  )),
-              TextButton(
-                  onPressed: () {},
-                  child: LineIcon(
-                    LineIcons.clipboardList,
-                    color: Colors.grey.shade500,
-                    size: 35,
-                  )),
-            ],
-          ),
           TextButton(
               onPressed: () {},
-              child: CircleAvatar(
-                radius: 28,
-                backgroundColor: Colors.blue,
-                child: LineIcon(
-                  LineIcons.plus,
-                  color: Colors.white,
-                  size: 38,
-                ),
+              child: LineIcon(
+                LineIcons.home,
+                color: Colors.grey.shade500,
+                size: 30,
               )),
-          Row(
-            children: [
-              TextButton(
-                  onPressed: () {},
-                  child: LineIcon(
-                    LineIcons.envelope,
-                    color: Colors.grey.shade500,
-                    size: 35,
-                  )),
-              TextButton(
-                  onPressed: () {},
-                  child: LineIcon(
-                    LineIcons.user,
-                    color: Colors.grey.shade500,
-                    size: 35,
-                  ))
-            ],
-          )
+          TextButton(
+              onPressed: () {},
+              child: LineIcon(
+                LineIcons.clipboardList,
+                color: Colors.grey.shade500,
+                size: 30,
+              )),
+          TextButton(
+              onPressed: () {
+                Get.to(Category2());
+              },
+              child: LineIcon(
+                LineIcons.search,
+                color: Colors.grey.shade500,
+                size: 30,
+              )),
+          TextButton(
+              onPressed: () {},
+              child: LineIcon(
+                LineIcons.shoppingBag,
+                color: Colors.grey.shade500,
+                size: 30,
+              )),
+          TextButton(
+              onPressed: () {
+                Get.to(Profile());
+              },
+              child: LineIcon(
+                LineIcons.user,
+                color: Colors.grey.shade500,
+                size: 30,
+              ))
         ],
       )),
       appBar: AppBar(
@@ -74,18 +72,20 @@ class _Category_1State extends State<Category_1> {
         leading: IconButton(
             icon: Icon(
               Icons.arrow_back_ios,
-              color: Colors.black,
+              color: HexColor('#B67A4F'),
             ),
             onPressed: () {
               Get.back();
             }),
         title: Text(
           'Women Bag',
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          style: TextStyle(
+              color: HexColor('#B67A4F'), fontWeight: FontWeight.bold),
         ),
         actions: [
           IconButton(
-              onPressed: () {}, icon: Icon(Icons.search, color: Colors.black))
+              onPressed: () {},
+              icon: Icon(Icons.search, color: HexColor('#B67A4F')))
         ],
         centerTitle: true,
         elevation: 1,
@@ -101,13 +101,14 @@ class _Category_1State extends State<Category_1> {
                   children: [
                     Text('Categories',
                         style: TextStyle(
-                            color: Colors.black, fontWeight: FontWeight.w400)),
+                            color: HexColor('#B67A4F'),
+                            fontWeight: FontWeight.w400)),
                     SizedBox(
                       width: 20,
                     ),
                     Icon(
                       Icons.expand_more,
-                      color: Colors.black,
+                      color: HexColor('#B67A4F'),
                     )
                   ],
                 ),
@@ -120,11 +121,12 @@ class _Category_1State extends State<Category_1> {
                   children: [
                     Icon(
                       Icons.swap_vert,
-                      color: Colors.black,
+                      color: HexColor('#B67A4F'),
                     ),
                     Text('Sort',
                         style: TextStyle(
-                            color: Colors.black, fontWeight: FontWeight.w400)),
+                            color: HexColor('#B67A4F'),
+                            fontWeight: FontWeight.w400)),
                   ],
                 ),
                 style: ButtonStyle(
@@ -134,13 +136,15 @@ class _Category_1State extends State<Category_1> {
                 onPressed: () {},
                 child: Row(
                   children: [
-                    Icon(Icons.filter_alt, color: Colors.black, size: 18),
+                    Icon(Icons.filter_alt,
+                        color: HexColor('#B67A4F'), size: 18),
                     SizedBox(
                       width: 8,
                     ),
                     Text('Filter',
                         style: TextStyle(
-                            color: Colors.black, fontWeight: FontWeight.w400)),
+                            color: HexColor('#B67A4F'),
+                            fontWeight: FontWeight.w400)),
                   ],
                 ),
                 style: ButtonStyle(
@@ -158,13 +162,18 @@ class _Category_1State extends State<Category_1> {
                     children: [
                       Column(
                         children: [
-                          Container(
-                            height: 128,
-                            width: 160,
-                            decoration: BoxDecoration(
-                                color: Colors.grey,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(18))),
+                          GestureDetector(
+                            onTap: () {
+                              Get.to(PD(product_id: 0));
+                            },
+                            child: Container(
+                              height: 128,
+                              width: 160,
+                              decoration: BoxDecoration(
+                                  color: Colors.grey,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(18))),
+                            ),
                           ),
                           SizedBox(
                             height: 8,

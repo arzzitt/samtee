@@ -55,8 +55,14 @@ class _signup_pageState extends State<signup_page> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.05,
+            ),
             CircleAvatar(
               radius: 45,
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.02,
             ),
             Padding(
               padding: const EdgeInsets.only(left: 30, right: 30, top: 10),
@@ -138,6 +144,9 @@ class _signup_pageState extends State<signup_page> {
                         borderSide: BorderSide.none)),
               ),
             ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.02,
+            ),
             Row(
               children: [
                 Checkbox(
@@ -169,7 +178,7 @@ class _signup_pageState extends State<signup_page> {
                       (value) async {
                         if (value["success"] == false) {
                           Fluttertoast.showToast(
-                              msg: "${"Incorrect Email Or Password"}",
+                              msg: "${"Incorrect Email"}",
                               toastLength: Toast.LENGTH_SHORT,
                               gravity: ToastGravity.BOTTOM,
                               timeInSecForIosWeb: 1,
@@ -204,7 +213,7 @@ class _signup_pageState extends State<signup_page> {
                         toastLength: Toast.LENGTH_SHORT,
                         gravity: ToastGravity.BOTTOM,
                         timeInSecForIosWeb: 1,
-                        backgroundColor: Colors.green.shade400,
+                        backgroundColor: Colors.red.shade400,
                         textColor: Colors.white,
                         fontSize: 16.0);
                   }

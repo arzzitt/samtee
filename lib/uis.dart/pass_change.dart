@@ -12,7 +12,9 @@ class Pass_change extends StatefulWidget {
 }
 
 class _Pass_changeState extends State<Pass_change> {
-  bool _isObscure = true;
+  bool _isObscure1 = true;
+  bool _isObscure2 = true;
+  bool _isObscure3 = true;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +50,7 @@ class _Pass_changeState extends State<Pass_change> {
                 borderRadius: BorderRadius.circular(28),
                 color: Colors.grey.shade200),
             child: TextField(
-              obscureText: _isObscure,
+              obscureText: _isObscure1,
               decoration: InputDecoration(
                 hintText: 'Old password',
                 hintStyle: TextStyle(fontFamily: 'Nunito'),
@@ -57,11 +59,11 @@ class _Pass_changeState extends State<Pass_change> {
                     borderSide: BorderSide.none),
                 suffixIcon: IconButton(
                   icon: Icon(
-                    _isObscure ? Icons.visibility : Icons.visibility_off,
+                    _isObscure1 ? Icons.visibility : Icons.visibility_off,
                   ),
                   onPressed: () {
                     setState(() {
-                      _isObscure = !_isObscure;
+                      _isObscure1 = !_isObscure1;
                     });
                   },
                 ),
@@ -81,7 +83,7 @@ class _Pass_changeState extends State<Pass_change> {
                 borderRadius: BorderRadius.circular(28),
                 color: Colors.grey.shade200),
             child: TextField(
-              obscureText: _isObscure,
+              obscureText: _isObscure2,
               decoration: InputDecoration(
                 hintText: 'New password',
                 hintStyle: TextStyle(fontFamily: 'Nunito'),
@@ -90,11 +92,11 @@ class _Pass_changeState extends State<Pass_change> {
                     borderSide: BorderSide.none),
                 suffixIcon: IconButton(
                   icon: Icon(
-                    _isObscure ? Icons.visibility : Icons.visibility_off,
+                    _isObscure2 ? Icons.visibility : Icons.visibility_off,
                   ),
                   onPressed: () {
                     setState(() {
-                      _isObscure = !_isObscure;
+                      _isObscure2 = !_isObscure2;
                     });
                   },
                 ),
@@ -114,7 +116,7 @@ class _Pass_changeState extends State<Pass_change> {
                 borderRadius: BorderRadius.circular(28),
                 color: Colors.grey.shade200),
             child: TextField(
-              obscureText: _isObscure,
+              obscureText: _isObscure3,
               decoration: InputDecoration(
                 hintText: 'Confirm password',
                 hintStyle: TextStyle(fontFamily: 'Nunito'),
@@ -123,11 +125,11 @@ class _Pass_changeState extends State<Pass_change> {
                     borderSide: BorderSide.none),
                 suffixIcon: IconButton(
                   icon: Icon(
-                    _isObscure ? Icons.visibility : Icons.visibility_off,
+                    _isObscure3 ? Icons.visibility : Icons.visibility_off,
                   ),
                   onPressed: () {
                     setState(() {
-                      _isObscure = !_isObscure;
+                      _isObscure3 = !_isObscure3;
                     });
                   },
                 ),

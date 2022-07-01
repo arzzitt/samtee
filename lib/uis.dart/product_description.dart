@@ -45,8 +45,8 @@ class _PDState extends State<PD> {
         style: ButtonStyle(
             padding: MaterialStateProperty.all(EdgeInsets.zero),
             backgroundColor: MaterialStateProperty.all((value == index)
-                ? HexColor('#00c0e5')
-                : HexColor('#00c0e5').withOpacity(0.2)),
+                ? HexColor('#B67A4F')
+                : HexColor('#B67A4F').withOpacity(0.2)),
             shape: MaterialStateProperty.all(RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(80))))),
       ),
@@ -62,7 +62,11 @@ class _PDState extends State<PD> {
   }
 
   void _decrementCount() {
-    setState(() => _counter--);
+    setState(() {
+      if (_counter >= 1) {
+        _counter--;
+      }
+    });
   }
 
   // List<String> name = ['Alexa', 'Bixby'];
@@ -92,11 +96,11 @@ class _PDState extends State<PD> {
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.white.withOpacity(0.2),
         leading: IconButton(
             icon: Icon(
               Icons.arrow_back_ios,
-              color: Colors.black,
+              color: HexColor('#B67A4F'),
             ),
             onPressed: () {
               Get.back();
@@ -141,9 +145,7 @@ class _PDState extends State<PD> {
                     Get.to(Cart());
                   });
                 }
-
               });
-
             },
             child: Text(
               'Add to Cart',
@@ -152,7 +154,7 @@ class _PDState extends State<PD> {
             style: ButtonStyle(
                 padding: MaterialStateProperty.all(
                     EdgeInsets.only(top: 15, bottom: 15, left: 90, right: 90)),
-                backgroundColor: MaterialStateProperty.all(HexColor('#00c0e5')),
+                backgroundColor: MaterialStateProperty.all(HexColor('#B67A4F')),
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(28.0),
@@ -160,7 +162,7 @@ class _PDState extends State<PD> {
           ),
         ),
       ),
-      backgroundColor: Colors.grey,
+      backgroundColor: Colors.white,
       body: loading
           ? Center(child: CircularProgressIndicator(color: HexColor('#B67A4F')))
           : SingleChildScrollView(
@@ -194,55 +196,57 @@ class _PDState extends State<PD> {
                           height: 12,
                         ),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text('\$${productDescription?.price}',
                                 style: TextStyle(
                                     color: Colors.red.shade900,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 22)),
-                            SizedBox(
-                              width: 179,
-                            ),
-                            SizedBox(
-                              height: 35,
-                              width: 35,
-                              child: TextButton(
-                                  style: ButtonStyle(
-                                      padding: MaterialStateProperty.all(
-                                          EdgeInsets.only(right: 1)),
-                                      backgroundColor:
-                                          MaterialStateProperty.all(
-                                              Colors.grey.shade300)),
-                                  onPressed: () {
-                                    _incrementCount();
-                                  },
-                                  child: LineIcon(
-                                    LineIcons.plus,
-                                    color: Colors.black.withOpacity(0.5),
-                                  )),
-                            ),
-                            Container(
-                                height: 35,
-                                width: 45,
-                                child: Center(child: Text('$_counter'))),
-                            SizedBox(
-                              height: 35,
-                              width: 35,
-                              child: TextButton(
-                                  style: ButtonStyle(
-                                      padding: MaterialStateProperty.all(
-                                          EdgeInsets.only(right: 1)),
-                                      backgroundColor:
-                                          MaterialStateProperty.all(
-                                              Colors.grey.shade300)),
-                                  onPressed: () {
-                                    _decrementCount();
-                                  },
-                                  child: LineIcon(
-                                    LineIcons.minus,
-                                    color: Colors.black.withOpacity(0.5),
-                                  )),
-                            ),
+                            Row(
+                              children: [
+                                SizedBox(
+                                  height: 35,
+                                  width: 35,
+                                  child: TextButton(
+                                      style: ButtonStyle(
+                                          padding: MaterialStateProperty.all(
+                                              EdgeInsets.only(right: 1)),
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  Colors.grey.shade300)),
+                                      onPressed: () {
+                                        _incrementCount();
+                                      },
+                                      child: LineIcon(
+                                        LineIcons.plus,
+                                        color: Colors.black.withOpacity(0.5),
+                                      )),
+                                ),
+                                Container(
+                                    height: 35,
+                                    width: 45,
+                                    child: Center(child: Text('$_counter'))),
+                                SizedBox(
+                                  height: 35,
+                                  width: 35,
+                                  child: TextButton(
+                                      style: ButtonStyle(
+                                          padding: MaterialStateProperty.all(
+                                              EdgeInsets.only(right: 1)),
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  Colors.grey.shade300)),
+                                      onPressed: () {
+                                        _decrementCount();
+                                      },
+                                      child: LineIcon(
+                                        LineIcons.minus,
+                                        color: Colors.black.withOpacity(0.5),
+                                      )),
+                                ),
+                              ],
+                            )
                           ],
                         ),
                         SizedBox(

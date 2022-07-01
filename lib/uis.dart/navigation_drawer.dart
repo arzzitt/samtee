@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:login_flow/uis.dart/categories/category1.dart';
 
 class navigationDrawer extends StatefulWidget {
   @override
@@ -84,20 +85,25 @@ class _navigationDrawerState extends State<navigationDrawer> {
                                     child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Row(
-                                      children: [
-                                        Icon(
-                                          Icons.arrow_right,
-                                          color: HexColor('#B67A4F'),
-                                        ),
-                                        Text(
-                                          '${items[index]}',
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              fontFamily: 'Nunito',
-                                              color: HexColor('#B67A4F')),
-                                        ),
-                                      ],
+                                    GestureDetector(
+                                      onTap: () {
+                                        Get.to(Category_1());
+                                      },
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.arrow_right,
+                                            color: HexColor('#B67A4F'),
+                                          ),
+                                          Text(
+                                            '${items[index]}',
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                fontFamily: 'Nunito',
+                                                color: HexColor('#B67A4F')),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                     SizedBox(
                                       height: 5,

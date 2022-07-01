@@ -90,7 +90,7 @@ class _CartState extends State<Cart> {
                           ),
                         ),
                         Text(
-                          '\$23',
+                          '\$',
                           style: TextStyle(
                               color: Colors.red.shade700,
                               fontSize: 18,
@@ -147,227 +147,240 @@ class _CartState extends State<Cart> {
               centerTitle: true,
               elevation: 1,
             ),
-            body: loading?Center(child: CircularProgressIndicator(),):Column(
-              children: [
-                SizedBox(
-                  height: 15,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircleAvatar(
-                      backgroundColor: HexColor('#B67A4F'),
-                      radius: 20,
-                      child: LineIcon(
-                        LineIcons.shoppingCart,
-                        color: Colors.white,
+            body: loading
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : Column(
+                    children: [
+                      SizedBox(
+                        height: 15,
                       ),
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Text('In your Cart',
-                        style: TextStyle(
-                            color: HexColor('#B67A4F'),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            fontFamily: 'Nunito')),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.3,
-                    ),
-                    Text(
-                      '${cartres?.items.length}',
-                      style: TextStyle(
-                          color: Colors.red.shade700,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          fontFamily: 'Nunito'),
-                    )
-                  ],
-                ),
-                Expanded(
-                  child: ListView.builder(
-                      padding: const EdgeInsets.all(8),
-                      itemCount: cartres?.items.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Container(
-                            child: Row(
-                              children: [
-                                Container(
-                                  height: 80,
-                                  width: 100,
-                                  color: Colors.grey,
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      '${cartres?.items[index].name}',
-                                      style: TextStyle(
-                                          color: HexColor('#B67A4F'),
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18,
-                                          fontFamily: 'Nunito'),
-                                    ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      '\$${cartres?.items[index].prices.price}',
-                                      style: TextStyle(
-                                          color: Colors.red.shade700,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18,
-                                          fontFamily: 'Nunito'),
-                                    ),
-                                    SizedBox(
-                                        child: GestureDetector(
-                                            onTap: () {
-                                              access()
-                                                  .removefromcart(
-                                                      cartres!.items[index].key)
-                                                  .then((value) {
-                                                if (value["success"] == false) {
-                                                  Fluttertoast.showToast(
-                                                      msg:
-                                                          "${"Can\'t remove product"}",
-                                                      toastLength:
-                                                          Toast.LENGTH_SHORT,
-                                                      gravity:
-                                                          ToastGravity.BOTTOM,
-                                                      timeInSecForIosWeb: 1,
-                                                      backgroundColor:
-                                                          Colors.red.shade400,
-                                                      textColor: Colors.white,
-                                                      fontSize: 16.0);
-
-                                                  setState(() {
-                                                    loading = false;
-                                                  });
-                                                } else {
-                                                  Fluttertoast.showToast(
-                                                      msg:
-                                                          "${"Product removed"}",
-                                                      toastLength:
-                                                          Toast.LENGTH_SHORT,
-                                                      gravity:
-                                                          ToastGravity.BOTTOM,
-                                                      timeInSecForIosWeb: 1,
-                                                      backgroundColor:
-                                                          Colors.green.shade400,
-                                                      textColor: Colors.white,
-                                                      fontSize: 16.0);
-
-                                                  setState(() {
-                                                    loading = false;
-                                                    Get.to(Cart());
-                                                  });
-                                                }
-                                              });
-                                            },
-                                            child: Icon(Icons.delete,
-                                                color: Colors.red))),
-                                    Row(
-                                      children: [
-                                        // Text(
-                                        //   'Size ${color[index]} ${size[index]}',
-                                        //   style: TextStyle(
-                                        //       fontWeight: FontWeight.bold,
-                                        //       fontFamily: 'Nunito',
-                                        //       color: HexColor('#B67A4F')),
-                                        // ),
-                                        SizedBox(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.2,
-                                        ),
-                                        Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.end,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            SizedBox(
-                                              height: 20,
-                                              width: 20,
-                                              child: TextButton(
-                                                  style: ButtonStyle(
-                                                      padding:
-                                                          MaterialStateProperty
-                                                              .all(EdgeInsets
-                                                                  .only(
-                                                                      right:
-                                                                          1)),
-                                                      backgroundColor:
-                                                          MaterialStateProperty
-                                                              .all(HexColor(
-                                                                      '#B67A4F')
-                                                                  .withOpacity(
-                                                                      0.2))),
-                                                  onPressed: () {
-                                                    _incrementCount();
-                                                  },
-                                                  child: LineIcon(
-                                                    LineIcons.plus,
-                                                    color: HexColor('#B67A4F'),
-                                                    size: 20,
-                                                  )),
-                                            ),
-                                            SizedBox(
-                                              height: 20,
-                                              width: 20,
-                                              child: Center(
-                                                  child: Text(
-                                                '$_counter',
-                                                style: TextStyle(
-                                                    color: HexColor('#B67A4F')),
-                                              )),
-                                            ),
-                                            SizedBox(
-                                              height: 20,
-                                              width: 20,
-                                              child: TextButton(
-                                                  style: ButtonStyle(
-                                                      padding:
-                                                          MaterialStateProperty
-                                                              .all(EdgeInsets
-                                                                  .only(
-                                                                      right:
-                                                                          1)),
-                                                      backgroundColor:
-                                                          MaterialStateProperty
-                                                              .all(HexColor(
-                                                                      '#B67A4F')
-                                                                  .withOpacity(
-                                                                      0.2))),
-                                                  onPressed: () {
-                                                    _decrementCount();
-                                                  },
-                                                  child: LineIcon(
-                                                    LineIcons.minus,
-                                                    color: HexColor('#B67A4F'),
-                                                    size: 20,
-                                                  )),
-                                            ),
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                  ],
-                                )
-                              ],
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CircleAvatar(
+                            backgroundColor: HexColor('#B67A4F'),
+                            radius: 20,
+                            child: LineIcon(
+                              LineIcons.shoppingCart,
+                              color: Colors.white,
                             ),
                           ),
-                        );
-                      }),
-                )
-              ],
-            )));
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Text('In your Cart',
+                              style: TextStyle(
+                                  color: HexColor('#B67A4F'),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                  fontFamily: 'Nunito')),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.3,
+                          ),
+                          Text(
+                            '${cartres?.items.length}',
+                            style: TextStyle(
+                                color: Colors.red.shade700,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                                fontFamily: 'Nunito'),
+                          )
+                        ],
+                      ),
+                      Expanded(
+                        child: ListView.builder(
+                            padding: const EdgeInsets.all(8),
+                            itemCount: cartres?.items.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Container(
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        height: 80,
+                                        width: 100,
+                                        color: Colors.grey,
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            '${cartres?.items[index].name}',
+                                            style: TextStyle(
+                                                color: HexColor('#B67A4F'),
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 18,
+                                                fontFamily: 'Nunito'),
+                                          ),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                          Text(
+                                            '\$${cartres?.items[index].prices.price}',
+                                            style: TextStyle(
+                                                color: Colors.red.shade700,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 18,
+                                                fontFamily: 'Nunito'),
+                                          ),
+                                          SizedBox(
+                                              child: GestureDetector(
+                                                  onTap: () {
+                                                    access()
+                                                        .removefromcart(cartres!
+                                                            .items[index].key)
+                                                        .then((value) {
+                                                      if (value["success"] ==
+                                                          false) {
+                                                        Fluttertoast.showToast(
+                                                            msg:
+                                                                "${"Can\'t remove product"}",
+                                                            toastLength: Toast
+                                                                .LENGTH_SHORT,
+                                                            gravity:
+                                                                ToastGravity
+                                                                    .BOTTOM,
+                                                            timeInSecForIosWeb:
+                                                                1,
+                                                            backgroundColor:
+                                                                Colors.red
+                                                                    .shade400,
+                                                            textColor:
+                                                                Colors.white,
+                                                            fontSize: 16.0);
+
+                                                        setState(() {
+                                                          loading = false;
+                                                        });
+                                                      } else {
+                                                        Fluttertoast.showToast(
+                                                            msg:
+                                                                "${"Product removed"}",
+                                                            toastLength: Toast
+                                                                .LENGTH_SHORT,
+                                                            gravity:
+                                                                ToastGravity
+                                                                    .BOTTOM,
+                                                            timeInSecForIosWeb:
+                                                                1,
+                                                            backgroundColor:
+                                                                Colors.green
+                                                                    .shade400,
+                                                            textColor:
+                                                                Colors.white,
+                                                            fontSize: 16.0);
+
+                                                        setState(() {
+                                                          loading = false;
+                                                          Get.to(Cart());
+                                                        });
+                                                      }
+                                                    });
+                                                  },
+                                                  child: Icon(Icons.delete,
+                                                      color: Colors.red))),
+                                          Row(
+                                            children: [
+                                              // Text(
+                                              //   'Size ${color[index]} ${size[index]}',
+                                              //   style: TextStyle(
+                                              //       fontWeight: FontWeight.bold,
+                                              //       fontFamily: 'Nunito',
+                                              //       color: HexColor('#B67A4F')),
+                                              // ),
+                                              SizedBox(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.2,
+                                              ),
+                                              Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.end,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                children: [
+                                                  SizedBox(
+                                                    height: 20,
+                                                    width: 20,
+                                                    child: TextButton(
+                                                        style: ButtonStyle(
+                                                            padding: MaterialStateProperty
+                                                                .all(EdgeInsets
+                                                                    .only(
+                                                                        right:
+                                                                            1)),
+                                                            backgroundColor: MaterialStateProperty
+                                                                .all(HexColor(
+                                                                        '#B67A4F')
+                                                                    .withOpacity(
+                                                                        0.2))),
+                                                        onPressed: () {
+                                                          _incrementCount();
+                                                        },
+                                                        child: LineIcon(
+                                                          LineIcons.plus,
+                                                          color: HexColor(
+                                                              '#B67A4F'),
+                                                          size: 20,
+                                                        )),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 20,
+                                                    width: 20,
+                                                    child: Center(
+                                                        child: Text(
+                                                      '$_counter',
+                                                      style: TextStyle(
+                                                          color: HexColor(
+                                                              '#B67A4F')),
+                                                    )),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 20,
+                                                    width: 20,
+                                                    child: TextButton(
+                                                        style: ButtonStyle(
+                                                            padding: MaterialStateProperty
+                                                                .all(EdgeInsets
+                                                                    .only(
+                                                                        right:
+                                                                            1)),
+                                                            backgroundColor: MaterialStateProperty
+                                                                .all(HexColor(
+                                                                        '#B67A4F')
+                                                                    .withOpacity(
+                                                                        0.2))),
+                                                        onPressed: () {
+                                                          _decrementCount();
+                                                        },
+                                                        child: LineIcon(
+                                                          LineIcons.minus,
+                                                          color: HexColor(
+                                                              '#B67A4F'),
+                                                          size: 20,
+                                                        )),
+                                                  ),
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              );
+                            }),
+                      )
+                    ],
+                  )));
   }
 }

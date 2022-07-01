@@ -109,7 +109,10 @@ class _ProfileState extends State<Profile> {
                       SizedBox(
                         height: 5,
                       ),
-                      Text('Following')
+                      Text(
+                        'Shared',
+                        style: TextStyle(color: HexColor('#B67A4F')),
+                      )
                     ],
                   ),
                   Column(
@@ -125,7 +128,8 @@ class _ProfileState extends State<Profile> {
                       SizedBox(
                         height: 5,
                       ),
-                      Text('Wish List')
+                      Text('Wish List',
+                          style: TextStyle(color: HexColor('#B67A4F')))
                     ],
                   ),
                   Column(
@@ -141,7 +145,8 @@ class _ProfileState extends State<Profile> {
                       SizedBox(
                         height: 5,
                       ),
-                      Text('Viewed')
+                      Text('Viewed',
+                          style: TextStyle(color: HexColor('#B67A4F')))
                     ],
                   ),
                   SizedBox(

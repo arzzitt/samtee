@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:http/http.dart';
 
 import 'package:login_flow/uis.dart/home.dart';
 import 'package:login_flow/uis.dart/signup_page.dart';
@@ -22,6 +23,7 @@ class _SigninState extends State<Signin> {
   bool valuefirst = false;
   TextEditingController userNameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  bool loading = false;
 
   SharedPreferencesInit() async {
     await Storage.init();
@@ -127,6 +129,9 @@ class _SigninState extends State<Signin> {
                   onPressed: () async {
                     if (userNameController.text.isNotEmpty &&
                         passwordController.text.isNotEmpty) {
+                      setState(() {
+                        loading = true;
+                      });
                       access()
                           .login(
                               userNameController.text, passwordController.text)
@@ -137,13 +142,7 @@ class _SigninState extends State<Signin> {
                           final token = loginRes.data.token;
                           Storage.set_token(token);
                           print("tokenId: ${Storage.get_token()}");
-                          setState(() {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Home()));
-                            // Get.to(Home());
-                          });
+
                           Fluttertoast.showToast(
                               msg: "Login successful",
                               toastLength: Toast.LENGTH_SHORT,
@@ -152,6 +151,10 @@ class _SigninState extends State<Signin> {
                               backgroundColor: Colors.green.shade400,
                               textColor: Colors.white,
                               fontSize: 16.0);
+                          setState(() {
+                            loading = false;
+                            Get.to(Home());
+                          });
                         } else {
                           print("invalid credentials");
                           print("failed msg: ${value["message"]}");
@@ -163,6 +166,9 @@ class _SigninState extends State<Signin> {
                               backgroundColor: Colors.red.shade400,
                               textColor: Colors.white,
                               fontSize: 16.0);
+                          setState(() {
+                            loading = false;
+                          });
                         }
                       });
                     } else {
@@ -176,10 +182,18 @@ class _SigninState extends State<Signin> {
                           fontSize: 16.0);
                     }
                   },
-                  child: Text(
-                    'Sign in',
-                    style: TextStyle(color: Colors.white, fontFamily: 'Nunito'),
-                  ),
+                  child: loading
+                      ? Container(
+                          height: MediaQuery.of(context).size.height * 0.02,
+                          width: MediaQuery.of(context).size.height * 0.02,
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                          ))
+                      : Text(
+                          'Sign in',
+                          style: TextStyle(
+                              color: Colors.white, fontFamily: 'Nunito'),
+                        ),
                   style: ButtonStyle(
                       padding: MaterialStateProperty.all(EdgeInsets.only(
                           top: 10, bottom: 10, left: 90, right: 90)),

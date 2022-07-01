@@ -62,7 +62,7 @@ class _secondscreenState extends State<secondscreen> {
                     Get.to(Signin());
                   },
                   child: Text(
-                    'Continue with Email',
+                    'Sign in',
                     style: TextStyle(
                         color: HexColor('#B67A4F'),
                         fontWeight: FontWeight.w700,
@@ -81,23 +81,15 @@ class _secondscreenState extends State<secondscreen> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(28)))),
                   onPressed: () {
-                    Get.to(login_phone());
+                    Get.to(signup_page());
                   },
                   child: Text(
-                    'Continue with Phone number',
+                    'Register',
                     style: TextStyle(
                         color: HexColor('#B67A4F'),
                         fontWeight: FontWeight.w700,
                         fontFamily: 'Nunito'),
                   )),
-              TextButton(
-                  onPressed: () {
-                    Get.to(signup_page());
-                  },
-                  child: Text(
-                    'Don\'t have an account ? Register',
-                    style: TextStyle(color: Colors.white, fontFamily: 'Nunito'),
-                  ))
             ],
           ),
         ),

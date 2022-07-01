@@ -122,6 +122,9 @@ class boarding1State extends State<boarding1> {
                     fontSize: 15,
                     fontFamily: 'Nunito'),
               ),
+              SizedBox(
+                height: 20,
+              )
             ],
           ),
         ),
@@ -162,6 +165,9 @@ class boarding1State extends State<boarding1> {
                     fontSize: 15,
                     fontFamily: 'Nunito'),
               ),
+              SizedBox(
+                height: 20,
+              )
             ],
           ),
         ),
@@ -220,6 +226,9 @@ class boarding1State extends State<boarding1> {
                         fontWeight: FontWeight.w700,
                         fontFamily: 'Nunito'),
                   )),
+              SizedBox(
+                height: 8,
+              )
             ],
           ),
         ),

@@ -149,7 +149,7 @@ class _forgot_passwordState extends State<forgot_password> {
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Text(
-                                      'An email has been sent to \n   follow instructions to \n    reset your password',
+                                      'An email has been sent \n   follow instructions to \n    reset your password',
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 15,
