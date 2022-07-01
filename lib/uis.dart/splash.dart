@@ -1,7 +1,7 @@
 import 'package:easy_splash_screen/easy_splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:login_flow/uis.dart/boarding/onBoardingScrenMain.dart';
 import 'package:login_flow/uis.dart/home.dart';
-import 'package:login_flow/uis.dart/onboarding_1.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class Splash extends StatefulWidget {
@@ -20,7 +20,7 @@ class _SplashState extends State<Splash> {
         logo: Image.asset('lib/images/logo.png'),
         backgroundColor: HexColor('#B67A4F'),
         showLoader: false,
-        navigator: boarding1(),
+        navigator: OnBoardingScreenMain(),
         durationInSeconds: 5,
         logoSize: 100,
       )),

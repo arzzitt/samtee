@@ -60,6 +60,7 @@ class _signup_pageState extends State<signup_page> {
             ),
             CircleAvatar(
               radius: 45,
+              child: Icon(Icons.person),
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.02,

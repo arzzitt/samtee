@@ -167,12 +167,25 @@ class _PDState extends State<PD> {
           ? Center(child: CircularProgressIndicator(color: HexColor('#B67A4F')))
           : SingleChildScrollView(
               child: Column(children: [
-                Container(
+                SizedBox(
                   height: 526,
-                  width: 375,
-                  child: Image(
-                      image:
-                          NetworkImage('${productDescription?.images[0].src}')),
+                  child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      padding: const EdgeInsets.all(8),
+                      itemCount: productDescription?.images.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Row(
+                          children: [
+                            Container(
+                              height: 526,
+                              width: 375,
+                              child: Image(
+                                  image: NetworkImage(
+                                      '${productDescription?.images[index].src}')),
+                            ),
+                          ],
+                        );
+                      }),
                 ),
                 Expanded(
                   flex: 0,

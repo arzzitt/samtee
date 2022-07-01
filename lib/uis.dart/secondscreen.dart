@@ -23,11 +23,11 @@ class _secondscreenState extends State<secondscreen> {
             body: Column(
       children: [
         SizedBox(
-          height: 463,
+          height: MediaQuery.of(context).size.height * 0.579,
         ),
         Container(
-          height: 300,
-          width: 400,
+          height: MediaQuery.of(context).size.height * 0.375,
+          width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
               color: HexColor('#B67A4F'),
               borderRadius: BorderRadius.only(
@@ -47,7 +47,7 @@ class _secondscreenState extends State<secondscreen> {
                     fontFamily: 'Nunito'),
               ),
               SizedBox(
-                height: 25,
+                height: 45,
               ),
               ElevatedButton(
                   style: ElevatedButton.styleFrom(
