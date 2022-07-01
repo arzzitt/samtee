@@ -32,12 +32,11 @@ class NetworkHelper {
   });
 
   Dio? dio1;
-  BaseOptions option2 =
-      BaseOptions( headers: {
+  BaseOptions option2 = BaseOptions(headers: {
     //'Content-Type': 'application/json',
     'Authorization': 'Bearer ${Storage.get_token()}',
-        'X-Headless-CMS':true,
-     'Nonce': '${Storage.get_noncetoken()}'
+    'X-Headless-CMS': true,
+    'Nonce': '${Storage.get_noncetoken()}'
   });
 
   // Future login(String email, password) async {
@@ -296,8 +295,8 @@ class NetworkHelper {
       if (response?.statusCode == 200 || response?.statusCode == 201) {
         print(response?.data);
         await Storage.init();
-        String? nonce=response!.headers.value("Nonce");
-        Storage.set_noncetoken(nonce??"");
+        String? nonce = response!.headers.value("Nonce");
+        Storage.set_noncetoken(nonce ?? "");
 
         return response!.data;
       } else {
@@ -339,6 +338,30 @@ class NetworkHelper {
     try {
       Response? response = await dio?.post(url, data: {
         "key": key
+      }, queryParameters: {
+        "consumer_key": "ck_994a21efc62a2e77a1a8b645e8c5f3b85d7d37e3",
+        "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc"
+      });
+
+      if (response?.statusCode == 200 || response?.statusCode == 201) {
+        print(response?.data);
+
+        return response!.data;
+      } else {
+        return {'success': false, 'message': 'Failed'};
+      }
+    } on DioError catch (e) {
+      print("error: ${e.message.toString()}");
+      return {'success': false, 'message': e.message};
+    }
+  }
+
+  Future updatecart(int key, int quantity) async {
+    dio = Dio(option2);
+    try {
+      Response? response = await dio?.post(url, data: {
+        "key": key,
+        "quantity": quantity
       }, queryParameters: {
         "consumer_key": "ck_994a21efc62a2e77a1a8b645e8c5f3b85d7d37e3",
         "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc"

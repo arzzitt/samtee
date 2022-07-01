@@ -324,6 +324,65 @@ class _CartState extends State<Cart> {
                                                                         0.2))),
                                                         onPressed: () {
                                                           _incrementCount();
+
+                                                          access()
+                                                              .updateitem(
+                                                                  cartres!
+                                                                      .items[
+                                                                          index]
+                                                                      .id,
+                                                                  cartres!
+                                                                      .items[
+                                                                          index]
+                                                                      .quantity)
+                                                              .then((value) {
+                                                            if (value[
+                                                                    "success"] ==
+                                                                false) {
+                                                              Fluttertoast.showToast(
+                                                                  msg:
+                                                                      "${"Failed"}",
+                                                                  toastLength: Toast
+                                                                      .LENGTH_SHORT,
+                                                                  gravity:
+                                                                      ToastGravity
+                                                                          .BOTTOM,
+                                                                  timeInSecForIosWeb:
+                                                                      1,
+                                                                  backgroundColor:
+                                                                      Colors.red
+                                                                          .shade400,
+                                                                  textColor:
+                                                                      Colors
+                                                                          .white,
+                                                                  fontSize:
+                                                                      16.0);
+                                                            } else {
+                                                              if (value[
+                                                                      "success"] ==
+                                                                  true) {
+                                                                Fluttertoast.showToast(
+                                                                    msg:
+                                                                        "${"Cart updated"}",
+                                                                    toastLength:
+                                                                        Toast
+                                                                            .LENGTH_SHORT,
+                                                                    gravity: ToastGravity
+                                                                        .BOTTOM,
+                                                                    timeInSecForIosWeb:
+                                                                        1,
+                                                                    backgroundColor:
+                                                                        Colors
+                                                                            .red
+                                                                            .shade400,
+                                                                    textColor:
+                                                                        Colors
+                                                                            .white,
+                                                                    fontSize:
+                                                                        16.0);
+                                                              }
+                                                            }
+                                                          });
                                                         },
                                                         child: LineIcon(
                                                           LineIcons.plus,
@@ -360,6 +419,64 @@ class _CartState extends State<Cart> {
                                                                         0.2))),
                                                         onPressed: () {
                                                           _decrementCount();
+                                                          access()
+                                                              .updateitem(
+                                                                  cartres!
+                                                                      .items[
+                                                                          index]
+                                                                      .id,
+                                                                  cartres!
+                                                                      .items[
+                                                                          index]
+                                                                      .quantity)
+                                                              .then((value) {
+                                                            if (value[
+                                                                    "success"] ==
+                                                                false) {
+                                                              Fluttertoast.showToast(
+                                                                  msg:
+                                                                      "${"Failed"}",
+                                                                  toastLength: Toast
+                                                                      .LENGTH_SHORT,
+                                                                  gravity:
+                                                                      ToastGravity
+                                                                          .BOTTOM,
+                                                                  timeInSecForIosWeb:
+                                                                      1,
+                                                                  backgroundColor:
+                                                                      Colors.red
+                                                                          .shade400,
+                                                                  textColor:
+                                                                      Colors
+                                                                          .white,
+                                                                  fontSize:
+                                                                      16.0);
+                                                            } else {
+                                                              if (value[
+                                                                      "success"] ==
+                                                                  true) {
+                                                                Fluttertoast.showToast(
+                                                                    msg:
+                                                                        "${"Cart updated"}",
+                                                                    toastLength:
+                                                                        Toast
+                                                                            .LENGTH_SHORT,
+                                                                    gravity: ToastGravity
+                                                                        .BOTTOM,
+                                                                    timeInSecForIosWeb:
+                                                                        1,
+                                                                    backgroundColor:
+                                                                        Colors
+                                                                            .red
+                                                                            .shade400,
+                                                                    textColor:
+                                                                        Colors
+                                                                            .white,
+                                                                    fontSize:
+                                                                        16.0);
+                                                              }
+                                                            }
+                                                          });
                                                         },
                                                         child: LineIcon(
                                                           LineIcons.minus,

@@ -77,8 +77,7 @@ class access {
   }
 
   Future<dynamic> addtocart(int id, int quantity) async {
-    NetworkHelper helper =
-        NetworkHelper(base_url2 + "cart/add-item");
+    NetworkHelper helper = NetworkHelper(base_url2 + "cart/add-item");
     var data = await helper.addtocart(id, quantity);
     return data;
   }
@@ -87,6 +86,13 @@ class access {
     NetworkHelper helper =
         NetworkHelper(base_url2 + "cart/remove-item?key=$key");
     var data = await helper.removefromcart(key);
+    return data;
+  }
+
+  Future<dynamic> updateitem(int key, int quantity) async {
+    NetworkHelper helper = NetworkHelper(
+        base_url2 + "cart/update-item?key=$key&quantity=$quantity");
+    var data = await helper.updatecart(key, quantity);
     return data;
   }
 }

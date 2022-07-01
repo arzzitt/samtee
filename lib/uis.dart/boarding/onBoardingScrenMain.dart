@@ -73,7 +73,7 @@ class _OnBoardingScreenMainState extends State<OnBoardingScreenMain> {
                         );
                       })),
                   SizedBox(
-                    height: 20,
+                    height: MediaQuery.of(context).size.height * 0.01,
                   ),
                   ElevatedButton(
                     style: ButtonStyle(
@@ -103,6 +103,9 @@ class _OnBoardingScreenMainState extends State<OnBoardingScreenMain> {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.01,
                   ),
                 ],
               ),

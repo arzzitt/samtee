@@ -11,15 +11,15 @@ class Page1 extends StatelessWidget {
             body: Column(
       children: [
         SizedBox(
-          height: 463,
+          height: MediaQuery.of(context).size.height * 0.579,
           child: Image(
             image: AssetImage('lib/images/tick.png'),
             fit: BoxFit.fill,
           ),
         ),
         Container(
-          height: 300,
-          width: 400,
+          height: MediaQuery.of(context).size.height * 0.375,
+          width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
               color: HexColor('#B67A4F'),
               borderRadius: BorderRadius.only(
