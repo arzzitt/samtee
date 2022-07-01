@@ -49,10 +49,10 @@ class _OnBoardingScreenMainState extends State<OnBoardingScreenMain> {
               },
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Align(
-              alignment: Alignment.bottomCenter,
+          Positioned(
+            bottom: 20,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [

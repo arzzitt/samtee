@@ -6,50 +6,52 @@ class Page2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
-            body: Column(
-      children: [
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.579,
-          child: Image(
-            image: AssetImage('lib/images/tick.png'),
-            fit: BoxFit.fill,
-          ),
-        ),
-        Container(
-          height: MediaQuery.of(context).size.height * 0.375,
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-              color: HexColor('#B67A4F'),
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(28), topRight: Radius.circular(28))),
+    return Scaffold(
+        body: Container(
+          height: MediaQuery.of(context).size.height ,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text(
-                'Door to Door Delivery',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
-                    fontFamily: 'Nunito'),
-              ),
-              Text(
-                'Lorem ipsum giving refrence origin \n as well as a random',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 15,
-                    fontFamily: 'Nunito'),
-              ),
-              SizedBox(
-                height: 20,
-              )
-            ],
-          ),
-        ),
+      children: [
+    SizedBox(
+      height: MediaQuery.of(context).size.height * 0.6,
+      child: Image(
+          image: AssetImage('lib/images/tick.png'),
+          fit: BoxFit.fill,
+      ),
+    ),
+    Container(
+      height: MediaQuery.of(context).size.height * 0.4,
+      width: MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(
+            color: HexColor('#B67A4F'),
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(28), topRight: Radius.circular(28))),
+      child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text(
+              'Door to Door Delivery',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30,
+                  fontFamily: 'Nunito'),
+            ),
+            Text(
+              'Lorem ipsum giving refrence origin \n as well as a random',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 15,
+                  fontFamily: 'Nunito'),
+            ),
+            SizedBox(
+              height: 20,
+            )
+          ],
+      ),
+    ),
       ],
-    )));
+    ),
+        ));
   }
 }

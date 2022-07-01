@@ -14,19 +14,21 @@ class Page3 extends StatefulWidget {
 class _Page3State extends State<Page3> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-          body: Column(
-        children: [
+    return Scaffold(
+        body: Container(
+          height: MediaQuery.of(context).size.height,
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+      children: [
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.579,
+            height: MediaQuery.of(context).size.height * 0.6,
             child: Image(
               image: AssetImage('lib/images/tick.png'),
               fit: BoxFit.fill,
             ),
           ),
           Container(
-            height: MediaQuery.of(context).size.height * 0.375,
+            height: MediaQuery.of(context).size.height * 0.4,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
                 color: HexColor('#B67A4F'),
@@ -58,8 +60,8 @@ class _Page3State extends State<Page3> {
               ],
             ),
           ),
-        ],
-      )),
-    );
+      ],
+    ),
+        ));
   }
 }
