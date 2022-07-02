@@ -77,6 +77,7 @@ class _PDState extends State<PD> {
 //  List<ProductDescription> product_des = [];
 
   bool loading = true;
+  bool variation=false;
   ProductDescription? productDescription;
 
   @override
@@ -86,6 +87,14 @@ class _PDState extends State<PD> {
     access().productdes(widget.product_id.toString()).then((value) async {
       setState(() {
         productDescription = ProductDescription.fromJson(value);
+        if(productDescription!.attributes.isEmpty){
+          variation=false;
+        }
+        else{
+          setState((){
+            variation=true;
+          });
+        }
         loading = false;
       });
     });
@@ -115,7 +124,7 @@ class _PDState extends State<PD> {
           child: TextButton(
             onPressed: () {
               access()
-                  .addtocart(productDescription!.id, _counter)
+                  .addtocart(variation?productDescription!.variations[0]:productDescription!.id, _counter)
                   .then((value) async {
                 if (value["success"] == false) {
                   Fluttertoast.showToast(
@@ -265,57 +274,83 @@ class _PDState extends State<PD> {
                         SizedBox(
                           height: 8,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Text('Size:',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18)),
-                            SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.6),
-                            Text(
-                              'Size Guide',
-                              style: TextStyle(
-                                  color: Colors.grey.shade400,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14),
-                            )
-                          ],
-                        ),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        //   children: [
+                        //     Text('Size:',
+                        //         style: TextStyle(
+                        //             color: Colors.black,
+                        //             fontWeight: FontWeight.bold,
+                        //             fontSize: 18)),
+                        //     SizedBox(
+                        //         width: MediaQuery.of(context).size.width * 0.6),
+                        //     Text(
+                        //       'Size Guide',
+                        //       style: TextStyle(
+                        //           color: Colors.grey.shade400,
+                        //           fontWeight: FontWeight.bold,
+                        //           fontSize: 14),
+                        //     )
+                        //   ],
+                        // ),
                         SizedBox(
                           height: 12,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            CustomRadioButton('XS', 1),
-                            CustomRadioButton('S', 2),
-                            CustomRadioButton('M', 3),
-                            CustomRadioButton('L', 4),
-                            CustomRadioButton('XL', 5),
-                            CustomRadioButton('XXL', 6),
-                          ],
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        //   children: [
+                        //     CustomRadioButton('XS', 1),
+                        //     CustomRadioButton('S', 2),
+                        //     CustomRadioButton('M', 3),
+                        //     CustomRadioButton('L', 4),
+                        //     CustomRadioButton('XL', 5),
+                        //     CustomRadioButton('XXL', 6),
+                        //   ],
+                        // ),
+                        // SizedBox(
+                        //   height: 15,
+                        // ),
+                        Visibility(
+                          visible: variation,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Colors:',
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18)),
+                              SizedBox(
+                                width: 10,
+                              ),
+                            ],
+                          ),
                         ),
                         SizedBox(
-                          height: 15,
+                          height: MediaQuery.of(context).size.height*0.01,
                         ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Color:',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18)),
-                            SizedBox(
-                              width: 10,
-                            ),
-                          ],
+                        Container(
+                          height:40,
+                          child: ListView.builder(
+                            scrollDirection:Axis.horizontal,
+                              shrinkWrap:true,
+                              itemCount: variation?productDescription!.variations.length:0,
+                              itemBuilder: (BuildContext context,int index){
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: Container(
+                                  color:Colors.red,
+
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Center(child: Text(productDescription!.attributes[0].options[index])),
+                                  ),
+                                ),
+                              );
+                              }),
                         ),
                         SizedBox(
-                          height: 20,
+                          height: MediaQuery.of(context).size.height*0.01,
                         ),
                         Text('Product Description',
                             style: TextStyle(

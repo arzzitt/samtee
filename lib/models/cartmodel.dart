@@ -27,7 +27,7 @@ class CartModel {
   late final bool needsShipping;
   late final bool hasCalculatedShipping;
   late final List<dynamic> fees;
-  late final Totals totals;
+  late final Totals2 totals;
   late final List<dynamic> errors;
   late final List<String> paymentRequirements;
   late final Extensions extensions;
@@ -44,7 +44,7 @@ class CartModel {
     needsShipping = json['needs_shipping'];
     hasCalculatedShipping = json['has_calculated_shipping'];
     fees = List.castFrom<dynamic, dynamic>(json['fees']);
-    totals = Totals.fromJson(json['totals']);
+    totals = Totals2.fromJson(json['totals']);
     errors = List.castFrom<dynamic, dynamic>(json['errors']);
     paymentRequirements = List.castFrom<dynamic, String>(json['payment_requirements']);
     extensions = Extensions.fromJson(json['extensions']);
@@ -461,6 +461,66 @@ class Totals {
   late final String currencySuffix;
 
   Totals.fromJson(Map<String, dynamic> json){
+    lineSubtotal = json['line_subtotal']??"";
+    lineSubtotalTax = json['line_subtotal_tax']??"";
+    lineTotal = json['line_total']??"";
+    lineTotalTax = json['line_total_tax']??"";
+    currencyCode = json['currency_code']??"";
+    currencySymbol = json['currency_symbol']??"";
+    currencyMinorUnit = json['currency_minor_unit']??"";
+    currencyDecimalSeparator = json['currency_decimal_separator']??"";
+    currencyThousandSeparator = json['currency_thousand_separator']??"";
+    currencyPrefix = json['currency_prefix']??"";
+    currencySuffix = json['currency_suffix']??"";
+  }
+
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['line_subtotal'] = lineSubtotal;
+    _data['line_subtotal_tax'] = lineSubtotalTax;
+    _data['line_total'] = lineTotal;
+    _data['line_total_tax'] = lineTotalTax;
+    _data['currency_code'] = currencyCode;
+    _data['currency_symbol'] = currencySymbol;
+    _data['currency_minor_unit'] = currencyMinorUnit;
+    _data['currency_decimal_separator'] = currencyDecimalSeparator;
+    _data['currency_thousand_separator'] = currencyThousandSeparator;
+    _data['currency_prefix'] = currencyPrefix;
+    _data['currency_suffix'] = currencySuffix;
+    return _data;
+  }
+}
+
+class Totals2 {
+  Totals2({
+    required this.total_price,
+    required this.lineSubtotal,
+    required this.lineSubtotalTax,
+    required this.lineTotal,
+    required this.lineTotalTax,
+    required this.currencyCode,
+    required this.currencySymbol,
+    required this.currencyMinorUnit,
+    required this.currencyDecimalSeparator,
+    required this.currencyThousandSeparator,
+    required this.currencyPrefix,
+    required this.currencySuffix,
+  });
+  late final String total_price;
+  late final String lineSubtotal;
+  late final String lineSubtotalTax;
+  late final String lineTotal;
+  late final String lineTotalTax;
+  late final String currencyCode;
+  late final String currencySymbol;
+  late final int currencyMinorUnit;
+  late final String currencyDecimalSeparator;
+  late final String currencyThousandSeparator;
+  late final String currencyPrefix;
+  late final String currencySuffix;
+
+  Totals2.fromJson(Map<String, dynamic> json){
+    total_price=json['total_price']??"";
     lineSubtotal = json['line_subtotal']??"";
     lineSubtotalTax = json['line_subtotal_tax']??"";
     lineTotal = json['line_total']??"";
