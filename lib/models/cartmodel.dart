@@ -27,11 +27,10 @@ class CartModel {
   late final bool needsShipping;
   late final bool hasCalculatedShipping;
   late final List<dynamic> fees;
-  late final Totals totals;
+  late final Totals2 totals;
   late final List<dynamic> errors;
   late final List<String> paymentRequirements;
   late final Extensions extensions;
-
   CartModel.fromJson(Map<String, dynamic> json){
     coupons = List.castFrom<dynamic, dynamic>(json['coupons']);
     shippingRates = List.castFrom<dynamic, dynamic>(json['shipping_rates']);
@@ -44,12 +43,11 @@ class CartModel {
     needsShipping = json['needs_shipping'];
     hasCalculatedShipping = json['has_calculated_shipping'];
     fees = List.castFrom<dynamic, dynamic>(json['fees']);
-    totals = Totals.fromJson(json['totals']);
+    totals = Totals2.fromJson(json['totals']);
     errors = List.castFrom<dynamic, dynamic>(json['errors']);
     paymentRequirements = List.castFrom<dynamic, String>(json['payment_requirements']);
     extensions = Extensions.fromJson(json['extensions']);
   }
-
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['coupons'] = coupons;
@@ -70,7 +68,6 @@ class CartModel {
     return _data;
   }
 }
-
 class ShippingAddress {
   ShippingAddress({
     required this.firstName,
@@ -94,7 +91,6 @@ class ShippingAddress {
   late final String postcode;
   late final String country;
   late final String phone;
-
   ShippingAddress.fromJson(Map<String, dynamic> json){
     firstName = json['first_name'];
     lastName = json['last_name'];
@@ -107,7 +103,6 @@ class ShippingAddress {
     country = json['country'];
     phone = json['phone'];
   }
-
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['first_name'] = firstName;
@@ -123,7 +118,6 @@ class ShippingAddress {
     return _data;
   }
 }
-
 class BillingAddress {
   BillingAddress({
     required this.firstName,
@@ -149,7 +143,6 @@ class BillingAddress {
   late final String country;
   late final String email;
   late final String phone;
-
   BillingAddress.fromJson(Map<String, dynamic> json){
     firstName = json['first_name'];
     lastName = json['last_name'];
@@ -163,7 +156,6 @@ class BillingAddress {
     email = json['email'];
     phone = json['phone'];
   }
-
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['first_name'] = firstName;
@@ -180,7 +172,6 @@ class BillingAddress {
     return _data;
   }
 }
-
 class Items {
   Items({
     required this.key,
@@ -224,7 +215,6 @@ class Items {
   late final Totals totals;
   late final String catalogVisibility;
   late final Extensions extensions;
-
   Items.fromJson(Map<String, dynamic> json){
     key = json['key'];
     id = json['id'];
@@ -247,7 +237,6 @@ class Items {
     catalogVisibility = json['catalog_visibility'];
     extensions = Extensions.fromJson(json['extensions']);
   }
-
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['key'] = key;
@@ -273,7 +262,6 @@ class Items {
     return _data;
   }
 }
-
 class QuantityLimits {
   QuantityLimits({
     required this.minimum,
@@ -285,14 +273,12 @@ class QuantityLimits {
   late final int maximum;
   late final int multipleOf;
   late final bool editable;
-
   QuantityLimits.fromJson(Map<String, dynamic> json){
     minimum = json['minimum'];
     maximum = json['maximum'];
     multipleOf = json['multiple_of'];
     editable = json['editable'];
   }
-
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['minimum'] = minimum;
@@ -302,7 +288,6 @@ class QuantityLimits {
     return _data;
   }
 }
-
 class Images {
   Images({
     required this.id,
@@ -320,7 +305,6 @@ class Images {
   late final String sizes;
   late final String name;
   late final String alt;
-
   Images.fromJson(Map<String, dynamic> json){
     id = json['id'];
     src = json['src'];
@@ -330,7 +314,6 @@ class Images {
     name = json['name'];
     alt = json['alt'];
   }
-
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['id'] = id;
@@ -343,7 +326,6 @@ class Images {
     return _data;
   }
 }
-
 class Prices {
   Prices({
     required this.price,
@@ -371,7 +353,6 @@ class Prices {
   late final String currencyPrefix;
   late final String currencySuffix;
   late final RawPrices rawPrices;
-
   Prices.fromJson(Map<String, dynamic> json){
     price = json['price'];
     regularPrice = json['regular_price'];
@@ -386,7 +367,6 @@ class Prices {
     currencySuffix = json['currency_suffix'];
     rawPrices = RawPrices.fromJson(json['raw_prices']);
   }
-
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['price'] = price;
@@ -404,7 +384,6 @@ class Prices {
     return _data;
   }
 }
-
 class RawPrices {
   RawPrices({
     required this.precision,
@@ -416,14 +395,12 @@ class RawPrices {
   late final String price;
   late final String regularPrice;
   late final String salePrice;
-
   RawPrices.fromJson(Map<String, dynamic> json){
     precision = json['precision'];
     price = json['price'];
     regularPrice = json['regular_price'];
     salePrice = json['sale_price'];
   }
-
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['precision'] = precision;
@@ -433,7 +410,6 @@ class RawPrices {
     return _data;
   }
 }
-
 class Totals {
   Totals({
     required this.lineSubtotal,
@@ -459,7 +435,6 @@ class Totals {
   late final String currencyThousandSeparator;
   late final String currencyPrefix;
   late final String currencySuffix;
-
   Totals.fromJson(Map<String, dynamic> json){
     lineSubtotal = json['line_subtotal']??"";
     lineSubtotalTax = json['line_subtotal_tax']??"";
@@ -473,7 +448,6 @@ class Totals {
     currencyPrefix = json['currency_prefix']??"";
     currencySuffix = json['currency_suffix']??"";
   }
-
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['line_subtotal'] = lineSubtotal;
@@ -490,12 +464,66 @@ class Totals {
     return _data;
   }
 }
-
+class Totals2 {
+  Totals2({
+    required this.total_price,
+    required this.lineSubtotal,
+    required this.lineSubtotalTax,
+    required this.lineTotal,
+    required this.lineTotalTax,
+    required this.currencyCode,
+    required this.currencySymbol,
+    required this.currencyMinorUnit,
+    required this.currencyDecimalSeparator,
+    required this.currencyThousandSeparator,
+    required this.currencyPrefix,
+    required this.currencySuffix,
+  });
+  late final String total_price;
+  late final String lineSubtotal;
+  late final String lineSubtotalTax;
+  late final String lineTotal;
+  late final String lineTotalTax;
+  late final String currencyCode;
+  late final String currencySymbol;
+  late final int currencyMinorUnit;
+  late final String currencyDecimalSeparator;
+  late final String currencyThousandSeparator;
+  late final String currencyPrefix;
+  late final String currencySuffix;
+  Totals2.fromJson(Map<String, dynamic> json){
+    total_price=json['total_price']??"";
+    lineSubtotal = json['line_subtotal']??"";
+    lineSubtotalTax = json['line_subtotal_tax']??"";
+    lineTotal = json['line_total']??"";
+    lineTotalTax = json['line_total_tax']??"";
+    currencyCode = json['currency_code']??"";
+    currencySymbol = json['currency_symbol']??"";
+    currencyMinorUnit = json['currency_minor_unit']??"";
+    currencyDecimalSeparator = json['currency_decimal_separator']??"";
+    currencyThousandSeparator = json['currency_thousand_separator']??"";
+    currencyPrefix = json['currency_prefix']??"";
+    currencySuffix = json['currency_suffix']??"";
+  }
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['line_subtotal'] = lineSubtotal;
+    _data['line_subtotal_tax'] = lineSubtotalTax;
+    _data['line_total'] = lineTotal;
+    _data['line_total_tax'] = lineTotalTax;
+    _data['currency_code'] = currencyCode;
+    _data['currency_symbol'] = currencySymbol;
+    _data['currency_minor_unit'] = currencyMinorUnit;
+    _data['currency_decimal_separator'] = currencyDecimalSeparator;
+    _data['currency_thousand_separator'] = currencyThousandSeparator;
+    _data['currency_prefix'] = currencyPrefix;
+    _data['currency_suffix'] = currencySuffix;
+    return _data;
+  }
+}
 class Extensions {
   Extensions();
-
   Extensions.fromJson(Map json);
-
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     return _data;

@@ -14,7 +14,7 @@ import 'package:login_flow/uis.dart/track_order.dart';
 import '../storage.dart';
 
 class Cart extends StatefulWidget {
-  Cart({Key? key}) : super(key: key);
+  Cart( {Key? key}) : super(key: key);
 
   late int product_id;
 
@@ -90,7 +90,7 @@ class _CartState extends State<Cart> {
                           ),
                         ),
                         Text(
-                          '\$',
+                          '\$${cartres?.totals.total_price}',
                           style: TextStyle(
                               color: Colors.red.shade700,
                               fontSize: 18,
@@ -155,9 +155,11 @@ class _CartState extends State<Cart> {
                     children: [
                       SizedBox(
                         height: 15,
+                        width: MediaQuery.of(context).size.height * 0.7,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
+                        //        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CircleAvatar(
                             backgroundColor: HexColor('#B67A4F'),
@@ -177,7 +179,7 @@ class _CartState extends State<Cart> {
                                   fontSize: 20,
                                   fontFamily: 'Nunito')),
                           SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.3,
+                            width: MediaQuery.of(context).size.width * 0.45,
                           ),
                           Text(
                             '${cartres?.items.length}',
@@ -202,7 +204,19 @@ class _CartState extends State<Cart> {
                                       Container(
                                         height: 80,
                                         width: 100,
-                                        color: Colors.grey,
+                                        clipBehavior: Clip.antiAlias,
+                                        child: Image(
+                                          fit: BoxFit.fill,
+                                          
+                                          image: NetworkImage(
+                                              '${cartres?.items[index].images[index].src}'),
+                                        ),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(5),
+                                            border: Border.all(
+                                          color: HexColor('#B67A4F').withOpacity(0.5),
+                                              width: 0.5
+                                        )),
                                       ),
                                       SizedBox(
                                         width: 10,
@@ -231,62 +245,11 @@ class _CartState extends State<Cart> {
                                                 fontFamily: 'Nunito'),
                                           ),
                                           SizedBox(
-                                              child: GestureDetector(
-                                                  onTap: () {
-                                                    access()
-                                                        .removefromcart(cartres!
-                                                            .items[index].key)
-                                                        .then((value) {
-                                                      if (value["success"] ==
-                                                          false) {
-                                                        Fluttertoast.showToast(
-                                                            msg:
-                                                                "${"Can\'t remove product"}",
-                                                            toastLength: Toast
-                                                                .LENGTH_SHORT,
-                                                            gravity:
-                                                                ToastGravity
-                                                                    .BOTTOM,
-                                                            timeInSecForIosWeb:
-                                                                1,
-                                                            backgroundColor:
-                                                                Colors.red
-                                                                    .shade400,
-                                                            textColor:
-                                                                Colors.white,
-                                                            fontSize: 16.0);
-
-                                                        setState(() {
-                                                          loading = false;
-                                                        });
-                                                      } else {
-                                                        Fluttertoast.showToast(
-                                                            msg:
-                                                                "${"Product removed"}",
-                                                            toastLength: Toast
-                                                                .LENGTH_SHORT,
-                                                            gravity:
-                                                                ToastGravity
-                                                                    .BOTTOM,
-                                                            timeInSecForIosWeb:
-                                                                1,
-                                                            backgroundColor:
-                                                                Colors.green
-                                                                    .shade400,
-                                                            textColor:
-                                                                Colors.white,
-                                                            fontSize: 16.0);
-
-                                                        setState(() {
-                                                          loading = false;
-                                                          Get.to(Cart());
-                                                        });
-                                                      }
-                                                    });
-                                                  },
-                                                  child: Icon(Icons.delete,
-                                                      color: Colors.red))),
+                                            height: 5,
+                                          ),
                                           Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
                                               // Text(
                                               //   'Size ${color[index]} ${size[index]}',
@@ -296,10 +259,71 @@ class _CartState extends State<Cart> {
                                               //       color: HexColor('#B67A4F')),
                                               // ),
                                               SizedBox(
+                                                  child: GestureDetector(
+                                                      onTap: () {
+                                                        access()
+                                                            .removefromcart(
+                                                                cartres!
+                                                                    .items[
+                                                                        index]
+                                                                    .key)
+                                                            .then((value) {
+                                                          if (value[
+                                                                  "success"] ==
+                                                              false) {
+                                                            Fluttertoast.showToast(
+                                                                msg:
+                                                                    "${"Can\'t remove product"}",
+                                                                toastLength: Toast
+                                                                    .LENGTH_SHORT,
+                                                                gravity:
+                                                                    ToastGravity
+                                                                        .BOTTOM,
+                                                                timeInSecForIosWeb:
+                                                                    1,
+                                                                backgroundColor:
+                                                                    Colors.red
+                                                                        .shade400,
+                                                                textColor:
+                                                                    Colors
+                                                                        .white,
+                                                                fontSize: 16.0);
+                                                          } else {
+                                                            Fluttertoast.showToast(
+                                                                msg:
+                                                                    "${"Product removed"}",
+                                                                toastLength: Toast
+                                                                    .LENGTH_SHORT,
+                                                                gravity:
+                                                                    ToastGravity
+                                                                        .BOTTOM,
+                                                                timeInSecForIosWeb:
+                                                                    1,
+                                                                backgroundColor:
+                                                                    Colors.green
+                                                                        .shade400,
+                                                                textColor:
+                                                                    Colors
+                                                                        .white,
+                                                                fontSize: 16.0);
+
+                                                            setState(() {
+                                                              loading = false;
+                                                              cartres?.items
+                                                                  .removeAt(
+                                                                      index);
+                                                            });
+                                                          }
+                                                        });
+                                                      },
+                                                      child: Icon(Icons.delete,
+                                                          size: 20,
+                                                          color: Colors.red))),
+                                              SizedBox(
                                                 width: MediaQuery.of(context)
                                                         .size
                                                         .width *
-                                                    0.2,
+                                                    0.3,
                                               ),
                                               Row(
                                                 crossAxisAlignment:
@@ -322,15 +346,16 @@ class _CartState extends State<Cart> {
                                                                         '#B67A4F')
                                                                     .withOpacity(
                                                                         0.2))),
-                                                        onPressed: () {
-                                                          _incrementCount();
-
+                                                        onPressed: () async {
+                                                          setState((){
+                                                            _incrementCount();
+                                                          });
                                                           access()
                                                               .updateitem(
                                                                   cartres!
                                                                       .items[
                                                                           index]
-                                                                      .id,
+                                                                      .key,
                                                                   cartres!
                                                                       .items[
                                                                           index]
@@ -358,6 +383,8 @@ class _CartState extends State<Cart> {
                                                                   fontSize:
                                                                       16.0);
                                                             } else {
+
+
                                                               if (value[
                                                                       "success"] ==
                                                                   true) {
@@ -380,7 +407,11 @@ class _CartState extends State<Cart> {
                                                                             .white,
                                                                     fontSize:
                                                                         16.0);
+
+
                                                               }
+
+
                                                             }
                                                           });
                                                         },
@@ -396,7 +427,7 @@ class _CartState extends State<Cart> {
                                                     width: 20,
                                                     child: Center(
                                                         child: Text(
-                                                      '$_counter',
+                                                      '${cartres?.items[index].quantity}',
                                                       style: TextStyle(
                                                           color: HexColor(
                                                               '#B67A4F')),
@@ -424,7 +455,7 @@ class _CartState extends State<Cart> {
                                                                   cartres!
                                                                       .items[
                                                                           index]
-                                                                      .id,
+                                                                      .key,
                                                                   cartres!
                                                                       .items[
                                                                           index]

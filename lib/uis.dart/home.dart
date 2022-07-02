@@ -227,12 +227,8 @@ class _HomeState extends State<Home> {
                                     child: GestureDetector(
                                       onTap: () {
                                         Get.to(PD(
-                                            product_id: carProducts[index]
-                                                    .variations!
-                                                    .isEmpty
-                                                ? carProducts[index].id!
-                                                : carProducts[index]
-                                                    .variations![index]));
+                                            product_id:
+                                                carProducts[index].id!));
                                       },
                                       child: Container(
                                         width:

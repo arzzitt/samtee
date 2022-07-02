@@ -77,6 +77,7 @@ class _PDState extends State<PD> {
 //  List<ProductDescription> product_des = [];
 
   bool loading = true;
+  bool loading1 = false;
   ProductDescription? productDescription;
 
   @override
@@ -114,6 +115,10 @@ class _PDState extends State<PD> {
               const EdgeInsets.only(top: 2, bottom: 0, left: 40, right: 40),
           child: TextButton(
             onPressed: () {
+              setState(() {
+                loading1 = true;
+              });
+
               access()
                   .addtocart(productDescription!.id, _counter)
                   .then((value) async {
@@ -128,7 +133,7 @@ class _PDState extends State<PD> {
                       fontSize: 16.0);
 
                   setState(() {
-                    loading = false;
+                    loading1 = false;
                   });
                 } else {
                   Fluttertoast.showToast(
@@ -141,13 +146,15 @@ class _PDState extends State<PD> {
                       fontSize: 16.0);
 
                   setState(() {
-                    loading = false;
+                    loading1 = false;
                     Get.to(Cart());
                   });
                 }
               });
             },
-            child: Text(
+            child: loading1 ? Container(height: MediaQuery.of(context).size.height * 0.02,
+                width: MediaQuery.of(context).size.height * 0.02,child: CircularProgressIndicator())
+            : Text(
               'Add to Cart',
               style: TextStyle(color: Colors.white),
             ),

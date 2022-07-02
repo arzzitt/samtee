@@ -356,7 +356,7 @@ class NetworkHelper {
     }
   }
 
-  Future updatecart(int key, int quantity) async {
+  Future updatecart(String key, int quantity) async {
     dio = Dio(option2);
     try {
       Response? response = await dio?.post(url, data: {
