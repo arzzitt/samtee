@@ -77,6 +77,7 @@ class _PDState extends State<PD> {
 //  List<ProductDescription> product_des = [];
 
   bool loading = true;
+  bool loading1 = false;
   bool variation=false;
   ProductDescription? productDescription;
 
@@ -137,7 +138,7 @@ class _PDState extends State<PD> {
                       fontSize: 16.0);
 
                   setState(() {
-                    loading = false;
+                    loading1 = false;
                   });
                 } else {
                   Fluttertoast.showToast(
@@ -150,13 +151,15 @@ class _PDState extends State<PD> {
                       fontSize: 16.0);
 
                   setState(() {
-                    loading = false;
+                    loading1 = false;
                     Get.to(Cart());
                   });
                 }
               });
             },
-            child: Text(
+            child: loading1 ? Container(height: MediaQuery.of(context).size.height * 0.02,
+                width: MediaQuery.of(context).size.height * 0.02,child: CircularProgressIndicator())
+            : Text(
               'Add to Cart',
               style: TextStyle(color: Colors.white),
             ),

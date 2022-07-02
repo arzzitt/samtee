@@ -89,7 +89,7 @@ class access {
     return data;
   }
 
-  Future<dynamic> updateitem(int key, int quantity) async {
+  Future<dynamic> updateitem(String key, int quantity) async {
     NetworkHelper helper = NetworkHelper(
         base_url2 + "cart/update-item?key=$key&quantity=$quantity");
     var data = await helper.updatecart(key, quantity);
