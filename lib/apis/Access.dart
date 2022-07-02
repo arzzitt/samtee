@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:login_flow/storage.dart';
 
 import 'NetworkHelper.dart';
 
@@ -8,6 +9,7 @@ class access {
   static String base_url = 'https://santee.phaico.com/';
   static String base_url1 = 'https://santee.phaico.com/wp-json/wc/v3/';
   static String base_url2 = 'https://santee.phaico.com/wp-json/wc/store/';
+
 
   // Future<dynamic> login(String email, password,) async {
   //   NetworkHelper helper = NetworkHelper(
@@ -93,6 +95,13 @@ class access {
     NetworkHelper helper = NetworkHelper(
         base_url2 + "cart/update-item?key=$key&quantity=$quantity");
     var data = await helper.updatecart(key, quantity);
+    return data;
+  }
+
+  Future<dynamic> shippin_add(String firstname,lastname,address1,address2,country,city,state,int postcode,int phone) async {
+    await Storage.init();
+    NetworkHelper helper = NetworkHelper(base_url1 + "customers/${Storage.get_custid()}");
+    var data = helper.ShippingAddress(firstname, lastname, address1, address2, country, city, state, postcode, phone);
     return data;
   }
 }

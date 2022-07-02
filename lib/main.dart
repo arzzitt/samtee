@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/get_navigation.dart';
-import 'package:login_flow/uis.dart/home.dart';
 import 'package:login_flow/uis.dart/splash.dart';
 
 void main() => runApp(MyApp());

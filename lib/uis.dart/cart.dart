@@ -9,10 +9,12 @@ import 'package:line_icons/line_icons.dart';
 import 'package:login_flow/apis/Access.dart';
 import 'package:login_flow/models/Product_des_model.dart';
 import 'package:login_flow/models/cartmodel.dart';
+import 'package:login_flow/uis.dart/address/add_address.dart';
 import 'package:login_flow/uis.dart/cart_item.dart';
 import 'package:login_flow/uis.dart/track_order.dart';
 
 import '../storage.dart';
+import 'address_page.dart';
 
 class Cart extends StatefulWidget {
   Cart( {Key? key}) : super(key: key);
@@ -104,7 +106,7 @@ class _CartState extends State<Cart> {
                     ),
                     TextButton(
                       onPressed: () {
-                        Get.to(trackOrder59());
+                        Get.to(Add_address());
                       },
                       child: Text(
                         'Checkout',

@@ -9,6 +9,7 @@ import 'package:login_flow/models/AllProductRes.dart';
 import 'package:login_flow/models/CataegoriesRes.dart';
 import 'package:login_flow/models/Product_des_model.dart';
 import 'package:login_flow/models/carouselProducts.dart';
+import 'package:login_flow/models/cartmodel.dart';
 
 import '../models/categoriesList.dart';
 import '../models/login_model.dart';
@@ -379,4 +380,38 @@ class NetworkHelper {
       return {'success': false, 'message': e.message};
     }
   }
+
+  Future ShippingAddress(String firstname,lastname,address1,address2,country,city,state,int postcode,int phone) async {
+    dio = Dio(option2);
+    try {
+      Response? response = await dio?.put(url, data: {
+      "phone": phone}, queryParameters: {
+        "consumer_key": "ck_994a21efc62a2e77a1a8b645e8c5f3b85d7d37e3",
+        "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc",
+        "Shipping[first_name]": firstname,
+        "Shipping[last_name]": lastname,
+        "Shipping[address1]": address1,
+        "Shipping[address2]": address2,
+        "Shipping[country]": country,
+        "Shipping[city]": city,
+        "Shipping[state]": state,
+        "Shipping[postcode]": postcode,
+        "Shipping[phone]": phone
+
+      });
+
+      if (response?.statusCode == 200 || response?.statusCode == 201) {
+        print(response?.data);
+
+        return response!.data;
+      } else {
+        return {'success': false, 'message': 'Failed'};
+      }
+    } on DioError catch (e) {
+      print("error: ${e.message.toString()}");
+      return {'success': false, 'message': e.message};
+    }
+  }
+
+
 }

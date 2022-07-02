@@ -7,6 +7,7 @@ class Storage {
   static const _homeCategId = "homeCategId";
   static const _categTotal = "categoryTotal";
   static const _noncetoken = "Nonce";
+  static const _custid = "id";
 
   static Future init() async {
     sharedPreferences = await SharedPreferences.getInstance();
@@ -33,4 +34,8 @@ class Storage {
       await sharedPreferences?.setString(_noncetoken, noncetoken);
   static String get_noncetoken() =>
       sharedPreferences?.getString(_noncetoken) ?? "";
+
+  static Future set_custid(String custid) async =>
+      await sharedPreferences?.setString(_custid, custid);
+  static String get_custid() => sharedPreferences?.getString(_custid) ?? "";
 }
