@@ -91,7 +91,7 @@ class _CartState extends State<Cart> {
                           ),
                         ),
                         Text(
-                          '\$${cartres?.totals.total_price}',
+                          '\$${cartres?.totals.total_price??0}',
                           style: TextStyle(
                               color: Colors.red.shade700,
                               fontSize: 18,
@@ -211,7 +211,7 @@ class _CartState extends State<Cart> {
                             // );
                               return cartitem(
                                   image:
-                                      cartres!.items[index].images[index].src,
+                                      cartres!.items[index].images[0].src,
                                   item_name : cartres!.items[index].name,
                                   price: cartres!.items[index].prices.price.toString(),
                                   quantity: cartres!.items[index].quantity.toString(),
@@ -227,6 +227,8 @@ class _CartState extends State<Cart> {
                   )));
   }
   Widget cartitem({required String image,item_name,price,quantity,Item_key,int? Index}){
+    int itemcount=int.parse(quantity);
+
     return  Padding(
       padding: const EdgeInsets.all(10.0),
       child: Container(
@@ -376,12 +378,13 @@ class _CartState extends State<Cart> {
                                       0.2))),
                               onPressed: () async {
                                 setState((){
-                                  _incrementCount();
+                                  Get.appUpdate();
+                                  itemcount++;
                                 });
                                 access()
                                     .updateitem(
                                     Item_key,
-                                    int.parse(quantity))
+                                    itemcount)
                                     .then((value) {
                                   if (value[
                                   "success"] ==
@@ -405,11 +408,11 @@ class _CartState extends State<Cart> {
                                         fontSize:
                                         16.0);
                                   } else {
+                                    Get.back();
+                                    Get.to(()=>Cart());
 
 
-                                    if (value[
-                                    "success"] ==
-                                        true) {
+
                                       Fluttertoast.showToast(
                                           msg:
                                           "${"Cart updated"}",
@@ -431,7 +434,7 @@ class _CartState extends State<Cart> {
                                           16.0);
 
 
-                                    }
+
 
 
                                   }
@@ -449,7 +452,7 @@ class _CartState extends State<Cart> {
                           width: 20,
                           child: Center(
                               child: Text(
-                               quantity.toString(),
+                               itemcount.toString(),
                                 style: TextStyle(
                                     color: HexColor(
                                         '#B67A4F')),
@@ -471,11 +474,13 @@ class _CartState extends State<Cart> {
                                       .withOpacity(
                                       0.2))),
                               onPressed: () {
-                                _decrementCount();
+                                setState((){
+                                  itemcount--;
+                                });
                                 access()
                                     .updateitem(
                                     Item_key,
-                                   quantity)
+                                   itemcount)
                                     .then((value) {
                                   if (value[
                                   "success"] ==
@@ -499,9 +504,9 @@ class _CartState extends State<Cart> {
                                         fontSize:
                                         16.0);
                                   } else {
-                                    if (value[
-                                    "success"] ==
-                                        true) {
+                                    Get.back();
+                                    Get.to(()=>Cart());
+
                                       Fluttertoast.showToast(
                                           msg:
                                           "${"Cart updated"}",
@@ -521,7 +526,7 @@ class _CartState extends State<Cart> {
                                               .white,
                                           fontSize:
                                           16.0);
-                                    }
+
                                   }
                                 });
                               },
