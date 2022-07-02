@@ -3,6 +3,7 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:get/get.dart';
@@ -25,6 +26,8 @@ class PD extends StatefulWidget {
 
 class _PDState extends State<PD> {
   int value = 0;
+  bool selected=false;
+  int item_index=0;
   Widget CustomRadioButton(String text, int index) {
     return SizedBox(
       height: 50,
@@ -54,6 +57,7 @@ class _PDState extends State<PD> {
   }
 
   int _counter = 1;
+  List<Widget> imageSlider=[];
 
   void _incrementCount() {
     setState(() {
@@ -88,6 +92,8 @@ class _PDState extends State<PD> {
     access().productdes(widget.product_id.toString()).then((value) async {
       setState(() {
         productDescription = ProductDescription.fromJson(value);
+        // imageSlider=productDescription!.images.map<Widget>((e) =>Image.network(
+        //                     e.src));
         if(productDescription!.attributes.isEmpty){
           variation=false;
         }
@@ -121,11 +127,14 @@ class _PDState extends State<PD> {
         elevation: 0,
         child: Padding(
           padding:
-              const EdgeInsets.only(top: 2, bottom: 0, left: 40, right: 40),
+              EdgeInsets.only(left:MediaQuery.of(context).size.width*0.15,right:MediaQuery.of(context).size.width*0.15,bottom: MediaQuery.of(context).size.width*0.03),
           child: TextButton(
-            onPressed: () {
+            onPressed: loading?null:() {
+              setState((){
+                loading1=true;
+              });
               access()
-                  .addtocart(variation?productDescription!.variations[0]:productDescription!.id, _counter)
+                  .addtocart(variation?productDescription!.variations[item_index!]:productDescription!.id, _counter)
                   .then((value) async {
                 if (value["success"] == false) {
                   Fluttertoast.showToast(
@@ -179,25 +188,18 @@ class _PDState extends State<PD> {
           ? Center(child: CircularProgressIndicator(color: HexColor('#B67A4F')))
           : SingleChildScrollView(
               child: Column(children: [
-                SizedBox(
-                  height: 526,
-                  child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      padding: const EdgeInsets.all(8),
-                      itemCount: productDescription?.images.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Row(
-                          children: [
-                            Container(
-                              height: 526,
-                              width: 375,
-                              child: Image(
-                                  image: NetworkImage(
-                                      '${productDescription?.images[index].src}')),
-                            ),
-                          ],
-                        );
-                      }),
+                ImageSlideshow(
+                  children:img(),
+                  // ] productDescription!.images.map<Widget>((e) =>Image.network(
+                  //     e.src)),
+                  width: double.infinity,
+                  height: MediaQuery.of(context).size.height*0.45,
+                  initialPage: 0,
+                  indicatorColor: productDescription!.images.length==1?Colors.transparent:HexColor('#B67A4F'),
+                  indicatorBackgroundColor: Colors.grey,
+                  isLoop: false,
+
+
                 ),
                 Expanded(
                   flex: 0,
@@ -334,23 +336,14 @@ class _PDState extends State<PD> {
                         ),
                         Container(
                           height:40,
-                          child: ListView.builder(
+                          child: ListView.separated(
                             scrollDirection:Axis.horizontal,
                               shrinkWrap:true,
                               itemCount: variation?productDescription!.variations.length:0,
-                              itemBuilder: (BuildContext context,int index){
-                              return Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                child: Container(
-                                  color:Colors.red,
-
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Center(child: Text(productDescription!.attributes[0].options[index])),
-                                  ),
-                                ),
-                              );
-                              }),
+                              itemBuilder: (BuildContext context,int index)=>
+                                  variations(() {checkOption(index);},
+                                  index == item_index, index),
+                            separatorBuilder: (BuildContext context, int index)=>SizedBox(width:MediaQuery.of(context).size.width*0.03 ,),),
                         ),
                         SizedBox(
                           height: MediaQuery.of(context).size.height*0.01,
@@ -464,5 +457,48 @@ class _PDState extends State<PD> {
               ]),
             ),
     ));
+  }
+  void checkOption(int index){
+    setState((){
+
+     item_index = index;
+    });
+  }
+  Widget variations(VoidCallback onTap,bool selected, int index) {
+    return GestureDetector(
+      onTap: (){
+        checkOption(index);
+
+        index==item_index;
+        item_index==index?
+        selected=true:selected=false;
+
+
+
+      },
+      child: Container(
+        decoration: BoxDecoration(
+            color: selected?HexColor('#B67A4F'):Colors.white,
+            borderRadius: BorderRadius.circular(30),
+            border: Border.all(
+                color: HexColor('#B67A4F').withOpacity(0.3),
+                width: 3
+            )),
+        width: MediaQuery.of(context).size.width*0.3,
+        //color:Colors.red,
+
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(child: Text(productDescription!.attributes[0].options[index],style:TextStyle(color:selected?Colors.white: HexColor('#B67A4F')),)),
+        ),
+      ),
+    );
+
+  }
+  List<Widget>img(){
+    for(int i=0;i<productDescription!.images.length;i++){
+      imageSlider.add(Image.network(productDescription!.images[i].src));
+    }
+    return imageSlider;
   }
 }

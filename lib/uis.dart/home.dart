@@ -34,25 +34,10 @@ class _HomeState extends State<Home> {
   bool loading_featured = true;
   bool loading_cart = true;
   String nonce = "";
-  LineIcon _heart = LineIcon(
-    LineIcons.heart,
-    color: Colors.white,
-  );
+
   final List<String> imageList = [];
-  LineIcon _heartfilled = LineIcon(
-    LineIcons.heartAlt,
-    color: Colors.red,
-  );
 
   final PageController _pagecontroller = PageController();
-
-  List<String> product_name = [
-    'American Heels',
-    'German Heels',
-    'Indonesian Heels'
-  ];
-  List<int> orig_price = [125, 100, 125];
-  List<int> curr_price = [64, 55, 64];
 
   List categoryItems = [];
   List<AllProductRes> allProductRes = [];

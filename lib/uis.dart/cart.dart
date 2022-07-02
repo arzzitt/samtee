@@ -294,6 +294,9 @@ class _CartState extends State<Cart> {
                     SizedBox(
                         child: GestureDetector(
                             onTap: () {
+                              cartres?.items
+                                  .removeAt(
+                                  Index!);
                               access()
                                   .removefromcart(
                                 Item_key)
@@ -301,6 +304,8 @@ class _CartState extends State<Cart> {
                                 if (value[
                                 "success"] ==
                                     false) {
+                                  Get.back();
+                                  Get.to(()=>Cart());
                                   Fluttertoast.showToast(
                                       msg:
                                       "${"Can\'t remove product"}",
@@ -319,6 +324,8 @@ class _CartState extends State<Cart> {
                                           .white,
                                       fontSize: 16.0);
                                 } else {
+                                  Get.back();
+                                  Get.to(()=>Cart());
                                   Fluttertoast.showToast(
                                       msg:
                                       "${"Product removed"}",
@@ -337,11 +344,9 @@ class _CartState extends State<Cart> {
                                           .white,
                                       fontSize: 16.0);
 
+
                                   setState(() {
                                     loading = false;
-                                    cartres?.items
-                                        .removeAt(
-                                        Index!);
                                   });
                                 }
                               });
