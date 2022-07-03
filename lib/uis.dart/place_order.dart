@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 import 'package:fluttertoast/fluttertoast.dart';
@@ -9,21 +11,19 @@ import 'package:line_icons/line_icons.dart';
 import 'package:login_flow/apis/Access.dart';
 
 import 'package:login_flow/models/cartmodel.dart';
-import 'package:login_flow/uis.dart/address/add_address.dart';
-import 'package:login_flow/uis.dart/address_page.dart';
 
+import '../models/Product_des_model.dart';
+import '../models/login_model.dart';
 import '../storage.dart';
 
-class Cart extends StatefulWidget {
-  Cart({Key? key}) : super(key: key);
-
-  late int product_id;
+class Checkout extends StatefulWidget {
+  Checkout({Key? key}) : super(key: key);
 
   @override
-  State<Cart> createState() => _CartState();
+  State<Checkout> createState() => _CheckoutState();
 }
 
-class _CartState extends State<Cart> {
+class _CheckoutState extends State<Checkout> {
   int _counter = 0;
 
   void _incrementCount() {
@@ -37,7 +37,12 @@ class _CartState extends State<Cart> {
   }
 
   bool loading = true;
+  bool variation = false;
   CartModel? cartres;
+  LoginUsernameResponse? loginmodel;
+  ProductDescription? productDescription;
+  var data;
+  List<Map<String, dynamic>> listItem = <Map<String, dynamic>>[];
 
   SharedPreferencesInit() async {
     await Storage.init();
@@ -50,6 +55,30 @@ class _CartState extends State<Cart> {
     access().getcart().then((value) {
       setState(() {
         cartres = CartModel.fromJson(value);
+
+        for (var element in cartres!.items) {
+          Map<String, dynamic> val = {
+            'product_id': element.id,
+            'quantity': element.quantity
+          };
+          listItem.add(val);
+        }
+        data = {
+          'payment_method': "bacs",
+          'payment_method_title': "Direct Bank Transfer",
+          'set_paid': true,
+          'billing': json.encode((cartres?.billingAddress)?.toJson()),
+          'shipping': json.encode((cartres?.shippingAddress)?.toJson()),
+          'line_items': listItem,
+          'shipping_lines': [
+            {
+              'method_id': "flat_rate",
+              'method_title': "Flat Rate",
+              'total': "10.00"
+            }
+          ]
+        };
+
         loading = false;
       });
     });
@@ -61,7 +90,7 @@ class _CartState extends State<Cart> {
         child: Scaffold(
             bottomNavigationBar: BottomAppBar(
               child: Container(
-                height: MediaQuery.of(context).size.height * 0.13,
+                height: MediaQuery.of(context).size.height * 0.07,
                 child: Column(
                   children: [
                     Row(
@@ -74,7 +103,7 @@ class _CartState extends State<Cart> {
                                 fontWeight: FontWeight.bold,
                                 color: HexColor('#B67A4F'),
                                 fontFamily: 'Nunito',
-                                fontSize: 20),
+                                fontSize: 18),
                           ),
                         ),
                         Text(
@@ -83,45 +112,59 @@ class _CartState extends State<Cart> {
                               color: Colors.red.shade700,
                               fontSize: 18,
                               fontFamily: 'Nunito'),
+                        ),
+                        SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.23),
+                        GestureDetector(
+                          child: Container(
+                            height: 35,
+                            width: 80,
+                            child: Center(
+                              child: Text('Checkout',
+                                  style: TextStyle(color: Colors.white)),
+                            ),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                color: HexColor('#B67A4F')),
+                          ),
+                          onTap: () {
+                            access()
+                                .createorder(
+                                    listItem,
+                                    cartres?.billingAddress,
+                                    cartres?.shippingAddress)
+                                .then((value) async {
+                              if (value["success"] == false) {
+                                Fluttertoast.showToast(
+                                    msg: "${"Failed"}",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.BOTTOM,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: Colors.red.shade400,
+                                    textColor: Colors.white,
+                                    fontSize: 16.0);
+
+                                setState(() {
+                                  loading = false;
+                                });
+                              } else {
+                                Fluttertoast.showToast(
+                                    msg: "${"Order Confirmed"}",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.BOTTOM,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: Colors.green.shade400,
+                                    textColor: Colors.white,
+                                    fontSize: 16.0);
+
+                                setState(() {
+                                  loading = false;
+                                });
+                              }
+                            });
+                          },
                         )
                       ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        if (cartres!.billingAddress.firstName.isEmpty ||
-                            cartres!.billingAddress.lastName.isEmpty ||
-                            cartres!.billingAddress.address_1.isEmpty ||
-                            cartres!.billingAddress.address_2.isEmpty ||
-                            cartres!.billingAddress.phone.isEmpty ||
-                            cartres!.billingAddress.country.isEmpty ||
-                            cartres!.billingAddress.postcode.isEmpty ||
-                            cartres!.billingAddress.state.isEmpty ||
-                            cartres!.billingAddress.city.isEmpty) {
-                          Get.to(Add_address());
-                        } else {
-                          Get.to(Address_page());
-                        }
-                      },
-                      child: Text(
-                        'Checkout',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Nunito'),
-                      ),
-                      style: ButtonStyle(
-                          padding: MaterialStateProperty.all(EdgeInsets.only(
-                              top: 10, bottom: 10, left: 90, right: 90)),
-                          backgroundColor:
-                              MaterialStateProperty.all(HexColor('#B67A4F')),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(28.0),
-                          ))),
                     ),
                   ],
                 ),
@@ -295,7 +338,7 @@ class _CartState extends State<Cart> {
                               access().removefromcart(Item_key).then((value) {
                                 if (value["success"] == false) {
                                   Get.back();
-                                  Get.to(() => Cart());
+                                  Get.to(() => Checkout());
                                   Fluttertoast.showToast(
                                       msg: "${"Can\'t remove product"}",
                                       toastLength: Toast.LENGTH_SHORT,
@@ -306,7 +349,7 @@ class _CartState extends State<Cart> {
                                       fontSize: 16.0);
                                 } else {
                                   Get.back();
-                                  Get.to(() => Cart());
+                                  Get.to(() => Checkout());
                                   Fluttertoast.showToast(
                                       msg: "${"Product removed"}",
                                       toastLength: Toast.LENGTH_SHORT,
@@ -359,7 +402,7 @@ class _CartState extends State<Cart> {
                                         fontSize: 16.0);
                                   } else {
                                     Get.back();
-                                    Get.to(() => Cart());
+                                    Get.to(() => Checkout());
 
                                     Fluttertoast.showToast(
                                         msg: "${"Cart updated"}",
@@ -414,7 +457,7 @@ class _CartState extends State<Cart> {
                                         fontSize: 16.0);
                                   } else {
                                     Get.back();
-                                    Get.to(() => Cart());
+                                    Get.to(() => Checkout());
 
                                     Fluttertoast.showToast(
                                         msg: "${"Cart updated"}",

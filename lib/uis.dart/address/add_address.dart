@@ -26,12 +26,88 @@ class _Add_addressState extends State<Add_address> {
   TextEditingController postcode = TextEditingController();
   TextEditingController phone_number = TextEditingController();
   bool loading1 = false;
+  final custid = Storage.get_custid();
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
+      bottomNavigationBar: BottomAppBar(child:  Padding(
+        padding: const EdgeInsets.only(bottom: 8,right: 20,left: 20),
+        child: TextButton(
+          onPressed: () async {
+            setState(() {
+              loading1 = true;
+              print('Id: $custid');
+            });
+
+            access()
+                .shippin_add(
+                custid,
+                firstname.text,
+                lastname.text,
+                address1.text,
+                address2.text,
+                country.text,
+                city.text,
+                state.text,
+                int.parse(postcode.text),
+                int.parse(phone_number.text))
+                .then((value) {
+              if (value["success"] == false) {
+                Fluttertoast.showToast(
+                    msg: "${"Failed"}",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIosWeb: 1,
+                    backgroundColor: Colors.red.shade400,
+                    textColor: Colors.white,
+                    fontSize: 16.0);
+
+                setState(() {
+                  loading1 = false;
+                });
+              } else {
+                Fluttertoast.showToast(
+                    msg: "${"Address added successfully"}",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIosWeb: 1,
+                    backgroundColor: Colors.green.shade400,
+                    textColor: Colors.white,
+                    fontSize: 16.0);
+
+                setState(() {
+                  loading1 = false;
+                  Get.to(Address_page());
+                });
+              }
+            });
+          },
+          child: loading1
+              ? Container(
+            height: MediaQuery.of(context).size.height * 0.02,
+            width: MediaQuery.of(context).size.height * 0.02,
+            child: CircularProgressIndicator(
+              color: Colors.white,
+            ),
+          )
+              : Text(
+            'Finished',
+            style: TextStyle(
+                color: Colors.white, fontWeight: FontWeight.bold,fontFamily: 'Nunito'),
+          ),
+          style: ButtonStyle(
+              padding: MaterialStateProperty.all(
+                  EdgeInsets.only(top: 12, bottom: 12, left: 90, right: 90)),
+              backgroundColor: MaterialStateProperty.all(HexColor('#B67A4F')),
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18.0),
+                  ))),
+        ),
+      )),
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
@@ -47,279 +123,61 @@ class _Add_addressState extends State<Add_address> {
         centerTitle: true,
         elevation: 1,
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(
-            height: 40,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20),
-            child: Container(
-              //  height: 50,
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(28),
-                  color: Colors.grey.shade200),
-              child: TextField(
-                controller: firstname,
-                decoration: InputDecoration(
-                  hintText: 'first name',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(28),
-                      borderSide: BorderSide.none),
-                ),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20),
-            child: Container(
-              //  height: 50,
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(28),
-                  color: Colors.grey.shade200),
-              child: TextField(
-                controller: lastname,
-                decoration: InputDecoration(
-                  hintText: 'last name',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(28),
-                      borderSide: BorderSide.none),
-                ),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20),
-            child: Container(
-              //  height: 50,
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(28),
-                  color: Colors.grey.shade200),
-              child: TextField(
-                controller: address1,
-                decoration: InputDecoration(
-                  hintText: 'address 1',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(28),
-                      borderSide: BorderSide.none),
-                ),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20),
-            child: Container(
-              //  height: 50,
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(28),
-                  color: Colors.grey.shade200),
-              child: TextField(
-                controller: address2,
-                decoration: InputDecoration(
-                  hintText: 'address 2',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(28),
-                      borderSide: BorderSide.none),
-                ),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20),
-            child: Container(
-              //  height: 50,
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(28),
-                  color: Colors.grey.shade200),
-              child: TextField(
-                controller: country,
-                decoration: InputDecoration(
-                  hintText: 'country',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(28),
-                      borderSide: BorderSide.none),
-                ),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20),
-            child: Container(
-              //  height: 50,
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(28),
-                  color: Colors.grey.shade200),
-              child: TextField(
-                controller: state,
-                decoration: InputDecoration(
-                  hintText: 'state',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(28),
-                      borderSide: BorderSide.none),
-                ),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20),
-            child: Container(
-              //  height: 50,
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(28),
-                  color: Colors.grey.shade200),
-              child: TextField(
-                controller: city,
-                decoration: InputDecoration(
-                  hintText: 'city',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(28),
-                      borderSide: BorderSide.none),
-                ),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20),
-            child: Container(
-              //  height: 50,
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(28),
-                  color: Colors.grey.shade200),
-              child: TextField(
-                controller: postcode,
-                decoration: InputDecoration(
-                  hintText: 'postcode',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(28),
-                      borderSide: BorderSide.none),
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20),
-            child: Container(
-              //  height: 50,
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(28),
-                  color: Colors.grey.shade200),
-              child: TextField(
-                controller: phone_number,
-                decoration: InputDecoration(
-                  hintText: 'phone',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(28),
-                      borderSide: BorderSide.none),
-                ),
-              ),
-            ),
-          ),
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                field('First name', firstname),
+                field('Last name',lastname),
+                field('Address 1',address1),
+                field('Address 2',address2),
+                field('Phone no.', phone_number),
+                field('Country',country),
+                field('State', state),
+                field('City',city),
+                field('Postcode',postcode),
 
-          TextButton(
-            onPressed: () async {
-              setState(() {
-                loading1 = true;
-                print('customer id: ${Storage.get_custid()}');
-              });
 
-              access()
-                  .shippin_add(
-
-                      firstname.text,
-                      lastname.text,
-                      address1.text,
-                      address2.text,
-                      country.text,
-                      city.text,
-                      state.text,
-                      int.parse(postcode.text),
-                      int.parse(phone_number.text))
-                  .then((value) {
-                if (value["success"] == false) {
-                  Fluttertoast.showToast(
-                      msg: "${"Failed"}",
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.BOTTOM,
-                      timeInSecForIosWeb: 1,
-                      backgroundColor: Colors.red.shade400,
-                      textColor: Colors.white,
-                      fontSize: 16.0);
-
-                  setState(() {
-                    loading1 = false;
-                  });
-                } else {
-                  Fluttertoast.showToast(
-                      msg: "${"Address added successfully"}",
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.BOTTOM,
-                      timeInSecForIosWeb: 1,
-                      backgroundColor: Colors.green.shade400,
-                      textColor: Colors.white,
-                      fontSize: 16.0);
-
-                  setState(() {
-                    loading1 = false;
-                    Get.to(Address_page());
-                  });
-                }
-              });
-            },
-            child: loading1
-                ? Container(
-                    height: MediaQuery.of(context).size.height * 0.02,
-                    width: MediaQuery.of(context).size.height * 0.02,
-                    child: CircularProgressIndicator(
-                      color: Colors.white,
-                    ),
-                  )
-                : Text(
-                    'Finished',
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
-                  ),
-            style: ButtonStyle(
-                padding: MaterialStateProperty.all(
-                    EdgeInsets.only(top: 10, bottom: 10, left: 90, right: 90)),
-                backgroundColor: MaterialStateProperty.all(HexColor('#00c0e5')),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18.0),
-                ))),
+              ],
+            ),
           ),
-        ],
+        ),
       ),
     ));
+  }
+
+  Widget field(String text, TextEditingController controller) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 20, top: 25),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            text,
+            style: TextStyle(color: Colors.grey, fontSize: 18,fontFamily: 'Nunito',fontWeight: FontWeight.w800),
+          ),
+          SizedBox(height: 8),
+          Container(
+            height: 50,
+            width: MediaQuery.of(context).size.width * 0.9,
+            padding: EdgeInsets.only( left: 30,bottom: 10),
+            child: TextField(
+              controller: controller,
+              decoration: InputDecoration(
+                border: InputBorder.none
+              ),
+            ),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(18),
+                border: Border.all(
+                    width: 0.4, color: Colors.black.withOpacity(0.2))),
+          )
+        ],
+      ),
+    );
   }
 }

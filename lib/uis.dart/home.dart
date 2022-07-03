@@ -1,12 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getwidget/components/carousel/gf_carousel.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:line_icons/line_icon.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:login_flow/apis/Access.dart';
-import 'package:login_flow/models/CataegoriesRes.dart';
 
 import 'package:login_flow/uis.dart/cart.dart';
 
@@ -19,7 +17,7 @@ import 'categories_second.dart';
 import 'navigation_drawer.dart';
 import 'product_description.dart';
 import 'profile.dart';
-import 'secondscreen.dart';
+
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);

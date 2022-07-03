@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:line_icons/line_icon.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:login_flow/uis.dart/address/add_address.dart';
+import 'package:login_flow/uis.dart/place_order.dart';
+
+import '../apis/Access.dart';
+import '../models/cartmodel.dart';
+import '../storage.dart';
 
 class Address_page extends StatefulWidget {
   const Address_page({Key? key}) : super(key: key);
@@ -11,9 +18,24 @@ class Address_page extends StatefulWidget {
 }
 
 class _Address_pageState extends State<Address_page> {
-  final List<String> name = ['Abc', 'efg', 'XYZ'];
-  final List<String> address = ['Moti vihar', 'Vijay nagar', 'Ranjhi'];
-  final List<int> number = [8617285913, 8617285913, 8617285913];
+  bool loading = true;
+  CartModel? cartadd;
+
+  SharedPreferencesInit() async {
+    await Storage.init();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    SharedPreferencesInit();
+    access().get_address().then((value) {
+      setState(() {
+        cartadd = CartModel.fromJson(value);
+        loading = false;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,86 +54,152 @@ class _Address_pageState extends State<Address_page> {
                 style: TextStyle(color: Colors.black, fontSize: 20),
               ),
             ),
-            body: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 10,
-                ),
-                Material(
-                  elevation: 2,
-                  child: TextButton(
-                      onPressed: () {},
-                      child: Row(
-                        children: [
-                          LineIcon(LineIcons.plus),
-                          Text(
-                            'Add a new address',
-                            style: TextStyle(
-                                color: Colors.blue,
-                                fontWeight: FontWeight.w700,
-                                fontSize: 18),
-                          )
-                        ],
-                      )),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 30, left: 15),
-                  child: Text(
-                    'SAVED ADDRESS',
-                    style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-                Expanded(
-                  child: ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      padding: const EdgeInsets.all(8),
-                      itemCount: name.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          padding: EdgeInsets.only(top: 8, left: 0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width,
-                                child: Material(
-                                  elevation: 2,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          '${name[index]}',
-                                          style: TextStyle(fontSize: 22),
-                                        ),
-                                        SizedBox(height: 10),
-                                        Text(
-                                          '${address[index]}',
-                                          style: TextStyle(fontSize: 18),
-                                        ),
-                                        SizedBox(height: 10),
-                                        Text('${number[index]}',
-                                            style: TextStyle(fontSize: 15)),
-                                      ],
-                                    ),
+            body: Align(
+              alignment: Alignment.center,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20, right: 20, top: 0),
+                child: Column(
+                  children: [
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                    Text('Billing Address',
+                        style: TextStyle(
+                            fontFamily: 'Nunito',
+                            fontSize: 30,
+                            color: HexColor('#B67A4F'))),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.06),
+                    Material(
+                      borderRadius: BorderRadius.circular(12),
+                      elevation: 5,
+                      child: Container(
+                        height: MediaQuery.of(context).size.height * 0.195,
+                        padding: EdgeInsets.only(top: 12, left: 12),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '${cartadd?.billingAddress.firstName}   ',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontFamily: 'Nunito',
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                Text(
+                                  '${cartadd?.billingAddress.lastName}',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontFamily: 'Nunito',
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                SizedBox(width: MediaQuery.of(context).size.width * 0.42),
+                                GestureDetector(
+                                    child: LineIcon(LineIcons.edit,color: HexColor('#B67A4F'),size: 25,),
+                                onTap: (){
+                                      Get.to(Address_page());
+                                })
+                              ],
+                            ),
+                            SizedBox(
+                              height: 8,
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  '${cartadd?.billingAddress.address_1},',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: 'Nunito',
                                   ),
                                 ),
+                                Text(
+                                  '${cartadd?.billingAddress.address_2}',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: 'Nunito',
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  '${cartadd?.billingAddress.city},',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: 'Nunito',
+                                  ),
+                                ),
+                                Text(
+                                  '${cartadd?.billingAddress.state},',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: 'Nunito',
+                                  ),
+                                ),
+                                Text(
+                                  '${cartadd?.billingAddress.postcode},',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: 'Nunito',
+                                  ),
+                                ),
+                                Text(
+                                  '${cartadd?.billingAddress.country}',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontFamily: 'Nunito',
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              '${cartadd?.billingAddress.phone}',
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontFamily: 'Nunito',
                               ),
-                              SizedBox(
-                                height: 20,
-                              )
-                            ],
-                          ),
-                        );
-                      }),
-                )
-              ],
+                            ),
+                            SizedBox(
+                              height: 15,
+                            ),
+                            SizedBox(
+                              height: 20,
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+                    TextButton(
+                      onPressed: () {
+                        Get.to(Checkout());
+
+                      },
+                      child: Text(
+                        'Next',
+                        style: TextStyle(
+                            color: Colors.white, fontFamily: 'Nunito',fontWeight: FontWeight.w600),
+                      ),
+                      style: ButtonStyle(
+                          padding: MaterialStateProperty.all(EdgeInsets.only(
+                              top: 12, bottom: 12, left: 90, right: 90)),
+                          backgroundColor:
+                              MaterialStateProperty.all(HexColor('#B67A4F')),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0),
+                          ))),
+                    ),
+                  ],
+                ),
+              ),
             )));
   }
 }

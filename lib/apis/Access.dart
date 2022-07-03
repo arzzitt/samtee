@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:login_flow/models/cartmodel.dart';
 import 'package:login_flow/storage.dart';
 
 import 'NetworkHelper.dart';
@@ -9,7 +10,6 @@ class access {
   static String base_url = 'https://santee.phaico.com/';
   static String base_url1 = 'https://santee.phaico.com/wp-json/wc/v3/';
   static String base_url2 = 'https://santee.phaico.com/wp-json/wc/store/';
-
 
   // Future<dynamic> login(String email, password,) async {
   //   NetworkHelper helper = NetworkHelper(
@@ -98,10 +98,27 @@ class access {
     return data;
   }
 
-  Future<dynamic> shippin_add(String firstname,lastname,address1,address2,country,city,state,int postcode,int phone) async {
+  Future<dynamic> shippin_add(String custid, firstname, lastname, address1,
+      address2, country, city, state, int postcode, int phone) async {
     await Storage.init();
-    NetworkHelper helper = NetworkHelper(base_url1 + "customers/${Storage.get_custid()}");
-    var data = helper.ShippingAddress(firstname, lastname, address1, address2, country, city, state, postcode, phone);
+    NetworkHelper helper = NetworkHelper(base_url1 + "customers/$custid");
+    var data = helper.ShippingAddress(firstname, lastname, address1, address2,
+        country, city, state, postcode, phone);
     return data;
   }
+
+  Future<dynamic> get_address() async {
+    NetworkHelper helper = NetworkHelper(base_url2 + "cart");
+    var data = helper.get_address();
+    return data;
+  }
+
+  Future<dynamic> createorder(data1, BillingAddress? billingAddress, ShippingAddress? shippingAddress) async {
+    NetworkHelper helper = NetworkHelper(base_url1 + "orders");
+    var data = helper.createorder(data1,billingAddress);
+    return data;
+  }
+  
+  
+
 }
