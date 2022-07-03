@@ -93,6 +93,9 @@ class _PDState extends State<PD> {
       setState(() {
         productDescription = ProductDescription.fromJson(value);
         // imageSlider=productDescription!.images.map<Widget>((e) =>Image.network(
+        for(var elements in productDescription!.images){
+          imageSlider.add(Image.network(elements.src));
+        }
         //                     e.src));
         if(productDescription!.attributes.isEmpty){
           variation=false;
@@ -189,7 +192,7 @@ class _PDState extends State<PD> {
           : SingleChildScrollView(
               child: Column(children: [
                 ImageSlideshow(
-                  children:img(),
+                  children:imageSlider,
                   // ] productDescription!.images.map<Widget>((e) =>Image.network(
                   //     e.src)),
                   width: double.infinity,
@@ -466,16 +469,17 @@ class _PDState extends State<PD> {
   }
   Widget variations(VoidCallback onTap,bool selected, int index) {
     return GestureDetector(
-      onTap: (){
-        checkOption(index);
-
-        index==item_index;
-        item_index==index?
-        selected=true:selected=false;
-
-
-
-      },
+      onTap:onTap,
+      // onTap: (){
+      //   checkOption(index);
+      //
+      //
+      //   item_index==index?
+      //   selected=true:selected=false;
+      //
+      //
+      //
+      // },
       child: Container(
         decoration: BoxDecoration(
             color: selected?HexColor('#B67A4F'):Colors.white,
@@ -495,10 +499,10 @@ class _PDState extends State<PD> {
     );
 
   }
-  List<Widget>img(){
-    for(int i=0;i<productDescription!.images.length;i++){
-      imageSlider.add(Image.network(productDescription!.images[i].src));
-    }
-    return imageSlider;
-  }
+  // List<Widget>img(){
+  //   for(int i=0;i<productDescription!.images.length;i++){
+  //     imageSlider.add(Image.network(productDescription!.images[i].src));
+  //   }
+  //   return imageSlider;
+  // }
 }

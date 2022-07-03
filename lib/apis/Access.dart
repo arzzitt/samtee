@@ -36,9 +36,9 @@ class access {
     return data;
   }
 
-  Future<dynamic> categories() async {
+  Future<dynamic> categories(int start) async {
     NetworkHelper helper = NetworkHelper(base_url1 + "products/categories");
-    var data = await helper.categories();
+    var data = await helper.categories(start);
     return data;
   }
 
@@ -57,6 +57,12 @@ class access {
   Future<dynamic> productCarousel() async {
     NetworkHelper helper = NetworkHelper(base_url1 + "products");
     var data = await helper.productCarousel();
+    return data;
+  }
+
+  Future<dynamic> productbycat(int page, int category) async {
+    NetworkHelper helper = NetworkHelper(base_url1 + "products");
+    var data = await helper.productbycat(page,category);
     return data;
   }
 
@@ -113,9 +119,9 @@ class access {
     return data;
   }
 
-  Future<dynamic> createorder(data1, BillingAddress? billingAddress, ShippingAddress? shippingAddress) async {
+  Future<dynamic> createorder(data1, CartModel cartModel, ) async {
     NetworkHelper helper = NetworkHelper(base_url1 + "orders");
-    var data = helper.createorder(data1,billingAddress);
+    var data = helper.createorder(data1,cartModel);
     return data;
   }
   

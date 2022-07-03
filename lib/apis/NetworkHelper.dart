@@ -14,7 +14,7 @@ import 'package:login_flow/models/cartmodel.dart';
 
 import '../models/cartmodel.dart';
 import '../models/cartmodel.dart';
-import '../models/categoriesList.dart';
+
 import '../models/login_model.dart';
 import '../storage.dart';
 
@@ -127,13 +127,16 @@ class NetworkHelper {
 
   List<CataegoriesRes> cataegoriesres = [];
 
-  Future<List<CataegoriesRes>> categories() async {
+  Future<List<CataegoriesRes>> categories(int start) async {
     dio = Dio(option1);
     List data = [];
     try {
       var queryParams = {
         "consumer_key": "ck_994a21efc62a2e77a1a8b645e8c5f3b85d7d37e3",
-        "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc"
+        "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc",
+        "per_page": 10,
+        "page":start,
+
       };
 
       Response? response = await dio?.get(url, queryParameters: queryParams);
@@ -218,12 +221,41 @@ class NetworkHelper {
         "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc",
         "featured": "true",
         "status": "publish",
-        "per_page": "61"
+        "per_page": "20"
       };
 
       Response? response = await dio?.get(url, queryParameters: queryParams);
 
       if (response?.statusCode == 200 || response?.statusCode == 201) {
+        print(response?.data);
+
+        return response;
+      } else {
+        return {'success': false, 'message': 'Failed'};
+      }
+    } on DioError catch (e) {
+      print("error: ${e.message.toString()}");
+      return {'success': false, 'message': e.message};
+    }
+  }
+
+  Future productbycat(int page, int category) async {
+    dio = Dio(option1);
+    List data = [];
+    try {
+      var queryParams = {
+        "consumer_key": "ck_994a21efc62a2e77a1a8b645e8c5f3b85d7d37e3",
+        "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc",
+        "status": "publish",
+        "per_page": "20",
+        "page":page,
+        "category":category
+      };
+
+      Response? response = await dio?.get(url, queryParameters: queryParams);
+
+      if (response?.statusCode == 200 || response?.statusCode == 201) {
+        print(response?.data);
         print(response?.data);
 
         return response;
@@ -442,14 +474,14 @@ class NetworkHelper {
     }
   }
 
-  Future<dynamic> createorder(data1, BillingAddress? billingAddress) async {
+  Future<dynamic> createorder(data1, CartModel cartModel, ) async {
     dio = Dio(option1);
     try {
       Response? response = await dio?.post(url, data:  {
         'payment_method': "bacs",
         'payment_method_title': "Direct Bank Transfer",
         'set_paid': true,
-        'billing': json.encode(billingAddress),
+        //'billing': json.encode(cartModel.billingAddress),
       //  'shipping': json.encode(shippingAddress),
         'line_items': data1,
 

@@ -131,8 +131,7 @@ class _CheckoutState extends State<Checkout> {
                             access()
                                 .createorder(
                                     listItem,
-                                    cartres?.billingAddress,
-                                    cartres?.shippingAddress)
+                                    cartres!)
                                 .then((value) async {
                               if (value["success"] == false) {
                                 Fluttertoast.showToast(
