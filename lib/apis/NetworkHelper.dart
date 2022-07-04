@@ -481,8 +481,29 @@ class NetworkHelper {
         'payment_method': "bacs",
         'payment_method_title': "Direct Bank Transfer",
         'set_paid': true,
-        //'billing': json.encode(cartModel.billingAddress),
-      //  'shipping': json.encode(shippingAddress),
+
+        "billing": {
+          'first_name': cartModel.billingAddress.firstName,
+          'last_name':  cartModel.billingAddress.lastName,
+          'address_1':  cartModel.billingAddress.address_1,
+          'address_2':  cartModel.billingAddress.address_2,
+          'city':  cartModel.billingAddress.city,
+          'state': cartModel.billingAddress.state,
+          'postcode':  cartModel.billingAddress.postcode,
+          'country':  cartModel.billingAddress.country,
+          'email': cartModel.billingAddress.email,
+          'phone': cartModel.billingAddress.phone
+        },
+        // 'shipping': {
+        //   'first_name': "John",
+        //   'last_name': "Doe",
+        //   'address_1': "969 Market",
+        //   'address_2': "",
+        //   'city': "San Francisco",
+        //   'state': "CA",
+        //   'postcode': "94103",
+        //   'country': "US"
+        // },
         'line_items': data1,
 
         'shipping_lines': [
