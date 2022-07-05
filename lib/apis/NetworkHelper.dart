@@ -494,17 +494,18 @@ class NetworkHelper {
           'email': cartModel.billingAddress.email,
           'phone': cartModel.billingAddress.phone
         },
-        // 'shipping': {
-        //   'first_name': "John",
-        //   'last_name': "Doe",
-        //   'address_1': "969 Market",
-        //   'address_2': "",
-        //   'city': "San Francisco",
-        //   'state': "CA",
-        //   'postcode': "94103",
-        //   'country': "US"
-        // },
+        'shipping': {
+          'first_name': cartModel.shippingAddress.firstName,
+          'last_name': cartModel.shippingAddress.lastName,
+          'address_1':cartModel.shippingAddress.address_1,
+          'address_2': cartModel.shippingAddress.address_2,
+          'city': cartModel.shippingAddress.city,
+          'state':cartModel.shippingAddress.state,
+          'postcode': cartModel.shippingAddress.postcode,
+          'country': cartModel.shippingAddress.country
+        },
         'line_items': data1,
+        cartModel.
 
         'shipping_lines': [
           {
