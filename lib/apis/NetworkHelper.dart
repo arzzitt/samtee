@@ -505,7 +505,7 @@ class NetworkHelper {
           'country': cartModel.shippingAddress.country
         },
         'line_items': data1,
-        cartModel.
+
 
         'shipping_lines': [
           {
