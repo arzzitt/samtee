@@ -67,8 +67,25 @@ class _CheckoutState extends State<Checkout> {
           'payment_method': "bacs",
           'payment_method_title': "Direct Bank Transfer",
           'set_paid': true,
-          'billing': json.encode((cartres?.billingAddress)?.toJson()),
-          'shipping': json.encode((cartres?.shippingAddress)?.toJson()),
+          "billing[first_name]": cartres!.shippingAddress.firstName,
+          "billing[last_name]": cartres!.shippingAddress.lastName,
+          "billing[address1]": cartres!.shippingAddress.address_1,
+          "billing[address2]": cartres!.shippingAddress.address_2,
+          "billing[city]": cartres!.shippingAddress.city,
+          "billing[state]":cartres!.shippingAddress.state,
+          "billing[postcode]": cartres!.shippingAddress.postcode,
+          "billing[country]": cartres!.shippingAddress.country,
+          "billing[email]": cartres!.billingAddress.email,
+          "billing[phone]":cartres!.shippingAddress.phone,
+          "shipping[first_name]": cartres!.shippingAddress.firstName,
+          "shipping[last_name]": cartres!.shippingAddress.lastName,
+          "shipping[address1]": cartres!.shippingAddress.address_1,
+          "shipping[address2]":cartres!.shippingAddress.address_2,
+
+          "shipping[city]": cartres!.shippingAddress.city,
+          "shipping[state]": cartres!.shippingAddress.state,
+          "shipping[postcode]": cartres!.shippingAddress.postcode,
+          "shipping[country]": cartres!.shippingAddress.country,
           'line_items': listItem,
           'shipping_lines': [
             {
@@ -131,8 +148,16 @@ class _CheckoutState extends State<Checkout> {
                             access()
                                 .createorder(
                                     listItem,
-                                    cartres?.billingAddress,
-                                    cartres?.shippingAddress)
+                                    cartres!.shippingAddress.firstName,
+                                    cartres!.shippingAddress.lastName,
+                                    cartres!.shippingAddress.address_1,
+                                    cartres!.shippingAddress.address_2,
+                                    cartres!.shippingAddress.city,
+                                    cartres!.shippingAddress.state,
+                               cartres!.shippingAddress.postcode.toString(),
+                                    cartres!.shippingAddress.country,
+                                    cartres!.billingAddress.email,
+                                   cartres!.shippingAddress.phone.toString())
                                 .then((value) async {
                               if (value["success"] == false) {
                                 Fluttertoast.showToast(

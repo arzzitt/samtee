@@ -143,7 +143,8 @@ class _SigninState extends State<Signin> {
                           final custid = loginRes.data.id;
                           Storage.set_token(token);
                           Storage.set_custid(custid.toString());
-                        //  print("tokenId: ${Storage.get_token()}");
+                         print("tokenId: ${Storage.get_token()}");
+                          print("cust_id: ${Storage.get_custid()}");
 
                           Fluttertoast.showToast(
                               msg: "Login successful",

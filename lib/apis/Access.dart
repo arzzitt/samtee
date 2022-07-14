@@ -113,12 +113,10 @@ class access {
     return data;
   }
 
-  Future<dynamic> createorder(data1, BillingAddress? billingAddress, ShippingAddress? shippingAddress) async {
+  Future<dynamic> createorder(data1,String firstname , lastname , address_1, address_2, city , state , postcode, country,email ,phone) async {
     NetworkHelper helper = NetworkHelper(base_url1 + "orders");
-    var data = helper.createorder(data1,billingAddress);
+    var data = helper.createorder(data1 , firstname , lastname , address_1, address_2, city , state ,postcode ,country , email, phone);
     return data;
   }
-  
-  
 
 }

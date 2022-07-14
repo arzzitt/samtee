@@ -70,10 +70,11 @@ class _Address_pageState extends State<Address_page> {
                     Material(
                       borderRadius: BorderRadius.circular(12),
                       elevation: 5,
-                      child: Container(
+                      child:  Container(
                         height: MediaQuery.of(context).size.height * 0.195,
+                        width: MediaQuery.of(context).size.width * 2,
                         padding: EdgeInsets.only(top: 12, left: 12),
-                        child: Column(
+                        child: loading ? SizedBox(height: 1,width: 1, child: CircularProgressIndicator(color:  HexColor('#B67A4F'))):Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -81,14 +82,14 @@ class _Address_pageState extends State<Address_page> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  '${cartadd?.billingAddress.firstName}   ',
+                                  '${cartadd?.shippingAddress.firstName}   ',
                                   style: TextStyle(
                                       fontSize: 20,
                                       fontFamily: 'Nunito',
                                       fontWeight: FontWeight.w600),
                                 ),
                                 Text(
-                                  '${cartadd?.billingAddress.lastName}',
+                                  '${cartadd?.shippingAddress.lastName}',
                                   style: TextStyle(
                                       fontSize: 20,
                                       fontFamily: 'Nunito',
@@ -98,7 +99,7 @@ class _Address_pageState extends State<Address_page> {
                                 GestureDetector(
                                     child: LineIcon(LineIcons.edit,color: HexColor('#B67A4F'),size: 25,),
                                 onTap: (){
-                                      Get.to(Address_page());
+                                      Get.to(Add_address());
                                 })
                               ],
                             ),
@@ -108,14 +109,14 @@ class _Address_pageState extends State<Address_page> {
                             Row(
                               children: [
                                 Text(
-                                  '${cartadd?.billingAddress.address_1},',
+                                  '${cartadd?.shippingAddress.address_1},',
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontFamily: 'Nunito',
                                   ),
                                 ),
                                 Text(
-                                  '${cartadd?.billingAddress.address_2}',
+                                  '${cartadd?.shippingAddress.address_2}',
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontFamily: 'Nunito',
@@ -126,28 +127,28 @@ class _Address_pageState extends State<Address_page> {
                             Row(
                               children: [
                                 Text(
-                                  '${cartadd?.billingAddress.city},',
+                                  '${cartadd?.shippingAddress.city},',
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontFamily: 'Nunito',
                                   ),
                                 ),
                                 Text(
-                                  '${cartadd?.billingAddress.state},',
+                                  '${cartadd?.shippingAddress.state},',
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontFamily: 'Nunito',
                                   ),
                                 ),
                                 Text(
-                                  '${cartadd?.billingAddress.postcode},',
+                                  '${cartadd?.shippingAddress.postcode},',
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontFamily: 'Nunito',
                                   ),
                                 ),
                                 Text(
-                                  '${cartadd?.billingAddress.country}',
+                                  '${cartadd?.shippingAddress.country}',
                                   style: TextStyle(
                                     fontSize: 20,
                                     fontFamily: 'Nunito',
@@ -159,7 +160,7 @@ class _Address_pageState extends State<Address_page> {
                               height: 10,
                             ),
                             Text(
-                              '${cartadd?.billingAddress.phone}',
+                              '${cartadd?.shippingAddress.phone}',
                               style: TextStyle(
                                 fontSize: 17,
                                 fontFamily: 'Nunito',

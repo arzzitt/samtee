@@ -91,15 +91,15 @@ class _CartState extends State<Cart> {
                     ),
                     TextButton(
                       onPressed: () {
-                        if (cartres!.billingAddress.firstName.isEmpty ||
-                            cartres!.billingAddress.lastName.isEmpty ||
-                            cartres!.billingAddress.address_1.isEmpty ||
-                            cartres!.billingAddress.address_2.isEmpty ||
-                            cartres!.billingAddress.phone.isEmpty ||
-                            cartres!.billingAddress.country.isEmpty ||
-                            cartres!.billingAddress.postcode.isEmpty ||
-                            cartres!.billingAddress.state.isEmpty ||
-                            cartres!.billingAddress.city.isEmpty) {
+                        if (cartres!.shippingAddress.firstName.isEmpty &&
+                            cartres!.shippingAddress.lastName.isEmpty &&
+                            cartres!.shippingAddress.address_1.isEmpty &&
+                            cartres!.shippingAddress.address_2.isEmpty &&
+                            cartres!.shippingAddress.phone.isEmpty &&
+                            cartres!.shippingAddress.country.isEmpty &&
+                            cartres!.shippingAddress.postcode.isEmpty &&
+                            cartres!.shippingAddress.state.isEmpty &&
+                            cartres!.shippingAddress.city.isEmpty) {
                           Get.to(Add_address());
                         } else {
                           Get.to(Address_page());

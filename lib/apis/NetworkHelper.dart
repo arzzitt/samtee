@@ -43,6 +43,14 @@ class NetworkHelper {
     'Nonce': '${Storage.get_noncetoken()}'
   });
 
+  Dio? dio2;
+  BaseOptions option3 = BaseOptions(headers: {
+    // 'Content-Type': 'application/json',
+    'Nonce': '${Storage.get_noncetoken()}'
+  });
+
+
+
   // Future login(String email, password) async {
   //   dio = Dio(option);
   //   try {
@@ -418,7 +426,7 @@ class NetworkHelper {
   }
 
   Future get_address() async {
-    dio = Dio(option1);
+    dio = Dio(option2);
     try {
       Response? response = await dio?.get(url, queryParameters: {
         "consumer_key": "ck_994a21efc62a2e77a1a8b645e8c5f3b85d7d37e3",
@@ -442,15 +450,36 @@ class NetworkHelper {
     }
   }
 
-  Future<dynamic> createorder(data1, BillingAddress? billingAddress) async {
-    dio = Dio(option1);
+  Future<dynamic> createorder(data1, String firstname , lastname , address_1, address_2, city , state , country,email , postcode , phone) async {
+    dio = Dio(option3);
     try {
       Response? response = await dio?.post(url, data:  {
         'payment_method': "bacs",
         'payment_method_title': "Direct Bank Transfer",
         'set_paid': true,
-        'billing': json.encode(billingAddress),
+        // 'billing': json.encode(billingAddress),
       //  'shipping': json.encode(shippingAddress),
+        "billing[first_name]": firstname,
+        "billing[last_name]": lastname,
+        "billing[address1]": address_1,
+        "billing[address2]": address_2,
+
+        "billing[city]": city,
+        "billing[state]": state,
+        "billing[postcode]": postcode,
+        "billing[country]": country,
+        "billing[email]": email,
+        "billing[phone]": phone,
+        "shipping[first_name]": firstname,
+        "shipping[last_name]": lastname,
+        "shipping[address1]": address_1,
+        "shipping[address2]": address_2,
+
+        "shipping[city]": city,
+        "shipping[state]": state,
+        "shipping[postcode]": postcode,
+        "shipping[country]": country,
+
         'line_items': data1,
 
         'shipping_lines': [
@@ -463,7 +492,8 @@ class NetworkHelper {
       },
           queryParameters: {
         "consumer_key": "ck_994a21efc62a2e77a1a8b645e8c5f3b85d7d37e3",
-        "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc"
+        "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc",
+            "customer_id": Storage.get_custid()
       });
 
       if (response?.statusCode == 200 || response?.statusCode == 201) {
