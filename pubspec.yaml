@@ -53,6 +53,7 @@ dependencies:
   getwidget: ^3.0.1
   flutter_carousel_slider: ^1.0.9
   flutter_image_slideshow: ^0.1.2
+  shimmer:
 
 dev_dependencies:
   flutter_test:

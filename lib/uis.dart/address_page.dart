@@ -54,7 +54,12 @@ class _Address_pageState extends State<Address_page> {
                 style: TextStyle(color: Colors.black, fontSize: 20),
               ),
             ),
-            body: Align(
+            body: loading
+                ? Center(
+                  child: CircularProgressIndicator(
+                  color: HexColor('#B67A4F')),
+                )
+                : Align(
               alignment: Alignment.center,
               child: Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20, top: 0),
@@ -70,122 +75,131 @@ class _Address_pageState extends State<Address_page> {
                     Material(
                       borderRadius: BorderRadius.circular(12),
                       elevation: 5,
-                      child:  Container(
-                        height: MediaQuery.of(context).size.height * 0.195,
+                      child: Container(
                         width: MediaQuery.of(context).size.width * 2,
                         padding: EdgeInsets.only(top: 12, left: 12),
-                        child: loading ? SizedBox(height: 1,width: 1, child: CircularProgressIndicator(color:  HexColor('#B67A4F'))):Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  '${cartadd?.shippingAddress.firstName}   ',
-                                  style: TextStyle(
-                                      fontSize: 20,
+                        child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                        flex: 4,
+                                        child: Text(
+                                          '${cartadd?.shippingAddress.firstName}   ' +
+                                              '${cartadd?.shippingAddress.lastName}',
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              fontFamily: 'Nunito',
+                                              fontWeight: FontWeight.w600),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.42),
+                                      Expanded(
+                                        flex: 1,
+                                        child: GestureDetector(
+                                            child: LineIcon(
+                                              LineIcons.edit,
+                                              color: HexColor('#B67A4F'),
+                                              size: 25,
+                                            ),
+                                            onTap: () {
+                                              Get.to(Add_address());
+                                            }),
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 8,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        '${cartadd?.shippingAddress.address_1},',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontFamily: 'Nunito',
+                                        ),
+                                      ),
+                                      Text(
+                                        '${cartadd?.shippingAddress.address_2}',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontFamily: 'Nunito',
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        '${cartadd?.shippingAddress.city},',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontFamily: 'Nunito',
+                                        ),
+                                      ),
+                                      Text(
+                                        '${cartadd?.shippingAddress.state},',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontFamily: 'Nunito',
+                                        ),
+                                      ),
+                                      Text(
+                                        '${cartadd?.shippingAddress.postcode},',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontFamily: 'Nunito',
+                                        ),
+                                      ),
+                                      Text(
+                                        '${cartadd?.shippingAddress.country}',
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontFamily: 'Nunito',
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    '${cartadd?.shippingAddress.phone}',
+                                    style: TextStyle(
+                                      fontSize: 17,
                                       fontFamily: 'Nunito',
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                Text(
-                                  '${cartadd?.shippingAddress.lastName}',
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontFamily: 'Nunito',
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                SizedBox(width: MediaQuery.of(context).size.width * 0.42),
-                                GestureDetector(
-                                    child: LineIcon(LineIcons.edit,color: HexColor('#B67A4F'),size: 25,),
-                                onTap: (){
-                                      Get.to(Add_address());
-                                })
-                              ],
-                            ),
-                            SizedBox(
-                              height: 8,
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  '${cartadd?.shippingAddress.address_1},',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontFamily: 'Nunito',
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  '${cartadd?.shippingAddress.address_2}',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontFamily: 'Nunito',
+                                  SizedBox(
+                                    height: 15,
                                   ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  '${cartadd?.shippingAddress.city},',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontFamily: 'Nunito',
-                                  ),
-                                ),
-                                Text(
-                                  '${cartadd?.shippingAddress.state},',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontFamily: 'Nunito',
-                                  ),
-                                ),
-                                Text(
-                                  '${cartadd?.shippingAddress.postcode},',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontFamily: 'Nunito',
-                                  ),
-                                ),
-                                Text(
-                                  '${cartadd?.shippingAddress.country}',
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontFamily: 'Nunito',
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              '${cartadd?.shippingAddress.phone}',
-                              style: TextStyle(
-                                fontSize: 17,
-                                fontFamily: 'Nunito',
+                                  SizedBox(
+                                    height: 20,
+                                  )
+                                ],
                               ),
-                            ),
-                            SizedBox(
-                              height: 15,
-                            ),
-                            SizedBox(
-                              height: 20,
-                            )
-                          ],
-                        ),
                       ),
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                     TextButton(
                       onPressed: () {
                         Get.to(Checkout());
-
                       },
                       child: Text(
                         'Next',
                         style: TextStyle(
-                            color: Colors.white, fontFamily: 'Nunito',fontWeight: FontWeight.w600),
+                            color: Colors.white,
+                            fontFamily: 'Nunito',
+                            fontWeight: FontWeight.w600),
                       ),
                       style: ButtonStyle(
                           padding: MaterialStateProperty.all(EdgeInsets.only(

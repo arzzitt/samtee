@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:line_icons/line_icon.dart';
 import 'package:line_icons/line_icons.dart';
 
+import '../apis/Access.dart';
+import '../models/Order.dart';
 import 'address_page.dart';
 
 class Profile extends StatefulWidget {
@@ -15,10 +16,20 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  final List<String> transaction_name = ['Tshirt Style', 'Shoes'];
-  final List<String> id = ['7568', '8520'];
-  final List<String> status = ['Successfully', 'Failed'];
-  final List<int> amount = [17, 88];
+  List<Orders> get_order = [];
+
+  @override
+  void initState() {
+    super.initState();
+
+    access().get_order().then((value) {
+      setState(() {
+        for (Map<String, dynamic> i in value.data) {
+          get_order.add(Orders.fromJson(i));
+        }
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -170,28 +181,36 @@ class _ProfileState extends State<Profile> {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.02,
               ),
-              Text('Recent Transaction',
+              Text('My Orders',
                   style: TextStyle(
                       color: HexColor('#B67A4F').withOpacity(0.8),
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
                       fontFamily: 'Nunito')),
-              Expanded(
-                child: ListView.builder(
+              ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: get_order.length,
+                  itemBuilder: (BuildContext context, int index) {
+                return ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
                     padding: const EdgeInsets.all(8),
-                    itemCount: transaction_name.length,
-                    itemBuilder: (BuildContext context, int index) {
+                    itemCount: get_order[index].lineItems.length,
+                    itemBuilder: (BuildContext context, int index1) {
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 10, top: 10),
                         child: Container(
                           child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
                               children: [
                                 Row(
                                   children: [
                                     CircleAvatar(
                                         radius: 20,
-                                        backgroundColor: Colors.green.shade100,
+                                        backgroundColor:
+                                            Colors.green.shade100,
                                         child: CircleAvatar(
                                             radius: 10,
                                             child: LineIcon(
@@ -207,7 +226,7 @@ class _ProfileState extends State<Profile> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          '${transaction_name[index]}',
+                                          '${get_order[index].lineItems[index1].name}',
                                           style: TextStyle(
                                               color: HexColor('#B67A4F'),
                                               fontWeight: FontWeight.bold,
@@ -217,7 +236,7 @@ class _ProfileState extends State<Profile> {
                                           height: 10,
                                         ),
                                         Text(
-                                          'ID:${id[index]}',
+                                          'ID:${get_order[index].lineItems[index1].id}',
                                           style: TextStyle(
                                               color: HexColor('#B67A4F')
                                                   .withOpacity(0.5),
@@ -232,7 +251,7 @@ class _ProfileState extends State<Profile> {
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     Text(
-                                      '-\$${amount[index]}',
+                                      '-\$${get_order[index].lineItems[index1].price}',
                                       style: TextStyle(
                                           color: Colors.red.shade700,
                                           fontWeight: FontWeight.bold,
@@ -241,18 +260,18 @@ class _ProfileState extends State<Profile> {
                                     SizedBox(
                                       height: 10,
                                     ),
-                                    Text(
-                                      '${status[index]}',
-                                      style: TextStyle(
-                                          color: Colors.green.shade700),
-                                    )
+                                    // Text(
+                                    //   '${status[index]}',
+                                    //   style: TextStyle(
+                                    //       color: Colors.green.shade700),
+                                    // )
                                   ],
                                 )
                               ]),
                         ),
                       );
-                    }),
-              )
+                    });
+              })
             ],
           ),
         ),

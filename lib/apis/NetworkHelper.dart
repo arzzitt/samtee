@@ -14,7 +14,7 @@ import 'package:login_flow/models/cartmodel.dart';
 
 import '../models/cartmodel.dart';
 import '../models/cartmodel.dart';
-import '../models/categoriesList.dart';
+
 import '../models/login_model.dart';
 import '../storage.dart';
 
@@ -135,13 +135,16 @@ class NetworkHelper {
 
   List<CataegoriesRes> cataegoriesres = [];
 
-  Future<List<CataegoriesRes>> categories() async {
+  Future<List<CataegoriesRes>> categories(int start) async {
     dio = Dio(option1);
     List data = [];
     try {
       var queryParams = {
         "consumer_key": "ck_994a21efc62a2e77a1a8b645e8c5f3b85d7d37e3",
-        "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc"
+        "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc",
+        "per_page": 10,
+        "page":start,
+
       };
 
       Response? response = await dio?.get(url, queryParameters: queryParams);
@@ -226,12 +229,41 @@ class NetworkHelper {
         "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc",
         "featured": "true",
         "status": "publish",
-        "per_page": "61"
+        "per_page": "20"
       };
 
       Response? response = await dio?.get(url, queryParameters: queryParams);
 
       if (response?.statusCode == 200 || response?.statusCode == 201) {
+        print(response?.data);
+
+        return response;
+      } else {
+        return {'success': false, 'message': 'Failed'};
+      }
+    } on DioError catch (e) {
+      print("error: ${e.message.toString()}");
+      return {'success': false, 'message': e.message};
+    }
+  }
+
+  Future productbycat(int page, int category) async {
+    dio = Dio(option1);
+    List data = [];
+    try {
+      var queryParams = {
+        "consumer_key": "ck_994a21efc62a2e77a1a8b645e8c5f3b85d7d37e3",
+        "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc",
+        "status": "publish",
+        "per_page": "20",
+        "page":page,
+        "category":category
+      };
+
+      Response? response = await dio?.get(url, queryParameters: queryParams);
+
+      if (response?.statusCode == 200 || response?.statusCode == 201) {
+        print(response?.data);
         print(response?.data);
 
         return response;
@@ -450,51 +482,52 @@ class NetworkHelper {
     }
   }
 
-  Future<dynamic> createorder(data1, String firstname , lastname , address_1, address_2, city , state , country,email , postcode , phone) async {
-    dio = Dio(option3);
+  Future<dynamic> createorder(data1, CartModel cartModel, ) async {
+    dio = Dio(option1);
     try {
       Response? response = await dio?.post(url, data:  {
         'payment_method': "bacs",
         'payment_method_title': "Direct Bank Transfer",
         'set_paid': true,
-        // 'billing': json.encode(billingAddress),
-      //  'shipping': json.encode(shippingAddress),
-        "billing[first_name]": firstname,
-        "billing[last_name]": lastname,
-        "billing[address1]": address_1,
-        "billing[address2]": address_2,
 
-        "billing[city]": city,
-        "billing[state]": state,
-        "billing[postcode]": postcode,
-        "billing[country]": country,
-        "billing[email]": email,
-        "billing[phone]": phone,
-        "shipping[first_name]": firstname,
-        "shipping[last_name]": lastname,
-        "shipping[address1]": address_1,
-        "shipping[address2]": address_2,
-
-        "shipping[city]": city,
-        "shipping[state]": state,
-        "shipping[postcode]": postcode,
-        "shipping[country]": country,
-
+        "billing": {
+          'first_name': cartModel.shippingAddress.firstName,
+          'last_name':  cartModel.shippingAddress.lastName,
+          'address_1':  cartModel.shippingAddress.address_1,
+          'address_2':  cartModel.shippingAddress.address_2,
+          'city':  cartModel.shippingAddress.city,
+          'state': cartModel.shippingAddress.state,
+          'postcode':  cartModel.shippingAddress.postcode,
+          'country':  cartModel.shippingAddress.country,
+          'email': cartModel.billingAddress.email,
+          'phone': cartModel.shippingAddress.phone
+        },
+        'shipping': {
+          'first_name': cartModel.shippingAddress.firstName,
+          'last_name': cartModel.shippingAddress.lastName,
+          'address_1':cartModel.shippingAddress.address_1,
+          'address_2': cartModel.shippingAddress.address_2,
+          'city': cartModel.shippingAddress.city,
+          'state':cartModel.shippingAddress.state,
+          'postcode': cartModel.shippingAddress.postcode,
+          'country': cartModel.shippingAddress.country
+        },
         'line_items': data1,
+
 
         'shipping_lines': [
           {
             'method_id': "flat_rate",
             'method_title': "Flat Rate",
-            'total': "10.00"
+            'total': cartModel.totals.total_price.toString()
           }
         ]
       },
           queryParameters: {
-        "consumer_key": "ck_994a21efc62a2e77a1a8b645e8c5f3b85d7d37e3",
-        "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc",
+            "consumer_key": "ck_994a21efc62a2e77a1a8b645e8c5f3b85d7d37e3",
+            "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc",
             "customer_id": Storage.get_custid()
-      });
+          });
 
       if (response?.statusCode == 200 || response?.statusCode == 201) {
         print(response?.data);
@@ -510,5 +543,28 @@ class NetworkHelper {
     }
   }
 
+  Future get_order() async {
+    dio = Dio(option1);
+    try {
+      Response? response = await dio?.get(url, queryParameters: {
+        "consumer_key": "ck_994a21efc62a2e77a1a8b645e8c5f3b85d7d37e3",
+        "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc",
+        "customer": Storage.get_custid().toString()
+      });
+
+      if (response?.statusCode == 200 || response?.statusCode == 201) {
+        print(response?.data);
+
+
+        return response;
+      } else {
+        return {'success': false, ' message': 'Failed'};
+      }
+    } on DioError catch (e) {
+      print("error : ${e.message.toString()}");
+
+      return {'success': false, 'message': e.message};
+    }
+  }
 
 }

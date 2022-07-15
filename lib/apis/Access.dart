@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'package:flutter/material.dart';
 import 'package:login_flow/models/cartmodel.dart';
 import 'package:login_flow/storage.dart';
 
@@ -18,7 +15,7 @@ class access {
   //   var data = await helper.login(email, password);
 
   //   // Profile prof = Profile.fromJson(data);
-  //   return data;
+  //   return data;.
   // }
 
   Future<dynamic> signup(
@@ -36,9 +33,9 @@ class access {
     return data;
   }
 
-  Future<dynamic> categories() async {
+  Future<dynamic> categories(int start) async {
     NetworkHelper helper = NetworkHelper(base_url1 + "products/categories");
-    var data = await helper.categories();
+    var data = await helper.categories(start);
     return data;
   }
 
@@ -57,6 +54,12 @@ class access {
   Future<dynamic> productCarousel() async {
     NetworkHelper helper = NetworkHelper(base_url1 + "products");
     var data = await helper.productCarousel();
+    return data;
+  }
+
+  Future<dynamic> productbycat(int page, int category) async {
+    NetworkHelper helper = NetworkHelper(base_url1 + "products");
+    var data = await helper.productbycat(page, category);
     return data;
   }
 
@@ -113,9 +116,15 @@ class access {
     return data;
   }
 
-  Future<dynamic> createorder(data1,String firstname , lastname , address_1, address_2, city , state , postcode, country,email ,phone) async {
+  Future<dynamic> createorder(data1, CartModel cart) async {
     NetworkHelper helper = NetworkHelper(base_url1 + "orders");
-    var data = helper.createorder(data1 , firstname , lastname , address_1, address_2, city , state ,postcode ,country , email, phone);
+    var data = helper.createorder(data1, cart);
+    return data;
+  }
+
+  Future<dynamic> get_order() async {
+    NetworkHelper helper = NetworkHelper(base_url1 + "orders");
+    var data = helper.get_order();
     return data;
   }
 

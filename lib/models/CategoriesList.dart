@@ -3,8 +3,8 @@
 /// slug : "accessories"
 /// parent : 0
 /// description : ""
-/// display : "default"
-/// image : null
+/// display : "both"
+/// image : {"id":5664,"date_created":"2022-06-30T06:56:25","date_created_gmt":"2022-06-30T06:56:25","date_modified":"2022-06-30T06:56:25","date_modified_gmt":"2022-06-30T06:56:25","src":"https://santee.phaico.com/wp-content/uploads/2022/06/Untitled-design-54.png","name":"Untitled design (54)","alt":""}
 /// menu_order : 0
 /// count : 5
 /// _links : {"self":[{"href":"https://santee.phaico.com/wp-json/wc/v3/products/categories/34"}],"collection":[{"href":"https://santee.phaico.com/wp-json/wc/v3/products/categories"}]}
@@ -17,7 +17,7 @@ class CategoriesList {
       int? parent, 
       String? description, 
       String? display, 
-      dynamic image, 
+      Image2? image,
       int? menuOrder, 
       int? count, 
       Links? links,}){
@@ -40,7 +40,7 @@ class CategoriesList {
     _parent = json['parent'];
     _description = json['description'];
     _display = json['display'];
-    _image = json['image'];
+    _image = json['image'] != null ? Image2.fromJson(json['image']) : null;
     _menuOrder = json['menu_order'];
     _count = json['count'];
     _links = json['_links'] != null ? Links.fromJson(json['_links']) : null;
@@ -51,7 +51,7 @@ class CategoriesList {
   int? _parent;
   String? _description;
   String? _display;
-  dynamic _image;
+  Image2? _image;
   int? _menuOrder;
   int? _count;
   Links? _links;
@@ -61,7 +61,7 @@ CategoriesList copyWith({  int? id,
   int? parent,
   String? description,
   String? display,
-  dynamic image,
+  Image2? image,
   int? menuOrder,
   int? count,
   Links? links,
@@ -82,7 +82,7 @@ CategoriesList copyWith({  int? id,
   int? get parent => _parent;
   String? get description => _description;
   String? get display => _display;
-  dynamic get image => _image;
+  Image2? get image => _image;
   int? get menuOrder => _menuOrder;
   int? get count => _count;
   Links? get links => _links;
@@ -95,7 +95,9 @@ CategoriesList copyWith({  int? id,
     map['parent'] = _parent;
     map['description'] = _description;
     map['display'] = _display;
-    map['image'] = _image;
+    if (_image != null) {
+      map['image'] = _image?.toJson();
+    }
     map['menu_order'] = _menuOrder;
     map['count'] = _count;
     if (_links != null) {
@@ -199,6 +201,94 @@ Self copyWith({  String? href,
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['href'] = _href;
+    return map;
+  }
+
+}
+
+/// id : 5664
+/// date_created : "2022-06-30T06:56:25"
+/// date_created_gmt : "2022-06-30T06:56:25"
+/// date_modified : "2022-06-30T06:56:25"
+/// date_modified_gmt : "2022-06-30T06:56:25"
+/// src : "https://santee.phaico.com/wp-content/uploads/2022/06/Untitled-design-54.png"
+/// name : "Untitled design (54)"
+/// alt : ""
+
+class Image2 {
+  Image2({
+      int? id, 
+      String? dateCreated, 
+      String? dateCreatedGmt, 
+      String? dateModified, 
+      String? dateModifiedGmt, 
+      String? src, 
+      String? name, 
+      String? alt,}){
+    _id = id;
+    _dateCreated = dateCreated;
+    _dateCreatedGmt = dateCreatedGmt;
+    _dateModified = dateModified;
+    _dateModifiedGmt = dateModifiedGmt;
+    _src = src;
+    _name = name;
+    _alt = alt;
+}
+
+  Image2.fromJson(dynamic json) {
+    _id = json['id'];
+    _dateCreated = json['date_created'];
+    _dateCreatedGmt = json['date_created_gmt'];
+    _dateModified = json['date_modified'];
+    _dateModifiedGmt = json['date_modified_gmt'];
+    _src = json['src'];
+    _name = json['name'];
+    _alt = json['alt'];
+  }
+  int? _id;
+  String? _dateCreated;
+  String? _dateCreatedGmt;
+  String? _dateModified;
+  String? _dateModifiedGmt;
+  String? _src;
+  String? _name;
+  String? _alt;
+Image2 copyWith({  int? id,
+  String? dateCreated,
+  String? dateCreatedGmt,
+  String? dateModified,
+  String? dateModifiedGmt,
+  String? src,
+  String? name,
+  String? alt,
+}) => Image2(  id: id ?? _id,
+  dateCreated: dateCreated ?? _dateCreated,
+  dateCreatedGmt: dateCreatedGmt ?? _dateCreatedGmt,
+  dateModified: dateModified ?? _dateModified,
+  dateModifiedGmt: dateModifiedGmt ?? _dateModifiedGmt,
+  src: src ?? _src,
+  name: name ?? _name,
+  alt: alt ?? _alt,
+);
+  int? get id => _id;
+  String? get dateCreated => _dateCreated;
+  String? get dateCreatedGmt => _dateCreatedGmt;
+  String? get dateModified => _dateModified;
+  String? get dateModifiedGmt => _dateModifiedGmt;
+  String? get src => _src;
+  String? get name => _name;
+  String? get alt => _alt;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['id'] = _id;
+    map['date_created'] = _dateCreated;
+    map['date_created_gmt'] = _dateCreatedGmt;
+    map['date_modified'] = _dateModified;
+    map['date_modified_gmt'] = _dateModifiedGmt;
+    map['src'] = _src;
+    map['name'] = _name;
+    map['alt'] = _alt;
     return map;
   }
 

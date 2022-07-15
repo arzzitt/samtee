@@ -8,9 +8,19 @@ import 'package:login_flow/apis/Access.dart';
 
 import 'package:login_flow/uis.dart/cart.dart';
 
+import 'package:login_flow/uis.dart/productgrid%20view/constants.dart';
+import 'package:login_flow/uis.dart/productgrid%20view/item_controller.dart';
+import 'package:login_flow/uis.dart/productgrid%20view/routes/app_routes.dart';
+import 'package:login_flow/uis.dart/productgrid%20view/size_config.dart';
+import 'package:login_flow/uis.dart/productgrid%20view/view/item/item_screen.dart';
+import 'package:shimmer/shimmer.dart';
+
+
+
 import '../models/AllProductRes.dart';
+import '../models/CategoriesList.dart';
 import '../models/carouselProducts.dart';
-import '../models/categoriesList.dart';
+
 import '../storage.dart';
 import 'categories/category2.dart';
 import 'categories_second.dart';
@@ -261,17 +271,17 @@ class _HomeState extends State<Home> {
                     // } ).toList(),
                     //       )),
 
-                    Padding(
-                      padding: const EdgeInsets.all(0),
-                      child: Text(
-                        'What are you looking for today ?',
-                        style: TextStyle(
-                            color: HexColor('#B67A4F'),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            fontFamily: 'Nunito'),
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.all(0),
+                    //   child: Text(
+                    //     'What are you looking for today ?',
+                    //     style: TextStyle(
+                    //         color: HexColor('#B67A4F'),
+                    //         fontWeight: FontWeight.bold,
+                    //         fontSize: 20,
+                    //         fontFamily: 'Nunito'),
+                    //   ),
+                    // ),
                     SizedBox(
                       height: 5,
                     ),
@@ -280,7 +290,9 @@ class _HomeState extends State<Home> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.toNamed(AppRoutes.ITEM)!..then((value) => Get.delete<ItemController>());
+                            },
                             child: Container(
                               height: 80,
                               width: 50,
@@ -452,36 +464,50 @@ class _HomeState extends State<Home> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   index <= categList.length - 2
-                                      ? Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          //mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Container(
-                                              //color: Colors.black,
-                                              width: 40,
-                                              height: 40,
+                                      ? GestureDetector(
+                                    onTap: (){
+                                      print("CAT ID:${categList[index].id}");
+                                      Get.toNamed(AppRoutes.ITEM,arguments: categList[index].id)!.then((value) => Get.delete<ItemController>());
+                                    },
 
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
+                                        child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            //mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Container(
+                                                //color: Colors.black,
+                                                width: 40,
+                                                height: 40,
 
-                                                color: Color(0xffB67A4F)
-                                                    .withOpacity(0.5),
-                                                // image: DecorationImage(
-                                                //   image: NetworkImage(categList[index].image.toString())
-                                                // ),
+
+                                                child:categList[index].image==null?Shimmer.fromColors(
+                                                  highlightColor: kBackgroundColor,
+                                                  baseColor: Colors.grey,
+                                                  child: Flexible(
+                                                    flex: 5,
+                                                    child: Center(
+                                                      child: Container(
+                                                        width: 40,
+                                                        height: 40,
+                                                        color: Colors.grey[400],
+                                                      ),
+                                                    ),
+                                                  ),):Image.network(categList[index].image!.src.toString(),fit: BoxFit.cover),
+
+                                                ),
+
+                                              SizedBox(
+                                                height: 10,
                                               ),
-                                            ),
-                                            SizedBox(
-                                              height: 10,
-                                            ),
-                                            Text(
-                                              categList[index].name.toString(),
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(fontSize: 10),
-                                            )
-                                          ],
-                                        )
+                                              Text(
+                                                categList[index].name.toString(),
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(fontSize: 10),
+                                              )
+                                            ],
+                                          ),
+                                      )
                                       : GestureDetector(
                                           onTap: () {
                                             Navigator.push(
