@@ -340,7 +340,7 @@ class LineItems {
   late final List<Taxes> taxes;
   late final List<MetaData> metaData;
   late final String sku;
-  late final int price;
+  late final double price;
 
   LineItems.fromJson(Map<String, dynamic> json){
     id = json['id'];
