@@ -96,106 +96,19 @@ class _ProfileState extends State<Profile> {
                         height: MediaQuery.of(context).size.height * 0.03,
                       ),
                       Center(
-                        child: Text('Alexa Smith',
+                        child: Text('${cartadd!.shippingAddress.firstName}  ' + '${cartadd!.shippingAddress.lastName}',
                             style: TextStyle(
-                                color: HexColor('#B67A4F'),
+                              color: HexColor('#B67A4F'),
                                 fontWeight: FontWeight.bold,
-                                fontSize: 20,
+                              fontSize: 22,
                                 fontFamily: 'Nunito')),
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.02,
-                      ),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            CircleAvatar(
-                              radius: 10,
-                              child: Icon(
-                                Icons.check,
-                                color: Colors.white,
-                                size: 15,
-                              ),
-                              backgroundColor: HexColor('#B67A4F'),
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              'Verified',
-                              style: TextStyle(color: HexColor('#B67A4F')),
-                            )
-                          ]),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.03,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Column(
-                            children: [
-                              CircleAvatar(
-                                radius: 25,
-                                backgroundColor: HexColor('#00c0e5'),
-                                child: Icon(
-                                  Icons.star,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Text(
-                                'Shared',
-                                style: TextStyle(color: HexColor('#B67A4F')),
-                              )
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              CircleAvatar(
-                                radius: 25,
-                                backgroundColor: Colors.red,
-                                child: LineIcon(
-                                  LineIcons.heartAlt,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Text('Wish List',
-                                  style: TextStyle(color: HexColor('#B67A4F')))
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              CircleAvatar(
-                                radius: 25,
-                                backgroundColor: Colors.amber,
-                                child: LineIcon(
-                                  LineIcons.clock,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Text('Viewed',
-                                  style: TextStyle(color: HexColor('#B67A4F')))
-                            ],
-                          ),
-                          SizedBox(
-                            width: 20,
-                          )
-                        ],
                       ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.05,
                       ),
+
+
+
                       Text('My Address',
                           style: TextStyle(
                               color: HexColor('#B67A4F').withOpacity(0.8),
