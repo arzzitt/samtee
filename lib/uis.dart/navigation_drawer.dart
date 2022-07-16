@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/instance_manager.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:login_flow/uis.dart/categories/category1.dart';
+
+import 'order_page.dart';
 
 class navigationDrawer extends StatefulWidget {
   @override
@@ -28,9 +30,13 @@ class _navigationDrawerState extends State<navigationDrawer> {
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                 createDrawerBodyItem(icon: Icons.arrow_right, text: 'Orders', onTap: (){
-
-                 })
+                  createDrawerHeader(),
+                  createDrawerBodyItem(
+                      icon: Icons.arrow_right,
+                      text: 'Orders',
+                      onTap: () {
+                        Get.to(MyOrders());
+                      })
                 ]),
           ))),
     );
@@ -39,12 +45,26 @@ class _navigationDrawerState extends State<navigationDrawer> {
   Widget createDrawerHeader() {
     return DrawerHeader(
         margin: EdgeInsets.zero,
-        padding: EdgeInsets.zero,
+        padding: EdgeInsets.only(left: 10),
         decoration: BoxDecoration(
           color: Color.fromARGB(255, 7, 48, 81),
         ),
         child: Container(
           height: 0,
+          width: MediaQuery.of(context).size.width,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CircleAvatar(
+                radius: 40,
+              ),
+              Text(
+                '   Name',
+                style: TextStyle(fontSize: 18, color: Colors.white),
+              )
+            ],
+          ),
         ));
   }
 
@@ -57,14 +77,15 @@ class _navigationDrawerState extends State<navigationDrawer> {
         children: <Widget>[
           Icon(
             icon,
-            color: Colors.black,
+            color: HexColor('#B67A4F'),
           ),
           Padding(
             padding: EdgeInsets.only(left: 8.0),
             child: Text(text,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                    color: HexColor('#B67A4F'),
+                    fontFamily: 'Nunito',
                     letterSpacing: 0.5,
                     fontSize: 20)),
           )
