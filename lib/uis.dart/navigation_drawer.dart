@@ -2,23 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/instance_manager.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:login_flow/storage.dart';
+import 'package:login_flow/uis.dart/profile.dart';
 
+import 'boarding/onBoardingScrenMain.dart';
 import 'order_page.dart';
 
 class navigationDrawer extends StatefulWidget {
+  const navigationDrawer({Key? key}) : super(key: key);
+
   @override
   State<navigationDrawer> createState() => _navigationDrawerState();
 }
 
 class _navigationDrawerState extends State<navigationDrawer> {
-  List<String> items = [
-    'T-shirts',
-    'shirts',
-    'Jackets',
-    'Sweatshirts',
-    'Winter wear'
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -36,7 +33,20 @@ class _navigationDrawerState extends State<navigationDrawer> {
                       text: 'Orders',
                       onTap: () {
                         Get.to(MyOrders());
-                      })
+                      }),
+                  createDrawerBodyItem(
+                      icon: Icons.arrow_right,
+                      text: 'Logout',
+                      onTap: () {
+                        Storage.logout();
+                        Get.offAll(OnBoardingScreenMain());
+                      }),
+                  createDrawerBodyItem(
+                      icon: Icons.arrow_right,
+                      text: 'My account',
+                      onTap: () {
+                      Get.to(Profile());
+                      }),
                 ]),
           ))),
     );

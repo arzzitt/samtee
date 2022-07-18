@@ -149,7 +149,7 @@ class _CartState extends State<Cart> {
             ),
             body: loading
                 ? Center(
-                    child: CircularProgressIndicator(),
+                    child: CircularProgressIndicator(color: HexColor('#B67A4F')),
                   )
                 : Column(
                     children: [

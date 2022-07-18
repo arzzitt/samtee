@@ -6,6 +6,10 @@ import 'package:login_flow/uis.dart/boarding/onboarding2.dart';
 import 'package:login_flow/uis.dart/boarding/onboarding3.dart';
 import 'package:login_flow/uis.dart/secondscreen.dart';
 
+import '../../storage.dart';
+
+
+
 class OnBoardingScreenMain extends StatefulWidget {
   const OnBoardingScreenMain({Key? key}) : super(key: key);
 
@@ -16,6 +20,9 @@ class OnBoardingScreenMain extends StatefulWidget {
 class _OnBoardingScreenMainState extends State<OnBoardingScreenMain> {
   int _currentIndex = 0;
   PageController? _pageController;
+  bool isloggedin = false;
+
+
 
   @override
   void initState() {
@@ -85,12 +92,16 @@ class _OnBoardingScreenMainState extends State<OnBoardingScreenMain> {
                         backgroundColor:
                             MaterialStateProperty.all(Colors.white)),
                     onPressed: () {
+                      setState((){
+                        isloggedin = true;
+                        Storage.set_isLoggedIn(isloggedin);
+                      });
                       if (_currentIndex < 2) {
                         _pageController!.animateToPage(_currentIndex + 1,
                             duration: Duration(seconds: 1),
                             curve: Curves.fastOutSlowIn);
                       } else {
-                        Get.to(secondscreen());
+                         Get.to(secondscreen());
                       }
                     },
                     child: Text(

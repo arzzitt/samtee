@@ -252,7 +252,9 @@ class _signup_pageState extends State<signup_page> {
                       fontFamily: 'Nunito'),
                 ),
                 TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.to(Signin());
+                    },
                     child: Text(
                       'Sign in',
                       style: TextStyle(

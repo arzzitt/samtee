@@ -33,8 +33,9 @@ class _Add_addressState extends State<Add_address> {
     return SafeArea(
         child: Scaffold(
       resizeToAvoidBottomInset: true,
-      bottomNavigationBar: BottomAppBar(child:  Padding(
-        padding: const EdgeInsets.only(bottom: 8,right: 20,left: 20),
+      bottomNavigationBar: BottomAppBar(
+          child: Padding(
+        padding: const EdgeInsets.only(bottom: 8, right: 20, left: 20),
         child: TextButton(
           onPressed: () async {
             setState(() {
@@ -42,70 +43,95 @@ class _Add_addressState extends State<Add_address> {
               print('Id: $custid');
             });
 
-            access()
-                .shippin_add(
-                custid,
-                firstname.text,
-                lastname.text,
-                address1.text,
-                address2.text,
-                country.text,
-                city.text,
-                state.text,
-                int.parse(postcode.text),
-                int.parse(phone_number.text))
-                .then((value) {
-              if (value["success"] == false) {
-                Fluttertoast.showToast(
-                    msg: "${"Failed"}",
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.BOTTOM,
-                    timeInSecForIosWeb: 1,
-                    backgroundColor: Colors.red.shade400,
-                    textColor: Colors.white,
-                    fontSize: 16.0);
+            if (firstname.text.isEmpty &&
+                lastname.text.isEmpty &&
+                address1.text.isEmpty &&
+                address2.text.isEmpty &&
+                phone_number.text.isEmpty &&
+                country.text.isEmpty &&
+                state.text.isEmpty &&
+                city.text.isEmpty &&
+                postcode.text.isEmpty) {
+              Fluttertoast.showToast(
+                  msg: "${"Fields cannot be empty"}",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.BOTTOM,
+                  timeInSecForIosWeb: 1,
+                  backgroundColor: Colors.red.shade400,
+                  textColor: Colors.white,
+                  fontSize: 16.0);
+              setState(() {
+                loading1 = false;
+              });
+            } else {
+              access()
+                  .shippin_add(
+                  custid,
+                  firstname.text,
+                  lastname.text,
+                  address1.text,
+                  address2.text,
+                  country.text,
+                  city.text,
+                  state.text,
+                  int.parse(postcode.text),
+                  int.parse(phone_number.text))
+                  .then((value) {
+                if (value["success"] == false) {
+                  Fluttertoast.showToast(
+                      msg: "${"Failed"}",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.BOTTOM,
+                      timeInSecForIosWeb: 1,
+                      backgroundColor: Colors.red.shade400,
+                      textColor: Colors.white,
+                      fontSize: 16.0);
 
-                setState(() {
-                  loading1 = false;
-                });
-              } else {
-                Fluttertoast.showToast(
-                    msg: "${"Address added successfully"}",
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.BOTTOM,
-                    timeInSecForIosWeb: 1,
-                    backgroundColor: Colors.green.shade400,
-                    textColor: Colors.white,
-                    fontSize: 16.0);
+                  setState(() {
+                    loading1 = false;
+                  });
+                } else {
+                  Fluttertoast.showToast(
+                      msg: "${"Address added successfully"}",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.BOTTOM,
+                      timeInSecForIosWeb: 1,
+                      backgroundColor: Colors.green.shade400,
+                      textColor: Colors.white,
+                      fontSize: 16.0);
 
-                setState(() {
-                  loading1 = false;
-                  Get.to(Address_page());
-                });
-              }
-            });
+                  setState(() {
+                    loading1 = false;
+                    Get.to(Address_page());
+                  });
+                }
+              });
+            }
+
           },
           child: loading1
               ? Container(
-            height: MediaQuery.of(context).size.height * 0.02,
-            width: MediaQuery.of(context).size.height * 0.02,
-            child: CircularProgressIndicator(
-              color: Colors.white,
-            ),
-          )
+                  height: MediaQuery.of(context).size.height * 0.02,
+                  width: MediaQuery.of(context).size.height * 0.02,
+                  child: CircularProgressIndicator(
+                    color: Colors.white,
+                  ),
+                )
               : Text(
-            'Finished',
-            style: TextStyle(
-                color: Colors.white, fontWeight: FontWeight.bold,fontFamily: 'Nunito'),
-          ),
+                  'Finished',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Nunito'),
+                ),
           style: ButtonStyle(
               padding: MaterialStateProperty.all(
                   EdgeInsets.only(top: 12, bottom: 12, left: 90, right: 90)),
               backgroundColor: MaterialStateProperty.all(HexColor('#B67A4F')),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18.0),
-                  ))),
+                borderRadius: BorderRadius.circular(18.0),
+              ))),
         ),
       )),
       appBar: AppBar(
@@ -132,16 +158,14 @@ class _Add_addressState extends State<Add_address> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 field('First name', firstname),
-                field('Last name',lastname),
-                field('Address 1',address1),
-                field('Address 2',address2),
+                field('Last name', lastname),
+                field('Address 1', address1),
+                field('Address 2', address2),
                 field('Phone no.', phone_number),
-                field('Country',country),
+                field('Country', country),
                 field('State', state),
-                field('City',city),
-                field('Postcode',postcode),
-
-
+                field('City', city),
+                field('Postcode', postcode),
               ],
             ),
           ),
@@ -158,18 +182,20 @@ class _Add_addressState extends State<Add_address> {
         children: [
           Text(
             text,
-            style: TextStyle(color: Colors.grey, fontSize: 18,fontFamily: 'Nunito',fontWeight: FontWeight.w800),
+            style: TextStyle(
+                color: Colors.grey,
+                fontSize: 18,
+                fontFamily: 'Nunito',
+                fontWeight: FontWeight.w800),
           ),
           SizedBox(height: 8),
           Container(
             height: 50,
             width: MediaQuery.of(context).size.width * 0.9,
-            padding: EdgeInsets.only( left: 30,bottom: 10),
+            padding: EdgeInsets.only(left: 30, bottom: 10),
             child: TextField(
               controller: controller,
-              decoration: InputDecoration(
-                border: InputBorder.none
-              ),
+              decoration: InputDecoration(border: InputBorder.none),
             ),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(18),

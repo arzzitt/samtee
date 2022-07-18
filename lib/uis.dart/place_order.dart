@@ -15,6 +15,7 @@ import 'package:login_flow/models/cartmodel.dart';
 import '../models/Product_des_model.dart';
 import '../models/login_model.dart';
 import '../storage.dart';
+import 'home.dart';
 
 class Checkout extends StatefulWidget {
   Checkout({Key? key}) : super(key: key);
@@ -24,19 +25,8 @@ class Checkout extends StatefulWidget {
 }
 
 class _CheckoutState extends State<Checkout> {
-  int _counter = 0;
-
-  void _incrementCount() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  void _decrementCount() {
-    setState(() => _counter--);
-  }
-
   bool loading = true;
+  bool loading1 = false;
   bool variation = false;
   CartModel? cartres;
   LoginUsernameResponse? loginmodel;
@@ -72,16 +62,15 @@ class _CheckoutState extends State<Checkout> {
           "billing[address1]": cartres!.shippingAddress.address_1,
           "billing[address2]": cartres!.shippingAddress.address_2,
           "billing[city]": cartres!.shippingAddress.city,
-          "billing[state]":cartres!.shippingAddress.state,
+          "billing[state]": cartres!.shippingAddress.state,
           "billing[postcode]": cartres!.shippingAddress.postcode,
           "billing[country]": cartres!.shippingAddress.country,
           "billing[email]": cartres!.billingAddress.email,
-          "billing[phone]":cartres!.shippingAddress.phone,
+          "billing[phone]": cartres!.shippingAddress.phone,
           "shipping[first_name]": cartres!.shippingAddress.firstName,
           "shipping[last_name]": cartres!.shippingAddress.lastName,
           "shipping[address1]": cartres!.shippingAddress.address_1,
-          "shipping[address2]":cartres!.shippingAddress.address_2,
-
+          "shipping[address2]": cartres!.shippingAddress.address_2,
           "shipping[city]": cartres!.shippingAddress.city,
           "shipping[state]": cartres!.shippingAddress.state,
           "shipping[postcode]": cartres!.shippingAddress.postcode,
@@ -134,21 +123,31 @@ class _CheckoutState extends State<Checkout> {
                             width: MediaQuery.of(context).size.width * 0.23),
                         GestureDetector(
                           child: Container(
-                            height: 35,
-                            width: 80,
+                            height: MediaQuery.of(context).size.height * 0.038,
+                            width: MediaQuery.of(context).size.width * 0.2,
                             child: Center(
-                              child: Text('Checkout',
-                                  style: TextStyle(color: Colors.white)),
+                              child: loading1
+                                  ? SizedBox(
+                                height: MediaQuery.of(context).size.height * 0.024,
+                                    width: MediaQuery.of(context).size.height * 0.024,
+                                    child: CircularProgressIndicator(
+
+                                        color: Colors.white),
+                                  )
+                                  : Text('Checkout',
+                                      style: TextStyle(color: Colors.white)),
                             ),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12),
                                 color: HexColor('#B67A4F')),
                           ),
                           onTap: () {
+                            setState(() {
+                              loading1 = true;
+                            });
+
                             access()
-                                .createorder(
-                                    listItem,
-                                    cartres!)
+                                .createorder(listItem, cartres!)
                                 .then((value) async {
                               if (value["success"] == false) {
                                 Fluttertoast.showToast(
@@ -161,7 +160,7 @@ class _CheckoutState extends State<Checkout> {
                                     fontSize: 16.0);
 
                                 setState(() {
-                                  loading = false;
+                                  loading1 = false;
                                 });
                               } else {
                                 Fluttertoast.showToast(
@@ -174,7 +173,8 @@ class _CheckoutState extends State<Checkout> {
                                     fontSize: 16.0);
 
                                 setState(() {
-                                  loading = false;
+                                  loading1 = false;
+                                  Get.offAll(Home());
                                 });
                               }
                             });

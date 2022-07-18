@@ -4,6 +4,8 @@ import 'package:login_flow/uis.dart/boarding/onBoardingScrenMain.dart';
 import 'package:login_flow/uis.dart/home.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+import '../storage.dart';
+
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);
 
@@ -12,6 +14,9 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
+
+ bool isloggedin  = Storage.get_isLoggedIn()! ;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -20,7 +25,7 @@ class _SplashState extends State<Splash> {
         logo: Image.asset('lib/images/logo.png'),
         backgroundColor: HexColor('#B67A4F'),
         showLoader: false,
-        navigator: OnBoardingScreenMain(),
+        navigator: isloggedin ? Home() : OnBoardingScreenMain(),
         durationInSeconds: 5,
         logoSize: 100,
       )),

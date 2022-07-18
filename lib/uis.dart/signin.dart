@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:http/http.dart';
-
 import 'package:login_flow/uis.dart/home.dart';
 import 'package:login_flow/uis.dart/signup_page.dart';
 
@@ -46,7 +44,9 @@ class _SigninState extends State<Signin> {
               Icons.arrow_back_ios,
               color: HexColor('#B67A4F'),
             ),
-            onPressed: () {}),
+            onPressed: () {
+              Get.back();
+            }),
         title: Text(
           'Sign in',
           style: TextStyle(
@@ -141,10 +141,13 @@ class _SigninState extends State<Signin> {
                               await LoginUsernameResponse.fromJson(value);
                           final token = loginRes.data.token;
                           final custid = loginRes.data.id;
+
                           Storage.set_token(token);
                           Storage.set_custid(custid.toString());
+
                          print("tokenId: ${Storage.get_token()}");
                           print("cust_id: ${Storage.get_custid()}");
+
 
                           Fluttertoast.showToast(
                               msg: "Login successful",
