@@ -9,7 +9,6 @@ import '../models/Order.dart';
 import '../models/cartmodel.dart';
 import '../storage.dart';
 import 'address/add_address.dart';
-import 'address_page.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -128,7 +127,7 @@ class _ProfileState extends State<Profile> {
                               Expanded(
                                 flex: 4,
                                 child: Text(
-                                  '${cartadd?.shippingAddress.firstName}   ' +
+                                  ' ${cartadd?.shippingAddress.firstName}   ' +
                                       '${cartadd?.shippingAddress.lastName}',
                                   style: TextStyle(
                                       fontSize: 16,
