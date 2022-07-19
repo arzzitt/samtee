@@ -356,7 +356,7 @@ class LineItems {
     taxes = List.from(json['taxes']).map((e)=>Taxes.fromJson(e)).toList();
     metaData = List.from(json['meta_data']).map((e)=>MetaData.fromJson(e)).toList();
     sku = json['sku'];
-    price = json['price'];
+    price = json['price'].toDouble();
   }
 
   Map<String, dynamic> toJson() {

@@ -102,7 +102,7 @@ class _Add_addressState extends State<Add_address> {
 
                   setState(() {
                     loading1 = false;
-                    Get.to(Address_page());
+                    Get.back(result: "back");
                   });
                 }
               });
@@ -141,7 +141,9 @@ class _Add_addressState extends State<Add_address> {
               Icons.arrow_back_ios,
               color: Colors.black,
             ),
-            onPressed: () {}),
+            onPressed: () {
+              Get.back();
+            }),
         title: Text(
           'Add Address',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),

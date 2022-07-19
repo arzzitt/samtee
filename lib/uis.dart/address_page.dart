@@ -27,7 +27,6 @@ class _Address_pageState extends State<Address_page> {
 
   @override
   void initState() {
-    super.initState();
     SharedPreferencesInit();
     access().get_address().then((value) {
       setState(() {
@@ -35,6 +34,8 @@ class _Address_pageState extends State<Address_page> {
         loading = false;
       });
     });
+    super.initState();
+
   }
 
   @override
@@ -72,7 +73,28 @@ class _Address_pageState extends State<Address_page> {
                             fontSize: 30,
                             color: HexColor('#B67A4F'))),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.06),
-                    Material(
+                    cartadd!.shippingAddress.firstName.isEmpty ||
+                        cartadd!.shippingAddress.lastName.isEmpty ||
+                        cartadd!.shippingAddress.address_1.isEmpty ||
+                        cartadd!.shippingAddress.address_2.isEmpty ||
+                        cartadd!.shippingAddress.phone.isEmpty ||
+                        cartadd!.shippingAddress.country.isEmpty ||
+                        cartadd!.shippingAddress.postcode.isEmpty ||
+                        cartadd!.shippingAddress.state.isEmpty ||
+                        cartadd!.shippingAddress.city.isEmpty?GestureDetector(
+                      onTap: (){
+                        Get.to(Add_address())?.then((value) {
+                          initState();
+                        });
+                      },
+                      child: Text(
+                        "+ Add address",
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontFamily: 'Nunito',
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ):Material(
                       borderRadius: BorderRadius.circular(12),
                       elevation: 5,
                       child: Container(
@@ -110,8 +132,13 @@ class _Address_pageState extends State<Address_page> {
                                               color: HexColor('#B67A4F'),
                                               size: 25,
                                             ),
-                                            onTap: () {
-                                              Get.to(Add_address());
+                                            onTap: () async {
+                                             final result= await Get.to(()=>Add_address());
+                                             if(result!=null){
+                                               setState((){
+                                                 initState();
+                                               });
+                                             }
                                             }),
                                       )
                                     ],
@@ -190,7 +217,15 @@ class _Address_pageState extends State<Address_page> {
                       ),
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-                    TextButton(
+                    cartadd!.shippingAddress.firstName.isEmpty ||
+                        cartadd!.shippingAddress.lastName.isEmpty ||
+                        cartadd!.shippingAddress.address_1.isEmpty ||
+                        cartadd!.shippingAddress.address_2.isEmpty ||
+                        cartadd!.shippingAddress.phone.isEmpty ||
+                        cartadd!.shippingAddress.country.isEmpty ||
+                        cartadd!.shippingAddress.postcode.isEmpty ||
+                        cartadd!.shippingAddress.state.isEmpty ||
+                        cartadd!.shippingAddress.city.isEmpty?Container():TextButton(
                       onPressed: () {
                         Get.to(Checkout());
                       },

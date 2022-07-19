@@ -69,9 +69,9 @@ class access {
     return data;
   }
 
-  Future<dynamic> categoriesList1() async {
+  Future<dynamic> categoriesList1(int start) async {
     NetworkHelper helper = NetworkHelper(base_url1 + "products/categories");
-    var data = await helper.categoriesList1();
+    var data = await helper.categoriesList1(start);
     return data;
   }
 
@@ -126,6 +126,13 @@ class access {
     NetworkHelper helper = NetworkHelper(base_url1 + "orders");
     var data = helper.get_order();
     return data;
+  }
+  Future<dynamic>customer()async{
+    await Storage.init();
+    NetworkHelper helper = NetworkHelper(base_url1 + "customers/${Storage.get_custid()}");
+    var data = helper.customer();
+    return data;
+
   }
 
 }

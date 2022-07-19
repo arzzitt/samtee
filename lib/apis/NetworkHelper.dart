@@ -27,6 +27,8 @@ class NetworkHelper {
       BaseOptions(connectTimeout: 10000, receiveTimeout: 10000, headers: {
     'Content-Type': 'application/json',
   });
+  var consumer_key="ck_994a21efc62a2e77a1a8b645e8c5f3b85d7d37e3";
+  var consumer_secret="cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc";
 
   Dio? dio;
   BaseOptions option =
@@ -90,8 +92,8 @@ class NetworkHelper {
         "password": password,
         "username": username
       }, queryParameters: {
-        "consumer_key": "ck_994a21efc62a2e77a1a8b645e8c5f3b85d7d37e3",
-        "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc"
+        "consumer_key": consumer_key,
+        "consumer_secret": consumer_secret
       });
       //CustomerModel model = CustomerModel.fromJson(response?.data);
 
@@ -140,8 +142,8 @@ class NetworkHelper {
     List data = [];
     try {
       var queryParams = {
-        "consumer_key": "ck_994a21efc62a2e77a1a8b645e8c5f3b85d7d37e3",
-        "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc",
+        "consumer_key":consumer_key,
+        "consumer_secret": consumer_secret,
         "per_page": 10,
         "page":start,
 
@@ -170,8 +172,8 @@ class NetworkHelper {
     dio = Dio(option1);
     try {
       Response? response = await dio?.get(url, queryParameters: {
-        "consumer_key": "ck_994a21efc62a2e77a1a8b645e8c5f3b85d7d37e3",
-        "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc"
+        "consumer_key": consumer_key,
+        "consumer_secret": consumer_secret
       });
 
       if (response?.statusCode == 200 || response?.statusCode == 201) {
@@ -195,8 +197,8 @@ class NetworkHelper {
 
     try {
       var queryParams = {
-        "consumer_key": "ck_994a21efc62a2e77a1a8b645e8c5f3b85d7d37e3",
-        "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc",
+        "consumer_key": consumer_key,
+        "consumer_secret": consumer_secret,
         "status": "publish",
         "per_page": "60"
       };
@@ -225,8 +227,8 @@ class NetworkHelper {
     List data = [];
     try {
       var queryParams = {
-        "consumer_key": "ck_994a21efc62a2e77a1a8b645e8c5f3b85d7d37e3",
-        "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc",
+        "consumer_key":consumer_key,
+        "consumer_secret":consumer_secret,
         "featured": "true",
         "status": "publish",
         "per_page": "20"
@@ -252,8 +254,8 @@ class NetworkHelper {
     List data = [];
     try {
       var queryParams = {
-        "consumer_key": "ck_994a21efc62a2e77a1a8b645e8c5f3b85d7d37e3",
-        "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc",
+        "consumer_key":consumer_key,
+        "consumer_secret": consumer_secret,
         "status": "publish",
         "per_page": "20",
         "page":page,
@@ -281,8 +283,8 @@ class NetworkHelper {
     List data = [];
     try {
       var queryParams = {
-        "consumer_key": "ck_994a21efc62a2e77a1a8b645e8c5f3b85d7d37e3",
-        "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc",
+        "consumer_key": consumer_key,
+        "consumer_secret": consumer_secret,
         "status": "publish",
         "per_page": 30
       };
@@ -302,15 +304,16 @@ class NetworkHelper {
     }
   }
 
-  Future categoriesList1() async {
+  Future categoriesList1(int page) async {
     dio = Dio(option1);
     List data = [];
     try {
       var queryParams = {
-        "consumer_key": "ck_994a21efc62a2e77a1a8b645e8c5f3b85d7d37e3",
-        "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc",
+        "consumer_key": consumer_key,
+        "consumer_secret": consumer_secret,
         "status": "publish",
-        "per_page": "61"
+        "per_page": "20",
+      "page":page,
       };
 
       Response? response = await dio?.get(url, queryParameters: queryParams);
@@ -332,8 +335,8 @@ class NetworkHelper {
     dio = Dio(option);
     try {
       Response? response = await dio?.get(url, queryParameters: {
-        "consumer_key": "ck_994a21efc62a2e77a1a8b645e8c5f3b85d7d37e3",
-        "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc"
+        "consumer_key": consumer_key,
+        "consumer_secret": consumer_secret,
       });
 
       if (response?.statusCode == 200 || response?.statusCode == 201) {
@@ -360,8 +363,8 @@ class NetworkHelper {
         "id": id,
         "quantity": quantity
       }, queryParameters: {
-        "consumer_key": "ck_994a21efc62a2e77a1a8b645e8c5f3b85d7d37e3",
-        "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc"
+        "consumer_key": consumer_key,
+        "consumer_secret": consumer_secret,
       });
 
       if (response?.statusCode == 200 || response?.statusCode == 201) {
@@ -383,8 +386,8 @@ class NetworkHelper {
       Response? response = await dio?.post(url, data: {
         "key": key
       }, queryParameters: {
-        "consumer_key": "ck_994a21efc62a2e77a1a8b645e8c5f3b85d7d37e3",
-        "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc"
+        "consumer_key": consumer_key,
+        "consumer_secret": consumer_secret,
       });
 
       if (response?.statusCode == 200 || response?.statusCode == 201) {
@@ -407,8 +410,8 @@ class NetworkHelper {
         "key": key,
         "quantity": quantity
       }, queryParameters: {
-        "consumer_key": "ck_994a21efc62a2e77a1a8b645e8c5f3b85d7d37e3",
-        "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc"
+        "consumer_key": consumer_key,
+        "consumer_secret": consumer_secret,
       });
 
       if (response?.statusCode == 200 || response?.statusCode == 201) {
@@ -429,19 +432,21 @@ class NetworkHelper {
     dio = Dio(option1);
     try {
       Response? response = await dio?.put(url, data: {
-        "phone": phone
-      }, queryParameters: {
-        "consumer_key": "ck_994a21efc62a2e77a1a8b645e8c5f3b85d7d37e3",
-        "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc",
-        "shipping[first_name]": firstname,
-        "shipping[last_name]": lastname,
-        "shipping[address1]": address1,
-        "shipping[address2]": address2,
-        "shipping[country]": country,
-        "shipping[city]": city,
-        "shipping[state]": state,
-        "shipping[postcode]": postcode,
-        "shipping[phone]": phone
+        "shipping":{
+        "first_name": firstname,
+        "last_name": lastname,
+        "company": "",
+        "address_1": address1.toString(),
+        "address_2": address2.toString(),
+        "city": city.toString(),
+        "state":state.toString(),
+        "postcode": postcode.toString(),
+        "country": country.toString(),
+        "phone":phone.toString(),
+      }}, queryParameters: {
+        "consumer_key": consumer_key,
+        "consumer_secret": consumer_secret,
+
       });
 
       if (response?.statusCode == 200 || response?.statusCode == 201) {
@@ -461,8 +466,8 @@ class NetworkHelper {
     dio = Dio(option2);
     try {
       Response? response = await dio?.get(url, queryParameters: {
-        "consumer_key": "ck_994a21efc62a2e77a1a8b645e8c5f3b85d7d37e3",
-        "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc"
+        "consumer_key": consumer_key,
+        "consumer_secret": consumer_secret,
       });
 
       if (response?.statusCode == 200 || response?.statusCode == 201) {
@@ -524,8 +529,8 @@ class NetworkHelper {
         ]
       },
           queryParameters: {
-            "consumer_key": "ck_994a21efc62a2e77a1a8b645e8c5f3b85d7d37e3",
-            "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc",
+            "consumer_key": consumer_key,
+            "consumer_secret": consumer_secret,
             "customer_id": Storage.get_custid()
           });
 
@@ -547,8 +552,8 @@ class NetworkHelper {
     dio = Dio(option1);
     try {
       Response? response = await dio?.get(url, queryParameters: {
-        "consumer_key": "ck_994a21efc62a2e77a1a8b645e8c5f3b85d7d37e3",
-        "consumer_secret": "cs_cf1a434e7a13a5795b0baacc7e838bcfc3d4e1bc",
+        "consumer_key": consumer_key,
+        "consumer_secret": consumer_secret,
         "customer": Storage.get_custid().toString()
       });
 
@@ -557,6 +562,29 @@ class NetworkHelper {
 
 
         return response;
+      } else {
+        return {'success': false, ' message': 'Failed'};
+      }
+    } on DioError catch (e) {
+      print("error : ${e.message.toString()}");
+
+      return {'success': false, 'message': e.message};
+    }
+  }
+
+  Future customer() async{
+    dio = Dio(option1);
+    try {
+      Response? response = await dio?.get(url, queryParameters: {
+        "consumer_key": consumer_key,
+        "consumer_secret": consumer_secret,
+      });
+
+      if (response?.statusCode == 200 || response?.statusCode == 201) {
+        print(response?.data);
+
+
+        return response!.data;
       } else {
         return {'success': false, ' message': 'Failed'};
       }

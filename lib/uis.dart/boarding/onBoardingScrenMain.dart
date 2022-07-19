@@ -91,16 +91,15 @@ class _OnBoardingScreenMainState extends State<OnBoardingScreenMain> {
                             borderRadius: BorderRadius.circular(100))),
                         backgroundColor:
                             MaterialStateProperty.all(Colors.white)),
-                    onPressed: () {
-                      setState((){
-                        isloggedin = true;
-                        Storage.set_isLoggedIn(isloggedin);
-                      });
+                    onPressed: () async{
+
                       if (_currentIndex < 2) {
                         _pageController!.animateToPage(_currentIndex + 1,
                             duration: Duration(seconds: 1),
                             curve: Curves.fastOutSlowIn);
                       } else {
+                        await Storage.init();
+                        await Storage.set_isFirst(false);
                          Get.to(secondscreen());
                       }
                     },

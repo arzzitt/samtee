@@ -148,23 +148,29 @@ class _signup_pageState extends State<signup_page> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.02,
             ),
-            Row(
-              children: [
-                Checkbox(
-                  checkColor: Colors.white,
-                  activeColor: Colors.blue,
-                  value: this.valuefirst,
-                  onChanged: (bool? value) {
-                    setState(() {
-                      this.valuefirst = value!;
-                    });
-                  },
-                ),
-                Text(
-                    'By creating an account you agree to \nour terms of service and privacy policy',
-                    style: TextStyle(
-                        fontFamily: 'Nunito', color: HexColor('#B67A4F'))),
-              ],
+            Padding(
+              padding: const EdgeInsets.only(right: 30,left: 30,),
+              child: Row(
+                children: [
+                  Checkbox(
+                    checkColor: Colors.white,
+                    activeColor: Colors.blue,
+                    value: this.valuefirst,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        this.valuefirst = value!;
+                      });
+                    },
+                  ),
+                  Text(
+                      'By creating an account you agree to \nour terms of service and privacy policy',
+                      style: TextStyle(
+                          fontFamily: 'Nunito', color: HexColor('#B67A4F'))),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.02,
             ),
             TextButton(
                 onPressed: () async {

@@ -144,9 +144,12 @@ class _SigninState extends State<Signin> {
 
                           Storage.set_token(token);
                           Storage.set_custid(custid.toString());
+                          Storage.set_isLoggedIn(true);
+                          Storage.set_custname(loginRes.data.firstName+" "+loginRes.data.lastName);
 
                          print("tokenId: ${Storage.get_token()}");
                           print("cust_id: ${Storage.get_custid()}");
+                          print("logged in : ${Storage.get_isLoggedIn()}");
 
 
                           Fluttertoast.showToast(
@@ -159,7 +162,7 @@ class _SigninState extends State<Signin> {
                               fontSize: 16.0);
                           setState(() {
                             loading = false;
-                            Get.to(Home());
+                            Get.offAll(()=>Home());
                           });
                         } else {
                           print("invalid credentials");

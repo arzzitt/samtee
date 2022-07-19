@@ -359,7 +359,7 @@ class _PDState extends State<PD> {
                         SizedBox(
                           height: 10,
                         ),
-                        Text('${productDescription?.description}'),
+                        Text('${productDescription?.shortDescription}'),
                         // Row(
                         //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         //   children: [

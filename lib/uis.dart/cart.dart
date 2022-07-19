@@ -91,19 +91,10 @@ class _CartState extends State<Cart> {
                     ),
                     TextButton(
                       onPressed: () {
-                        if (cartres!.shippingAddress.firstName.isEmpty &&
-                            cartres!.shippingAddress.lastName.isEmpty &&
-                            cartres!.shippingAddress.address_1.isEmpty &&
-                            cartres!.shippingAddress.address_2.isEmpty &&
-                            cartres!.shippingAddress.phone.isEmpty &&
-                            cartres!.shippingAddress.country.isEmpty &&
-                            cartres!.shippingAddress.postcode.isEmpty &&
-                            cartres!.shippingAddress.state.isEmpty &&
-                            cartres!.shippingAddress.city.isEmpty) {
-                          Get.to(Add_address());
-                        } else {
+
+
                           Get.to(Address_page());
-                        }
+
                       },
                       child: Text(
                         'Checkout',

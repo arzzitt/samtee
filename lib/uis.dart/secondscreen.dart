@@ -18,26 +18,30 @@ class secondscreen extends StatefulWidget {
 class _secondscreenState extends State<secondscreen> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
-            body: Column(
-      children: [
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.579,
-        ),
-        Container(
-          height: MediaQuery.of(context).size.height * 0.375,
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-              color: HexColor('#B67A4F'),
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(28), topRight: Radius.circular(28))),
-          child: Column(
+    return  Scaffold(
+        body: Container(
+            height: MediaQuery.of(context).size.height,
+            child: Column(
+              children: [
+                SizedBox(
+                  height:  MediaQuery.of(context).size.height * 0.6,
+                  child: Image(
+                    image: AssetImage('lib/images/tick.png'),
+                    fit: BoxFit.fill,
+                  ),
+                ),
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.4,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                      color: HexColor('#B67A4F'),
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(28), topRight: Radius.circular(28))),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(
-                height: 30,
-              ),
+
               Text(
                 'Welcome to Ecommerce',
                 style: TextStyle(

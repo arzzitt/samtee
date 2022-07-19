@@ -17,7 +17,7 @@ class AllCategoryList {
       int? parent, 
       String? description, 
       String? display, 
-      dynamic image, 
+      String? image,
       int? menuOrder, 
       int? count, 
       Links? links,}){
@@ -51,7 +51,7 @@ class AllCategoryList {
   int? _parent;
   String? _description;
   String? _display;
-  dynamic _image;
+  String? _image;
   int? _menuOrder;
   int? _count;
   Links? _links;
@@ -61,7 +61,7 @@ AllCategoryList copyWith({  int? id,
   int? parent,
   String? description,
   String? display,
-  dynamic image,
+  String? image,
   int? menuOrder,
   int? count,
   Links? links,
@@ -82,7 +82,7 @@ AllCategoryList copyWith({  int? id,
   int? get parent => _parent;
   String? get description => _description;
   String? get display => _display;
-  dynamic get image => _image;
+  String? get image => _image;
   int? get menuOrder => _menuOrder;
   int? get count => _count;
   Links? get links => _links;
